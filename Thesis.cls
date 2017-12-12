@@ -149,30 +149,30 @@
 \examiner    {}
 \degree      {}
 \authors     {}
-\university  {\texorpdfstring{\href{University Web Site URL Here (include http://)}
-                {University Name}}
-                {University Name}}
-\UNIVERSITY  {\texorpdfstring{\href{University Web Site URL Here (include http://)}
-                {UNIVERSITY NAME (IN BLOCK CAPITALS)}}
-                {UNIVERSITY NAME (IN BLOCK CAPITALS)}}
-\department  {\texorpdfstring{\href{Department or School Web Site URL Here (include http://)}
-                {Department or School Name}}
-                {Department or School Name}}
-\DEPARTMENT  {\texorpdfstring{\href{Department or School Web Site URL Here (include http://)}
-                {DEPARTMENT OR SCHOOL NAME (IN BLOCK CAPITALS)}}
-                {DEPARTMENT OR SCHOOL NAME (IN BLOCK CAPITALS)}}
-\group       {\texorpdfstring{\href{Research Group Web Site URL Here (include http://)}
-                {Research Group Name}}
-                {Research Group Name}}
-\GROUP       {\texorpdfstring{\href{Research Group Web Site URL Here (include http://)}
-                {RESEARCH GROUP NAME (IN BLOCK CAPITALS)}}
-                {RESEARCH GROUP NAME (IN BLOCK CAPITALS)}}
-\faculty     {\texorpdfstring{\href{Faculty Web Site URL Here (include http://)}
-                {Faculty Name}}
-                {Faculty Name}}
-\FACULTY     {\texorpdfstring{\href{Faculty Web Site URL Here (include http://)}
-                {FACULTY NAME (IN BLOCK CAPITALS)}}
-                {FACULTY NAME (IN BLOCK CAPITALS)}}
+\university  {\texorpdfstring{\href{http://www.southampton.ac.uk}
+                {University of Southampton}}
+                {University of Southampton}}
+\UNIVERSITY  {\texorpdfstring{\href{http://www.southampton.ac.uk}
+                {UNIVERSITY OF SOUTHAMPTON}}
+                {UNIVERSITY OF SOUTHAMPTON}}
+\department  {\texorpdfstring{\href{http://www.phys.soton.ac.uk/}
+                {School of Physics and Astronomy}}
+                {School of Physics and Astronomy}}
+\DEPARTMENT  {\texorpdfstring{\href{http://www.phys.soton.ac.uk/}
+                {SCHOOL OF PHYSICS AND ASTRONOMY}}
+                {SCHOOL OF PHYSICS AND ASTRONOMY}}
+\group       {\texorpdfstring{\href{http://www.astro.soton.ac.uk/}
+                {Astronomy Group}}
+                {Astronomy Group}}
+\GROUP       {\texorpdfstring{\href{http://www.astro.soton.ac.uk/}
+                {ASTRONOMY GROUP}}
+                {ASTRONOMY GROUP}}
+\faculty     {\texorpdfstring{\href{http://www.fpse.soton.ac.uk/}
+                {Faculty of Physical Sciences and Engineering}}
+                {Faculty of Physical Sciences and Engineering}}
+\FACULTY     {\texorpdfstring{\href{http://www.fpse.soton.ac.uk/}
+                {FACULTY OF PHYSICAL SCIENCES AND ENGINEERING}}
+                {FACULTY OF PHYSICAL SCIENCES AND ENGINEERING}}
 \addresses   {}
 \subject     {}
 \keywords    {}
