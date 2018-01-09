@@ -1,9 +1,47 @@
-% Chapter 1
+% Chapter 2
 
 \chapter{Data} % Write in your own chapter title
 \label{Chapter2}
 \lhead{Chapter 2. \emph{Data}} % Write in your own chapter title to set the page header
 
-In this chapter I discuss the data, surveys and the follow-up facilities used in this thesis. I begin by describing the sample of published SLSNe used as a baseline dataset throughout this work. I then describe the Supernova Legacy Survey (SNLS) and the Dark Energy Survey (DES) which are the surveys that provided all transient candidates analyzed in this work. Finally we overview the follow-up facilities that provided the classifications and other axillary information about the transients analysed in this work. 
+In this chapter I discuss the data, surveys and the follow-up facilities used in this thesis. I begin by describing the sample of published SLSNe used as a baseline dataset throughout this work. I then describe the Supernova Legacy Survey (SNLS) and the Dark Energy Survey (DES) which are the surveys that provided all transient candidates analyzed in this work. Finally we overview the follow-up facilities that provided the classifications and other auxiliary information about the transients analyzed in this work. 
 
-\section{Data}
+\section{Literature sample of SLSNe}
+Throughout this thesis a sample of SLSN, published in years between 2010 and 2016, has been used to define what a SLSN is. We define SLSN as any hydrogen poor SLSN and do not distinguish between slowly and rapidly evolving objects [CITE INSERRA AND GAL-YAM]. All objects come from a variety of surveys which includes xx PTF, 1 iPTF, 2 SNLS, 3 DES and xx PS1 SNe. The broad mix of surveys means that the objects are not of the same quality, are not in the same photometric systems and do not use the same band passes. 
+
+\subsection{Quality cuts}
+We devised a set of quality cuts to ensure that the objects used in our analysis meet a minimum standard. As most of our analysis, discussed in the forthcoming chapters, depends on fitting black bodies to the light curve we require that the light curve must contain a minimum of three distinct photometric bands, i.e Even thought they would be modeled independently we would count SDSS and PS1 \textit{r}-band filters as one for the purpose of the quality cut. Furthermore we make a cut on the number of epochs observed per band. In order to use models which depend on the rise and decline time of the supernova we require that there are a minimum of two photometric points before the peak and two points after the peak. As the SN evolve rapidly in temperature and hence colour, the bluer bands peak several days before redder bands. We define the peak as the maximum in the band closest to rest frame U-band. \tref{tab:PubishedSLSNe} shows the list of SLSN used throughout this work that have passed our data quality cuts. 
+
+\subsection{Converting and converging photometric systems}
+It is standard practice in the SN literature to publish the photometry for studied objects in form of a table of magnitudes per band on given observing nights. Magnitude scale is not, however, the most useful when fitting models to the data. As it is logarithmic in nature, the photometric uncertainties, originally measured in the linear count space and often Gaussian in nature become asymmetric and therefore more difficult to deal with in model fitting. It is a lot easier to convert the magnitudes, M, to flux, $\nu$ using a zero point, $zp$ for a given filter:
+\begin{equation}
+\label{eq:MagToFlux}
+\nu = 10^{-0.4 \times M~+~zp}
+\end{equation}
+
+\begin{table}
+\begin{center}
+  \caption{The training sample of SLSNe-I.}
+\label{tab:PubishedSLSNe}
+\begin{tabular}{|l|r|l|l|}
+\hline
+  \multicolumn{1}{|c|}{SN Name} &
+  \multicolumn{1}{c|}{Redshift} &
+  \multicolumn{1}{c|}{Survey} &
+  \multicolumn{1}{c|}{Reference} \\
+\hline
+  PTF12dam & 0.108 & Palomar Transient Factory & \citep{2013Natur.502..346N}\\
+  SN2011ke & 0.143 & Catalina Real-Time Transient Survey & \citet{2013ApJ...770..128I}\\
+  &&\& Palomar Transient Factor & \\
+  SN2010gx & 0.230 & Palomar Transient Factory & \cite{2010ApJ...724L..16P}\\
+  SN2013dg & 0.265 & Catalina Real-Time Transient Survey & \cite{2014MNRAS.444.2096N} \\
+  PS1-11ap & 0.524 & Pan-STARRS & \cite{2014MNRAS.437..656M}\\
+  DES14X3taz & 0.608 & Dark Energy Survey & \cite{2016ApJ...818L...8S} \\
+  PS1-10bzj & 0.650 & Pan-STARRS & \cite{2013ApJ...771...97L}\\
+  DES13S2cmm & 0.663 & Dark Energy Survey & \cite{2015MNRAS.449.1215P} \\
+  iPTF13ajg & 0.741 & intermediate Palomar Transient Factory &\cite{2014ApJ...797...24V}\\
+  SNLS-07D2bv & 1.500 & SNLS &\cite{2013ApJ...779...98H}\\
+  SNLS-06D4eu & 1.588 & SNLS &\cite{2013ApJ...779...98H}\\
+\hline\end{tabular}
+\end{center}
+\end{table}
