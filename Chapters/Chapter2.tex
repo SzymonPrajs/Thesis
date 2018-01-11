@@ -7,12 +7,34 @@
 In this chapter I discuss the data, surveys and the follow-up facilities used in this thesis. I begin by discussing the Supernova Legacy Survey (SNLS) which was used in the early part of my thesis and was the source of data for a project investigating the rate of SLSNe at z$\sim$1 as discussed further in Chapter 3[CITE THIS PROPERLY]. Following from this I discuss the Dark Energy Survey (DES) which was used in my search for SLSN at high redshift as described in Chapter 5 [CITE THIS PROPERLY AGAIN]. I then give a brief overview of the follow-up facilities used in the classifying of SLSNe that were discovered in real time using the techniques discussed in Chapter 5 [CITE]. Finally I describe the process of collecting and unifying the sample of published SLSNe used as a baseline dataset throughout this work.
 
 \section{Supernova Legacy Survey}
-The Supernova Legacy Survey (SNLS) [CITE] was one of the most successful SN surveys to date. It was run as part of the Canadian-French-Hawaii Telescope Legacy Survey (CFHT-LS) between 2003 and 2007. Over that time it has observed and spectroscopically confirmed over 700 SN-Ia [CITE AND CONFIRM NUMBER], giving one of the best measurement of their rate [CITE PERETT] as well as produced the most accurate, at that point, measurement of the cosmological parameters $\omega_{\Lambda}$ and $\omega_{m}$ [CITE]. This was in large way possible thanks the thorough spectroscopic follow-up program which has targeted a large portion of SN-Ia candidates.  
+The Supernova Legacy Survey (SNLS) [CITE] was one of the most successful SN surveys to date. It was run as part of the Canadian-French-Hawaii Telescope Legacy Survey (CFHT-LS) between 2003 and 2007. Over that time it has observed and spectroscopically confirmed over 700 SN-Ia [CITE AND CONFIRM NUMBER], giving one of the best measurement of their rate [CITE PERETT] as well as produced the most accurate, at that point, measurement of the cosmological parameters $\omega_{\Lambda}$ and $\omega_{m}$ [CITE]. This was in large way possible thanks the thorough spectroscopic follow-up program which has targeted a large portion of SN-Ia candidates.
 
 \subsection{Survey Overview}
-SNLS used the 4m Canadian-French-Hawaiian Telescope (CFHT) situated on Mauna Kea, Hawaii. Four, 1 deg$^2$ deep fields have been observed to the limiting magnitude of m=23.5 using the 400 megapixel MegaCam camera [CITE]. Observations took place over five seasons, each lasting approximately 5 months. 
+SNLS used the 4m Canadian-French-Hawaiian Telescope (CFHT) situated on Mauna Kea, Hawaii. Four, 1 deg$^2$ deep fields have been observed to the limiting magnitude of m=23.5 using the 400 megapixel MegaCam camera [CITE]. Observations took place over five seasons, each lasting approximately 5 months.
+
 
 \section{Dark Energy Survey}
+
+
+\section{SUDSS}
+The Search Using DECam for Superluminous Supernovae (SUDSS) (PI: Sullivan) was designed as a dedicated SLSN survey working in conjunction with DES. Its aim was to extend the DES observing season from 6 months to $\sim$ 9 months by observing the fields at high airmass until the observations become impossible due the sun constrains. While, do to technical issued \sref{sec:sec:SUDSSIssues}, it has never been used as a tool for searching for new SLSN candidates it has greatly enhanced the light curves of some SLSNe discoved by DES. 
+
+\subsection{Observations and Data Reduction}
+SUDSS observed XX fields between the end of 1st DES season and start of the 4th season (Periods Pxx to Pxx). The observations were carried out using DECam with an identical setup to DES allowing for the same pre-processing steps to be applied to the data. The data was not directly fed into the DES database nor did it use the force photometry pipeline used by DES for technical reasons. Instead the data was reduced using a custome PTFPhot pipeline [CITE ROB]. For the purpose of unbiased comparison, corresponding DES observations of the SUDSS SLSNe were also reduced using the PTFPhot pipeline.
+
+\subsection{Cadance and Exposures}
+\label{sec:SUDSSCadance}
+SUDSS was designed with the aim of discovering new SLSN candidates at its very heart. It was initially believed [CITE] that it will be capable of identifying $\sim$ 100 SLSN candidates during its operation. As SLSN are a class of slowly evolving supernova, the DES observing cadance was not retained for SUDSS and instead it was chosen to be two weeks. Due to worse that anticipated weather conditions many of these nights have been lost to cloudy nights resuting in a final cadance closer to 1 month. On avarage three additional observations were made in each field outside of the DES observing season.
+
+A futher difference between the DES and SUDSS observing strategies comes in the exposire times used for the observations. As SLSN are much brighter but rarer events than SN-Ia (which are the main focus of the DES SN survey) the exposure times did not have to match that of the DES deep fields to still search for SLSNe at redshifts greater than z>1, however, they did exceed the relatively short exposure times of DES shallow SN field. In practice the limitig magnitude of SUDSS was similar to that of the DES shallow fields once the unfavourable atmospheric conditions and high air mass have been taken into account.
+
+\subsection{Findings}
+\label{sec:SUDSSIssues}
+As a result of the poor cadance and lower than expected image quality it was not possible to carry out a dedicated search for SLSN in the SUDSS data alone. Instead, the SUDSS data have been repurposed as an auxilary data source for objects already discovered by DES. This has been extremely sucessful and resulted in a great improvemnt to the light curves of some of the SLSNe discoved by DES. In cases of DES15C3hav and DES15X2hm we were able to determine the explosion date and hence contrain the rise time of these SNe using the SUDSS data points.
+
+The most significant observations came in form of DES14X3taz [CITE MAT] where the auxilary SUDSS data provided the observations of the pivotal rise and peak of this unique "bumpy" SLSN. Without the SUDSS observations a large proportion of the analysis carried out in [CITE] would have not been possible.
+
+\section{Spectroscopic Follow-up Facilities}
 
 \section{Literature sample of SLSNe}
 Throughout this thesis a sample of SLSN, published in years between 2010 and 2016, has been used to define what a SLSN is. We define SLSN as any hydrogen poor SLSN and do not distinguish between slowly and rapidly evolving objects [CITE INSERRA AND GAL-YAM]. All objects come from a variety of surveys which includes xx PTF, 1 iPTF, 2 SNLS, 3 DES and xx PS1 SNe. The broad mix of surveys means that the objects are not of the same quality, are not in the same photometric systems and do not use the same band passes.
