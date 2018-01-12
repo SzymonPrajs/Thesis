@@ -25,11 +25,27 @@ During the live operations of the survey the pre-processed data has been indepen
 During the survey operation the data has been reduced using a more precise custom force photometry pipeline, PTFPhot, developed by the Canadian team [CITE ROB] which formed the base for the work on the rate of SN-Ia [CITE PERRETT] as well as our work on the rate of SLSNe [CITE CHAPTER 4]. Forced photometry works on the principle of selecting high quality, low Point Spread Function (PSF), reference images which are then downgraded in quality to match that of the science images containing the transients. The reference images must not contain any SN light hence they usually either predate the explosion epoch of the SN use images takes several years after the explosion epoch. Once the science and reference images are matched in image quality they are warped using SWARP [CITE] so that they photometric solutions also match. After this, the reference image is subtracted from the science image. The difference here between the quick reduction photometry and force photometry is that instead of measuring the centroids of the point sources in one image and extracting its photometry the centroids are measured in the entire series of images and then an aperture matching that of the PSF of the image is used to extract the flux count. This largely decreases the uncertainties associated with the flux measurement, especially for faint sources close to or below the detection limit.
 
 \paragraph{Scene Modeling Photometry}
-Further to this, the French team has developed a Scene Modeling Photometry (SMP) pipeline to achieve an even higher quality of SN light curves [CITE ASTIER]. This was used in the cosmology studies and, as opposed to forced photometry, does not change the quality of any images. Instead the the galaxy and supernoave flux are modeled at a resolution higher than the pixel scale before the PSF smoothing is applied to it. These model images are then subtracted from the science frames allowing for similar transient flux measurement to Force Photometry.  
+Further to this, the French team has developed a Scene Modeling Photometry (SMP) pipeline to achieve an even higher quality of SN light curves [CITE ASTIER]. This was used in the cosmology studies and, as opposed to forced photometry, does not change the quality of any images. Instead the the galaxy and SN flux are modeled at a resolution higher than the pixel scale before the PSF smoothing is applied to it. These model images are then subtracted from the science frames allowing for similar transient flux measurement to Force Photometry.  
  
 \subsection{Spectroscopic Follow-Up}
+The success of SNLS cannot be attributed only to the design of the principle component of the survey but also to the effort behind the spectroscopic follow-up of the transient candidates. Between the Very Large Telescope (VLT), Keck, Gemini North and South and Magellan XXX hours have been allocated for spectroscopic follow-up. This in total exceeds the time allocated to SNLS itself. 
+
 
 \section{Dark Energy Survey}
+The Dark Energy Survey (DES) is the largest cosmology survey operated to date. It is composed of two elements; a wide galaxy survey and a SN component. It's main aim is to perform the most precise, to date, measurement of the cosmological parameters. 
+
+\subsection{Survey Setup}
+DES uses a purpose build XXX mega-pixel DECam camera mounted on the 4m Blanco telescope at the Cerro-Tollolo observatory in Chile. DES was awarded 500 observing nights over the period of 5 years between 2013 and 2018. Each observing seasons starts in late August and ends at the end of January giving on average a 5 months long observing period.   
+
+\paragraph{Wide Survey}
+DES wide survey has been designed to observe 5000 deg$^2$ of the southern sky to the depth of m$\sim$25 in the \textit{ugrizy} filters. The aim of this is to create the largest catalog of galaxies and their associated redshifts to date at an unprecedented resolution and depth with the first public data release contained a catalog of 400 million galaxies from the initial 3 years of the survey. These data can be used to study cosmology via three separate experiments; the Baryon Acoustic Oscillations (BYO), Galaxy Clustering and Weak Lensing [CITE ALL]. 
+
+\paragraph{Supernova Survey}
+
+As the the Weak Lensing experiment of the wide survey requires very good seeing images in order to resolve the shapes of galaxies, it is that component that receives a priority over the best quality night. In case where the observations are 
+
+\subsection{Photometric Redshifts}
+With the vast quantities of galaxies detected by DES it is not currently possible, even with the largest integrated field spectrograph, to obtain spectroscopic redshifts for even a small fraction of these objects. A photometric approach must be used to achieve the overall cosmological goals of the survey. While most DES observations are carried out using the \textit{griz} filters \textit{u} and \textit{y} are used, albeit at a lower depth, to aid with the galaxy SED template fitting used to estimate the redshifts. This method is not particularly accurate at low redshifts, however it becomes sufficiently precise at z>0.3 [CITE]. This is due to the steep oxygen[??] drop at 4000\AA [??] shifting into the redder bands amongst other galaxy features. 
 
 
 \section{SUDSS}
