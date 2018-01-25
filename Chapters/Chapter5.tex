@@ -4,5 +4,15 @@
 \label{Chapter5}
 \lhead{Chapter 5. \emph{Machine Learning Classification}} % Write in your own chapter title to set the page header
 
+\section{Non-ML approach}
+Before using machine learning to find SLSN I have used the magnetar model in the same way as in \cref{Chapter2}. This did produce some results and resulted in the classification of a few SLSNe in the data, however, we then started finding objects which really did not fit the model at all and sometimes even had a Chi2 of 3000 like in the case of DES15S2nr. Because of this we knew that we need to try a different approach. 
+
+\section{Machine Learning}
+Machine Learning is the modern approach to problems of classification and broadly data analysis. It has been used throughout SN science for a while now mainly in surveys as a tool for distinguishing between real detections and artifacts in astronomical images. This has been very successful [CITE PTF, DES etc]. 
+
+\subsection{SN Classification using ML}
+In recent years attempts have been made to use ML techniques for photometrically classifying SN from their light curves. The current state of the art work was done by \citet{Lochner2016PHOTOMETRICLEARNING} which attempted classification of SN-Ia vs CCSN as well as discriminating between different CCSN subtypes. The project did however suffer from a small training sample used in the analysis, with only several hundred SN-Ia and as few as 3 SN-Ib! The training sample used was the Supernova Photometric Classification Challenge (SPCC) \citep{Kessler2010} which was used to develop techniques of photometric classification of SN-Ia for the purpose of the DES cosmology project. The results were not optimal and left a lot of room for improvement inspiring a number of groups to try to improve on this work including this thesis.
+
+Another challenge that has never been tackled by any publication in the field is the classification of SN types not simply amongst a perfect sample of confirmed SN (Like in the case of using the SPCC
 
 \section{Data Augmentation}
