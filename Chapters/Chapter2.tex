@@ -59,10 +59,14 @@ DES wide survey has been designed to observe 5000 deg$^2$ of the southern sky to
 The goal of the DES SN search is to produce the largest, homogeneous catalog of SN-Ia to date. To achieve this, 10 observing fields have been selected are observed in the \textit{griz} photometric bands. Eight of these fields are 'shallow' and observe to the depth of m=23.5 while two fields have been chosen to be 'deep' and observe to m=25. The number of deep and shallow fields was chosen such as to maximize the number of discovered SN-Ia while still allowing for a sufficient number of high redshift objects to be detected \citep{Bernstein2012}.
 
 \subsubsection{The cadence of the DES}
-As DES is composed of multiple elements, all with different core scientific and cadence requirements. In order to provide a fair and unbiased data set an automated scheduling algorithm has been used to maximize the scientific output [CITE]. The Weak Lensing experiment provides the strongest constrain to the scheduling process. As it requires the measurement of the shape and orientation of galaxies with maximum available precision, it forces the wide fields to be observed only in the best, sub 1'' seeing conditions. As nights with suboptimal observing conditions are not idea for the wide survey, the SN fields are observed instead often leading to a relatively dense cadence of low quality images in cases of persistent bad weather. This is most common at the start of every season when the observation take place in Chilean Winter/Spring. As the weather improves towards the Summer months, the weather seeing is rarely bad enough to give preference to the SN fields. To prevent the cadence [dissaster] the field are observed on a dead man's trigger after 7 nights of no observation regardless of the condidtions. 
+As DES is composed of multiple elements, all with different core scientific and cadence requirements. In order to provide a fair and unbiased data set an automated scheduling algorithm has been used to maximize the scientific output [CITE]. The Weak Lensing experiment provides the strongest constrain to the scheduling process. As it requires the measurement of the shape and orientation of galaxies with maximum available precision, it forces the wide fields to be observed only in the best, sub 1'' seeing conditions. As nights with suboptimal observing conditions are not idea for the wide survey, the SN fields are observed instead often leading to a relatively dense cadence of low quality images in cases of persistent bad weather. This is most common at the start of every season when the observation take place in Chilean Winter/Spring. As the weather improves towards the Summer months, the weather seeing is rarely bad enough to give preference to the SN fields. To prevent the cadence [dissaster] the field are observed on a dead man's trigger after 7 nights of no observation regardless of the conditions. 
 
 \subsection{Data Reduction}
-The rapidness of data redution pipelines was key in its design. In comparison to SNLS the volume of data was huge making it impossible to select real transients by hand anymore. This was still done in the first year of the survey as a massive effort by the whole team but in the following year the data from year one was used as a training set for an automated transient detection pipeline, \textsc{autoScan} which used a variety of machine learning techniques to classify the sources \cite{Goldstein2015}. 
+While the basic structure and principles behind the data reduction in DES is very similar to that of SNLS, the major differences lay in the treatment of transient detection in the difference images. As the volume of data in DES was too large to allow for manual selection of real sources as a long term solution. Manual classification was performed only in the first year of the survey operation. This dataset was then used as a training sample for a machine learning based classification pipeline, \textsc{autoScan} \cite{Goldstein2015}.
+
+Thanks to a large amount of computational resources available to the survey the computationally expensive force photometry has been automatically performed on every transient candidate, defines as an object with at least three detections in a minimum of two different bands where the detections were between
+
+....
 
 \subsection{Spectroscopic redshift}
 One of the biggest differences between DES and other SNIa surveys to data was its approach to redshift measurements.
@@ -73,13 +77,14 @@ The predicted number of objects detected by DES it was always clear that it woul
 \subsubsection{Hostless SN}
 While redshifts for the majority of SNe can be obtain from their hosts, there remain some that are associated with galaxies faint enough to fall below the detection limit of even the stacked AAT spectra. For these objects it is critical that the redshifts are measured during the live transient which has been the main focus of the extensive spectroscopic campaign. A number of facilities including VLT, Keck, Magellan, MMT, SALT and NTT amongst other telescopes have been used, giving a total of XXX hours or observing time. xxx SNIa have been classifies along with xx CCSN and xx SLSNe. 
 
-\subsubsection{SLSNe in DES}
-
-
 \subsection{Photometric Redshifts}
-... SAME AS SNLS ... -> use new funky ways of improving the quality + used u and y which made it all even better.
+All experiments as part of DES rely very heavily 
+
 -> Used as a redshift prior in the selection of targets, I used it in my work for selecting objects as it was a spectroscopic redshift was rarely available 
 
+
+\subsection{SLSNe in DES}
+While SLSNe have never been a primary target of DES, their potential use as cosmological probes \citep{Inserra2014} meant that they have generated a large interest within the survey. The first SLSN, and the only one detected in the first season of the survey, DES13S2cmm has been classified using a Directors Discretionary Time (DTT) program at the VLT and was published as one of the earliest results of DES \cite{Papadopoulos2015}. In the following seasons the number of objects discovered has increased dramatically with $\sim$6 objects confirmed per year. Amongst these, 
 
 \section{SUDSS}
 The Search Using DECam for Superluminous Supernovae (SUDSS) (PI: Sullivan) was designed as a dedicated SLSN survey working in conjunction with DES. Its aim was to extend the DES observing season from 6 months to $\sim$ 9 months by observing the fields at high airmass until the observations become impossible due the sun constrains. While, do to technical issued \sref{sec:SUDSSIssues}, it has never been used as a tool for searching for new SLSN candidates it has greatly enhanced the light curves of some SLSNe discovered by DES.
