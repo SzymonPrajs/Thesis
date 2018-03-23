@@ -2,7 +2,7 @@
 \label{Chapter2}
 \lhead{Chapter 2. \emph{Data}} 
 
-In this chapter I discuss the data, surveys and the follow-up facilities used in this thesis. I begin by discussing the Supernova Legacy Survey (SNLS) which was used in the early parts of this thesis and was the source of data for my work on the rate of SLSNe at z$\sim$1, discussed in \cref{Chapter3}. Following from this, I discuss the Dark Energy Survey (DES) which provided a larger and higher redshift sample of transients used in my search for high redshift SLSNe as described in \cref{Chapter5}. I also give an overview of the SUDSS survey, which provided some auxiliary data for the DES SLSN sample. Throughout the chapter I briefly description the follow-up facilities used in the classifying of SLSNe that were discovered in real time during the operation of SNLS as well as the SN that were targeted using the selection techniques discussed in \cref{Chapter5} as part of DES. Finally, I describe the process of collecting and unifying the sample of published SLSNe used as a baseline training dataset throughout this work.
+In this chapter I discuss the data, surveys and the follow-up facilities used in this thesis. I begin by discussing the Supernova Legacy Survey (SNLS) which was used in the early parts of this thesis and was the source of data for my work on the rate of SLSNe at z$\sim$1, discussed in \cref{Chapter3}. Following from this, I discuss the Dark Energy Survey (DES) which provided a larger and higher redshift sample of transients used in my search for high redshift SLSNe as described in \cref{Chapter5}. I outline the spectroscopically confirmed sample of SLSN used as a the ground truth sample for comparison to the sample presented in \cref{Chapter6}. I also give an overview of the SUDSS survey, which provided some auxiliary data for the DES SLSN sample. Throughout the chapter I briefly description the follow-up facilities used in the classifying of SLSNe that were discovered in real time during the operation of SNLS as well as the SN that were targeted using the selection techniques discussed in \cref{Chapter5} as part of DES. Finally, I describe the process of collecting and unifying the sample of published SLSNe used as a baseline training dataset throughout this work.
 
 \section{Supernova Legacy Survey}
 The Supernova Legacy Survey \citep{Boulade2003,Pritchet2004} was run as part of the Canadian-French-Hawaii Telescope Legacy Survey (CFHT-LS) between 2003 and 2008. Over that time, it was proven to be one of the most successful SN surveys to date, observing thousands of transients and spectroscopically confirming a large proportion of them. This included over 300 SN-Ia \citep{Perrett2010} and more than 50 core-collapse supernovae as well as measuring their respective rates \citep{Perrett2012,Bazin2009}. SNLS has also discovered two SLSNe at $z$=1.588 and $z$=1.50 \citep{Howell2013} which, until recently, have been the highest redshift spectroscopically identified objects of this class. The principle objective of the survey was to perform a measurement of the cosmological constants $\omega_{\Lambda}$ and $\omega_{m}$ \citep{Astier2006}. This was extremely successful, producing the most precise ground based measurement of its time \citep{Sullivan2006}. This was in large possible thanks to the observing strategy optimized to maximize the number of high redshift SN-Ia candidates and the thorough spectroscopic follow-up program, which gave much stronger constrains for the Hubble diagram thanks to the high redshift leverage not possible before with the low redshift SN-Ia surveys.
@@ -80,18 +80,58 @@ All experiments that form part of DES rely heavily on photometric redshift measu
 
 \subsection{SLSNe in DES}
 \label{sec:DES_SLSN}
-While SLSNe have never been a primary target of DES, their potential use as cosmological probes \citep{Inserra2014} meant that they have generated a large interest within the survey. The first SLSN, and the only one detected in the first season of the survey, DES13S2cmm has been classified using a Directors Discretionary Time (DTT) program at the VLT and was published as one of the earliest results from DES \cite{Papadopoulos2015}. In the following seasons the number of objects discovered has increased dramatically with $\sim$6 objects confirmed per year, giving motivation to the photometric search for the missing SLSN in the data performed in this thesis. The sample (Angus et al. in prep), has shown a large diversity between the objects with many falling outside of the 'classical' definition of a SLSN \citep{Inserra2018}. I briefly outline the spectroscopic sample from the first four years of DES and its properties as well as any peculiarities in the lightcurve or spectral evolution in context of their modeling and comparisons with the photometric sample of SLSN described in \cref{Chapter6}.   
+While SLSNe have never been a primary target of DES, their potential use as cosmological probes \citep{Inserra2014} meant that they have generated a large interest within the survey. The first SLSN, and the only one detected in the first season of the survey, DES13S2cmm has been classified using a Directors Discretionary Time (DTT) program at the VLT and was published as one of the earliest results from DES \cite{Papadopoulos2015}. In the following seasons the number of objects discovered has increased dramatically with $\sim$6 objects confirmed per year, giving motivation to the photometric search for the missing SLSN in the data performed in this thesis. The sample (Angus et al. in prep), has shown a large diversity between the objects with many falling outside of the 'classical' definition of a SLSN \citep{Inserra2018}. I briefly outline the spectroscopic sample from the first four years of DES and its interesting properties as well as any peculiarities in the light curve or spectral evolution in context of their modeling and comparisons with the photometric sample of SLSN described in \cref{Chapter6}. The sample is summarized in \tref{tab:desSLSN} 
+
+\begin{table}
+\begin{center}
+    \caption{Summary of the DES spectroscopic sample of SLSNe.}
+    \label{tab:desSLSN}
+\begin{tabular}{|l|r|l|l|l|l|}
+\hline
+    \multicolumn{1}{|c|}{Name} &
+    \multicolumn{1}{c|}{Redshift} &
+    \multicolumn{1}{c|}{Peak M$_U$} &
+    \multicolumn{1}{c|}{RA} &
+    \multicolumn{1}{c|}{DEC} &
+    \multicolumn{1}{c|}{Reference} \\
+
+\hline
+    DES13S2cmm  &   0.663  &    -19.9  &    02:42:32.83    &    -01:21:30.1 & \citet{Papadopoulos2015}\\
+\hline
+    DES14C1fi   &   1.4    &    -21.9  &    03:33:49.80    &    -27:03:31.6 & Angus et al. (in Prep.)\\
+    DES14C1rhg  &   0.481  &    -19.2  &    03:38:07.27    &    -27:42:45.7 & Angus et al. (in Prep.)\\
+    DES14E2slp  &   0.57   &    -20.5  &    00:33:04.08    &    -44:11:42.8 & Angus et al. (in Prep.)\\
+    DES14S2qri  &   1.5    &    -21.6  &    02:43:32.14    &    -01:07:34.2 & Angus et al. (in Prep.)\\
+    DES14X2byo  &   0.869  &    -21.6  &    02:23:46.93    &    -06:08:12.3 & Angus et al. (in Prep.)\\
+    DES14X3taz  &   0.608  &    -21.6  &    02:28:04.46    &    -04:05:12.7 & \citet{Smith2016}\\
+\hline
+    DES15C3hav  &   0.39   &    -19.1  &    03:31:52.17    &    -28:15:09.5 & Angus et al. (in Prep.)\\
+    DES15E2mlf  &   1.86   &    -22.1  &    00:41:33.40    &    -43:27:17.2 &  \citet{Pan2017}\\
+    DES15S1nog  &   0.565  &    -20.0  &    02:52:14.98    &    -00:44:36.3 & Angus et al. (in Prep.)\\
+    DES15S2nr   &   0.22   &    -20.0  &    02:40:44.62    &    -00:53:26.4 & Angus et al. (in Prep.)\\
+    DES15X1noe  &   1.188  &    -22.5  &    02:14:41.93    &    -04:52:54.5 & Angus et al. (in Prep.)\\
+    DES15X3hm   &   0.86   &    -21.8  &    02:26:54.96    &    -05:03:38.0 & Angus et al. (in Prep.)\\
+\hline
+    DES16C2aix  &   1.07   &    -20.6  &    03:40:41.17    &    -29:22:48.4 & Angus et al. (in Prep.)\\
+    DES16C2nm   &   1.998  &    -22.3  &    03:40:14.83    &    -29:05:53.5 & \citet{Smith2018}\\
+    DES16C3cv   &   0.727  &    -20.7  &    03:40:14.83    &    -29:05:53.5 & Angus et al. (in Prep.)\\
+    DES16C3dmp  &   0.526  &    -20.5  &    03:31:28.35    &    -28:32:28.3 & Angus et al. (in Prep.)\\
+    DES16C3ggu  &   0.95   &    -21.4  &    03:31:12.00    &    -28:34:38.7 & Angus et al. (in Prep.)\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
 [MARK: SHOULD THIS SECTION HAVE PLOTS OF ALL SLSNE FOUND IN DES OR SHOULD I PUT THIS IN THE APPENDIX]
 
 \subsubsection{DES13S2cmm}
-DES13S2cmm was the first SLSN discovered by DES. It was identified during a visual light curve scan and quickly selected as a potential SLSN candidate due to its particularly long rise and faint host. A spectrum of the SN has been obtained using the FORS2 instrument on the VLT using a DDT proposal. The observation confirmed that the SN is at z=0.609 and has features resembling other SLSNe. At the time of discovery this was one of the lowest luminosities SLSNe at M$_U$=-20.0.
+DES13S2cmm was the first SLSN discovered by DES. It was identified during a visual light curve scan and quickly selected as a potential SLSN candidate due to its particularly long rise and faint host. A spectrum of the SN has been obtained with the VLT/FORS2 using a DDT program. The observation confirmed that the SN is at z=0.609 and has features comparable to a SLSNe. At the time of discovery this was one of the lowest luminosities SLSNe at M$_U$=-19.9.
 
 \subsubsection{DES14C1fi}
-This object was similarly identified manually as a plausible candidate thanks to its slow evolution. It was observed at the Keck telescope and again, 7 days later, using VLT's XShooter which found a featureless continuum that almost precisely matched a blackbody SED. A XXXXA oxygen absorption doublet was used to identify the redshift as z=1.40 giving it a luminosity of M$_U$ = -21.9. While the result is somewhat tentative due to a very low S\/N in the IR arm of XShooter, there is a possible sign of a broad H-alpha feature. DES14C1fi is the only SLSN in the DES Y1-4 sample that shows potential signs of being a SLSN-II candidate. 
+DES14C1fi was similarly identified as a plausible candidate using a manual search thanks to its slow evolution. It was observed at the Keck telescope and again, 7 days later, using VLT/XShooter which found a featureless continuum that was a very good match to a blackbody SED. A 3728\AA oxygen emission doublet was used to identify the redshift as z=1.30 giving it a luminosity of M$_U$ = -21.9. While this result is somewhat tentative due to a very low S\/N in the IR arm of XShooter there is a possible sign of a broad H-alpha feature. DES14C1fi is the only SLSN in the DES sample that shows potential signs of being a SLSN-II candidate in the first four seasons. 
 
 \subsubsection{DES14C1rhg}
-DES14C1rhg was targeted as a hostless SLSN candidate based on its long rise time of 30 days. It was observed using our XShooter SLSN program and confirmed at z=0.47 putting it a lower than expected redshift for a SLSN of that apparent magnitude and giving it a luminosity of M$_U$ = -19.2. Combining its low brightness with a relatively fast decline time puts DES14C1rhg on the extreme of the population making it incompatible with any current photometric definition of a SLSN despite its spectroscopic resemblance. 
+DES14C1rhg was targeted as a hostless SLSN candidate based on its long rise time of 30 days. It was observed using our VLT/XShooter SLSN program and confirmed at z=0.47 putting it at a lower than expected redshift for a SLSN of that apparent magnitude and giving it a luminosity of M$_U$ = -19.2. Combining its low brightness with a relatively fast decline time puts DES14C1rhg on the extreme of the population making it incompatible with any current photometric definition of a SLSN despite its spectroscopic resemblance. DES14C1rhg gave us the first indication that the DES sample is able to identify object in the gap between SLSN and SNIc.
 
 \subsubsection{DES14E2slp}
 DES14E2slp was detected at a very late stage of the season with only a single epoch of observations after maximum light. It was selected as a target for the VLT/XShooter program due to being blue, hostless and relatively slowly rising. The classification spectrum was taken at a phase of $\sim$-20days and showed a blue, featureless continuum despite a relatively high S\/N. A spectroscopic redshift was measured using a weak absorption feature to be z=0.64 placing giving the object a luminosity of M$_U$ = -20.5. With the inconclusive spectroscopic redshift, no decline data and no spectral features this remains as the most tentatively confirmed SLSN in our sample.
@@ -137,7 +177,7 @@ DES16C3cv is a very curious case in our sample. Targeted as a peculiar SN using 
 DES16C3dmp was targeted under a VLT/XShooter program and found to be at z=0.526 with peak magnitude of M$_U$=-20.5. Despite its relatively low luminosity the object is blue and has a very slow decline time allowing it to be detectable both seasons four and five or DES.  
 
 \subsubsection{DES16C3ggu}
-j
+DES16C3ggu was the last SLSN discovered and classified by DES in the forth season. It was targeted as a fast rising, blue object under our VLT/XShooter program but was subsequently classified as a SLSN at z=0.95. As the end of the DES observations came before the SN reached its maximum light we can only estimate, based on our magnetar model fitting that the object would reach a peak luminosity of M$_U$=-21.4.
 
 \section{SUDSS}
 The Search Using DECam for Superluminous Supernovae (SUDSS) (PI: Sullivan) was designed as a dedicated SLSN survey working in conjunction with DES. Its aim was to extend the DES observing season from $\sim$6 months to $\sim$9 months by observing the fields, even at high airmass, until the observations become impossible due the sun constrains. The motivation behind the survey was the possibility of using SLSNe as a cosmological probe \citep{Inserra2014}. As this aligned well with the overall goal of its mother survey, SUDSS was awarded XX nights in between the end of DES Y1 and start of DES Y4. Unfortunately, due to issues with the data quality and reduction (see \sref{sec:SUDSSIssues}), it has never been used as a tool for searching for new SLSN candidates, partially leading to the support for the survey and telescope time being withdrawn before the end of DES operations. Regardless, SUDSS has greatly enhanced the light curves of some SLSNe discovered by DES and strongly contributed to the analysis of their sample.
@@ -198,21 +238,21 @@ It is customary in literature to quote the magnitudes for the SDSS-like filters 
   \multicolumn{1}{c|}{Survey} &
   \multicolumn{1}{c|}{Reference} \\
 \hline
-  PTF12dam & 0.108 & Palomar Transient Factory & \citet{Nicholl2013}\\
-  SN2011ke & 0.143 & Catalina Real-Time Transient Survey & \citet{Inserra2013}\\
-  &&\& Palomar Transient Factor & \\
-  SN2012il & 0.175 & Pan-STARRS & \citet{Lunnan2013}\\
-  SN2010gx & 0.230 & Palomar Transient Factory & \citet{Pastorello2010}\\
-  PTF09cnd & 0.258 & Palomar Transient Factory & \citet{Quimby2011}\\
-  SN2013dg & 0.265 & Catalina Real-Time Transient Survey & \citet{Nicholl2014} \\
-  PS1-11ap & 0.524 & Pan-STARRS & \citet{McCrum2014a}\\
-  DES14X3taz & 0.608 & Dark Energy Survey & \citet{Smith2016} \\
-  PS1-10bzj & 0.650 & Pan-STARRS & \citet{Lunnan2013}\\
-  DES13S2cmm & 0.663 & Dark Energy Survey & \citet{Papadopoulos2015} \\
-  iPTF13ajg & 0.741 & intermediate Palomar Transient Factory &\citet{Vreeswijk2014}\\
-  PS1-10awh & 0.909 & Pan-STARRS & \citet{Chomiuk2011}\\
-  SNLS-07D2bv & 1.500 & Supernova Legacy Survey &\citet{Howell2013}\\
-  SNLS-06D4eu & 1.588 & Supernova Legacy Survey &\citet{Howell2013}\\
+  PTF12dam 		& 0.108 & Palomar Transient Factory 			& \citet{Nicholl2013}\\
+  SN2011ke 		& 0.143 & Catalina Real-Time Transient Survey 	& \citet{Inserra2013}\\
+  				&       & \& Palomar Transient Factor & \\
+  SN2012il 		& 0.175 & Pan-STARRS 							& \citet{Lunnan2013}\\
+  SN2010gx 		& 0.230 & Palomar Transient Factory 			& \citet{Pastorello2010}\\
+  PTF09cnd 		& 0.258 & Palomar Transient Factory 			& \citet{Quimby2011}\\
+  SN2013dg 		& 0.265 & Catalina Real-Time Transient Survey 	& \citet{Nicholl2014} \\
+  PS1-11ap 		& 0.524 & Pan-STARRS 							& \citet{McCrum2014a}\\
+  DES14X3taz 	& 0.608 & Dark Energy Survey 					& \citet{Smith2016} \\
+  PS1-10bzj 	& 0.650 & Pan-STARRS 							& \citet{Lunnan2013}\\
+  DES13S2cmm 	& 0.663 & Dark Energy Survey 					& \citet{Papadopoulos2015} \\
+  iPTF13ajg 	& 0.741 & intermediate Palomar Transient Factory&\citet{Vreeswijk2014}\\
+  PS1-10awh 	& 0.909 & Pan-STARRS 							& \citet{Chomiuk2011}\\
+  SNLS-07D2bv 	& 1.500 & Supernova Legacy Survey 				&\citet{Howell2013}\\
+  SNLS-06D4eu 	& 1.588 & Supernova Legacy Survey 				&\citet{Howell2013}\\
 \hline\end{tabular}
 \end{center}
 \end{table}
