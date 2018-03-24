@@ -4,16 +4,21 @@
 \label{Chapter5}
 \lhead{Chapter 5. \emph{Machine Learning Classification}} % Write in your own chapter title to set the page header
 
-\section{Non-ML approach}
+\section{Search for SLSN in DES using a Non-ML}
 Before using machine learning to find SLSN I have used the magnetar model in the same way as in \cref{Chapter2}. This did produce some results and resulted in the classification of a few SLSNe in the data, however, we then started finding objects which really did not fit the model at all and sometimes even had a Chi2 of 3000 like in the case of DES15S2nr. Because of this, we knew that we need to try a different approach.
 
+\subsection{Manual scanning of Transients}
+text
+\subsection{Magnetar Model Fitting}
+text
+
 \section{Machine Learning}
-Machine Learning is the modern approach to problems of classification and broadly data analysis. It has been used throughout SN science for a while now mainly in surveys as a tool for distinguishing between real detections and artefacts in astronomical images. This has been very successful [CITE PTF, DES etc].
+Machine Learning is the modern approach to problems of classification and broadly data analysis. It has been used throughout SN science for a while now mainly in surveys as a tool for distinguishing between real detections and artifacts in astronomical images. This has been very successful [CITE PTF, DES etc].
 
 \subsection{SN Classification using ML}
-In recent years attempts have been made to use ML techniques for photometrically classifying SN from their light curves. The current-state-of the-art work was done by \citet{Lochner2016PHOTOMETRICLEARNING} which attempted a classification of SN-Ia vs CCSN as well as discriminating between different CCSN subtypes. The project did, however, suffer from a small training sample used in the analysis, with only several hundred SN-Ia and as few as 3 SN-Ib! The training sample used was the Supernova Photometric Classification Challenge (SPCC) \citep{Kessler2010} which was used to develop techniques of photometric classification of SN-Ia for the purpose of the DES cosmology project. The results were not optimal and left a lot of room for improvement inspiring a number of groups to try to improve on this work including this thesis.
+In recent years attempts have been made to use ML techniques for photometrically classifying SN from their light curves. The current-state-of the-art work was done by \citet{Lochner2016} which attempted a classification of SN-Ia vs CCSN as well as discriminating between different CCSN subtypes. The project did, however, suffer from a small training sample used in the analysis, with only several hundred SN-Ia and as few as 3 SN-Ib! The training sample used was the Supernova Photometric Classification Challenge (SPCC) \citep{Kessler2010} which was used to develop techniques of photometric classification of SN-Ia for the purpose of the DES cosmology project. The results were not optimal and left a lot of room for improvement inspiring a number of groups to try to improve on this work including this thesis.
 
-Another challenge that has not been tackled by other publication in the field is the classification of SN types not simply amongst a perfect sample of confirmed SN (Like in the case of using the SPCC dataset) but using a realistic, survey-like sample, that contains contamination from noise that spuriously passes the real transient condition as well as AGNs and other variable objects missed in the veto catalogues. In order to achieve this, we need to make reasonable assumptions about the types of the contamination in our SN survey data and add these objects to our training samples.
+Another challenge that has not been tackled by other publication in the field is the classification of SN types not simply amongst a perfect sample of confirmed SN (Like in the case of using the SPCC dataset) but using a realistic, survey-like sample, that contains contamination from noise that spuriously passes the real transient condition as well as AGNs and other variable objects missed in the veto catalogs. In order to achieve this, we need to make reasonable assumptions about the types of the contamination in our SN survey data and add these objects to our training samples.
 
 \section{Data Sources for Training Sample}
 In this section, I will list all types of transients injected into our machine learning pipeline and the motivation behind that choice as well as the objects that have been considered but have never been used in the analysis.
@@ -40,12 +45,12 @@ While the rate of CCSN is higher than the rate of SN-Ia in the local universe, m
 
 Many previous attempts were made to make templates of CCSN and use them in packages such as SNANA [CITE EVERYONE]. While from the technical standpoint these were all very good attempts, the biggest drawback suffered by these templates was the scarcity of the data available to make them. Especially in the cases such as SN-Ib, the templates often contain no more than 3 objects. It was therefore pivotal that we expand these templates to the maximum number of objects available in the literature and work on artificially augment the dataset to match the sample size required by Neural Networks.
 
-\paragraph{Stripped Envelope SN}
+\subsubsection{Stripped Envelope SN}
 Stripped Envelope SN, namely SN-Ib/c and SN-IIb are a very hot topic in the subject of modelling SN for cosmological purposes. Because their powering mechanism is very similar to that of SN-Ia (e.g. though the decay Ni56 and reprocessing of that radiation in the outter envelope of the ejecta), they often appear extremely similar in light curves causing a potentially large contamination in the sample of photometric SN-Ia that surveys such as DES and LSST may want to use to perform cosmological fitting.
 
 In [CITE CHAPTER 4] I described our approach to creating templates of SN using the CoCo package. While originally written for the PLAsTiCC projects, the code could be trivially extended to DES to produce a large simulation of CCSN. We simulate the CCSN up to z=1.0 as the wide range of possible luminocities does not limit these events from being detected at higher redshift despite the majority of the population expected at z$\sim$0.3. We also assume that the rate of CCSN follows the star formation rate evolution of the universe and anchor the result to the local value found by the SNLS [CITE BAZIN]. \\
 
-\paragraph{Hydrogen-rich SN}
+\subsubsection{Hydrogen-rich SN}
 Hydrogen-rich SN, or SN-II, are more difficult to define as a class of events than any other type. Their diversity in luminocity can reach over 5 magnitudes and their shapes can vary from SN-Ic like events in case of narrow emission line SN-IIn to long and plateoing SN-IIP events. Nonetheless we must attempt to replicate, to the best of our abilities, the behaviour of these objects for the purpose of our simulations.
 
 We modify the CoCo code [CITE CHAPTER 4] to include XXXXX model [CITE] and found the following templates XXXX [INSERT EVERYTHING THAT BERTIE HAS DONE AND EVERYTHING ELSE THAT I HAVE DONE HERE. IF WE END UP DOING TOO MUCH WORK THIS WILL HAVE TO BECOME ITS OWN SECTION, BUT I DOUBT IT]
@@ -57,3 +62,22 @@ We modify the CoCo code [CITE CHAPTER 4] to include XXXXX model [CITE] and found
 There are many types of possible transient objects which we have not accounted for here. In some cases we did this because it is unlikely that we would ever detect any (GW counterpart) or because our understanding of them is so limited that we could not provide a comprehensive model for them that could capture the class. This is mostly the case with fast transients [CITE MIIKA] which can appear as having virtually any luminocity and colour and the only connection we have between all of them is their rapid evolution. Believed to be the result of a shock breakout passing though a dense and extended envelope of the star these events are very likely to be connected to the "bumps" often found in SLSN events. We can try to model them as such and see if we can recover such objects [CITE : I REALLY NEED TO TEST THIS, I WOULD HEAVILY BE STEPPING ON MIIKA'S TOES BUT WHO CARES]
 
 \section{Data Augmentation}
+text
+\subsection{Choosing the observing block}
+text
+\subsection{Choosing the cadence}
+text
+\subsection{Applying Flux correction to Real Data}
+text
+\subsection{Applying GPs}
+text
+
+\section{Neural Networks}
+text
+\subsection{Feeding the data}
+text
+\subsection{SNe vs AGN vs Noise}
+text
+\subsection{Classifying SNe}
+text
+\subsection{SLSNe in DES}
