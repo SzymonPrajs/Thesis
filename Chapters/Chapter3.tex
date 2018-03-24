@@ -1,10 +1,20 @@
-\chapter{Rate of SLSNe at z$\sim$1} 
+\chapter{Rate of SLSNe at z$\sim$1}
 \label{Chapter3}
-\lhead{Chapter 3. \emph{Rate of SLSNe}} 
+\lhead{Chapter 3. \emph{Rate of SLSNe}}
 
 In this chapter I present the volumetric rate of SLSNe at z$\sim$1, measured from the archival SNLS data, and all steps required to perform the calculation. First I propose a definition of a SLSN based on the modeling of light curves using the spin-down of a magnetar model followed by a photometric search for missed objects within the SNLS dataset. I briefly introduce the photometric sample of SLSNe discovered in SNLS before describing the Monte-Carlo simulation of the survey, aimed at measuring the rate and its uncertainties. Finally, I compare the value measured to those found in the literature and discuss the significance of the result in terms of the physical origin of the objects as well as their detectability by DES and other, future, surveys. The work presented in this chapter has been published in \citet{Prajs2016}.
 
 \section{Defining a SLSN}
+Our first task in the process of measuring the rate of SLSNe was to develop a method for the photometric selection of optical transients that were to enter our SLSN sample. The earliest definitions of SLSNe relied on their peak luminosity and often defined them as SN with an absolute $u$-band magnitude of $M_{u}<-21$ \citep{2012Sci...337..927G}. It was our view that this definition is not adequate for our search for two main reasons. The first was that, already at that time, there existed several examples in the literature of events that are spectroscopically similar to SLSNe, but that do not pass this arbitrary threshold. Some of these events included DES13S2cmm \citep{2015MNRAS.449.1215P} and PTF11rks \citep{2013ApJ...770..128I} which both had M$_u$ > -21 but are also associated with a very slow evolution which is synonimous with SLSNe. The second reasons was the discovery of new classes of fast and luminous transients \citep{2016ApJ...819...35A} with luminosities similar to SLSNe, but with a faster light curve evolution and different spectroscopic types. Therefore, instead of an arbitrary luminosity cut, we use a photometric classification approach based on modeling SLSNe using the spin-down of a magnetar model as a simple analytical model that provides a good fit to a sample of confirmed SLSNe.
+
+This approach did, however, have its drawbacks. Use of an analytical model implied that the rate was calculated only for objects which are similar to the sample of confirmed SLSNe, as presented in \sref{sec:litSample}. We were aware that this would likely not capture all objects of this class at the time this work was undertaken but without a better definition of a SLSN more significant progress could not be achieved. In \cref{Chapter5} I present a more significanly more complex approach to this problem, as appied to DES, based on an artificial trainig sample of SLSNe and Machine Learning classifiers.
+
+\subsection{Modeling SLSNe}
+In order to model SLSN and form their definition we required two main ingridients: an
+underlying model for the time-dependent bolometric luminosity of a SLSN, and an SED that can convert this bolometric luminosity into time-evolving spectra. This would together form a spectral series from which we can synthesis photometry in any desired filter and at any desired
+redshift can be calculated for comparison to observed data.  We
+discuss each of these ingredients in turn.
+
 
 \section{Searching for SLSN in SNLS}
 \subsection{Magnetar model fitting}
