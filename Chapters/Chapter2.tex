@@ -7,11 +7,11 @@ In this chapter, I discuss the data, surveys and follow-up facilities used in th
 \section{Supernova Legacy Survey}
 The Supernova Legacy Survey \citep{Boulade2003,Pritchet2004} was run as part of the Canadian-French-Hawaii Telescope Legacy Survey (CFHT-LS) between 2003 and 2008. Over this time, it was proven to be one of the most successful SN surveys to date, observing thousands of transients and spectroscopically confirming a large proportion of them. This included over 300 SN-Ia \citep{Perrett2010} and more than 50 core-collapse supernovae, as well as measuring their respective rates \citep{Perrett2012,Bazin2009}. SNLS has also discovered two SLSNe at z =1.588 and z=1.50 \citep{Howell2013}, which, until recently, have been the highest redshift spectroscopically identified objects of this class. The principal objective of the survey was to perform a measurement of the cosmological constants $\omega_{\Lambda}$ and $\omega_{m}$ \citep{Astier2006}. This was extremely successful, producing the most precise ground-based measurement of its time \citep{Sullivan2006}. This was in large possible thanks to the observing strategy optimized to maximize the number of high redshifts SN-Ia candidates and the thorough spectroscopic follow-up program, which gave much stronger constraints for the Hubble diagram thanks to the high redshift leverage not possible before with the low redshift SN-Ia surveys.
 % * <zcap001@live.rhul.ac.uk> 2018-03-24T22:50:56.788Z:
-% 
-% > This included over 300 SN-Ia \citep{Perrett2010} and more than 50 core-collapse supernovae, as well as measuring their respective rates \citep{Perrett2012,Bazin2009}. 
-% Slightly bad English? "Included confirming over 300..." , "also measuring their..." maybe? I want you to confirm this change though :)  
-% 
-% 
+%
+% > This included over 300 SN-Ia \citep{Perrett2010} and more than 50 core-collapse supernovae, as well as measuring their respective rates \citep{Perrett2012,Bazin2009}.
+% Slightly bad English? "Included confirming over 300..." , "also measuring their..." maybe? I want you to confirm this change though :)
+%
+%
 % ^.
 
 \subsection{Survey Overview}
@@ -30,10 +30,10 @@ SNLS carried out the observations in the \textit{griz} photometric bands, simila
 \subsection{Data Reduction}
 Several different data reduction pipelines have been used in the analysis of the SNLS data. In this thesis, we used a combination of data prepared for public and internal data releases. We have also reanalysis the data for some objects of interest using PTFPhot, a custom, pre-existing pipeline designed to improve the data reduction quality for faint sources \citep{Firth2015}.
 % * <zcap001@live.rhul.ac.uk> 2018-03-24T22:56:02.006Z:
-% 
+%
 % > We have also reanalysis the data
 % Is this a new word I don't know or should it be reanalyzed? Or as Booget would have it: reanalysed
-% 
+%
 % ^.
 
 \subsubsection{Real-time photometry}
@@ -42,10 +42,10 @@ During the live operations of the survey, the data was pre-processed by applying
 \subsubsection{Forced photometry}
 The quick reduction pipelines used in the detection of objects were optimized with speed, as opposed to accuracy, in mind. Any scientific analysis of the data requires a more precise treatment of the photometry. The data for 'real' transient, defined as having detections on multiple epochs and in multiple bands, was passed through an early version of PTFPhot \citep{Firth2015}: a much improved, custom, forced photometry pipeline. The improvements in the photometry, compared to the quick photometry, come mainly from the treatment of the PSF of the images. The quality of the science images is measured precisely on a number of stars, allowing for the reference images, usually with better quality, to be downgraded to match the quality of the science frames by convolving them with the PSF. Furthermore, the photometry is measured at the centroid for the source determined in a stack of all images as opposed to individual frames, giving rise to the term 'forced' photometry as the positions of the objects are forced to be consistent between all images. The full treatment of the PSF largely decreases the uncertainties associated with the flux measurement, especially for faint sources close to, or below, the detection limit. This analysis has been applied to the data releases that provided the sources and light curves for the work described in \cref{Chapter3} in a similar way to other SNLS analysis such as the rates of SN-Ia \citep{Perrett2012} and core-collapse SN \citep{Bazin2009}, as well as the cosmological measurements \citep{Astier2006,Sullivan2011}.
 % * <zcap001@live.rhul.ac.uk> 2018-03-24T23:00:09.780Z:
-% 
-% > the photometry is measured at the centroid for the source determined in a stack of all images 
+%
+% > the photometry is measured at the centroid for the source determined in a stack of all images
 % This seems bad but I'm too tired to work out why
-% 
+%
 % ^.
 
 \subsection{Spectroscopic Follow-Up}
@@ -160,7 +160,7 @@ DES14C1rhg was targeted as a hostless SLSN candidate based on its long rise time
 DES14E2slp was detected at a very late stage of the season with only a single epoch of observations after maximum light. It was selected as a target for the VLT/XShooter program due to being blue, hostless and relatively slowly rising. The classification spectrum was obtained at a phase of $\sim$-20days and showed a blue, featureless continuum despite a relatively high S\/N. A spectroscopic redshift was measured using a weak absorption feature to be z=0.64 placing the object a luminosity of M$_u$ = -20.5. With the inconclusive spectroscopic redshift, no decline data and no spectral features this remains as the most tentatively confirmed SLSN in our sample.
 
 \subsubsection{DES14S2qri}
-DES14S2qri is the most peculiar SLSN detected in the second season of DES. It was targeted for follow-up as a hostless object with a long rise in the redder bands. Its spectrum perfectly matches that of a SLSN at z=1.5 making it the highest redshift SN found up to that point of the survey. More interestingly, it featured some of the most unusual behaviours in the observer frame g-band where the object is not detected until the maximum light in the i-band. Magnetar modelling of the light curve shows that the g-band underwent very strong absorption in the early stages before returning to the expected SED. Unfortunately, the classification spectrum was taken too late to observe this behaviour.
+DES14S2qri is the most peculiar SLSN detected in the second season of DES. It was targeted for follow-up as a hostless object with a long rise in the redder bands. Its spectrum perfectly matches that of a SLSN at z=1.5 making it the highest redshift SN found up to that point of the survey. More interestingly, it featured some of the most unusual behaviours in the observer frame $g$-band where the object is not detected until the maximum light in the $i$-band. Magnetar modelling of the light curve shows that the $g$-band underwent very strong absorption in the early stages before returning to the expected SED. Unfortunately, the classification spectrum was taken too late to observe this behaviour.
 
 \subsubsection{DES14X2byo}
 DES14X2byo was first identified due to its long rise and colour with subsequent spectroscopic follow-up conforming it to be a SLSN at z=0.86 and peak luminosity of M$_u$=-21.5. Despite its average spectrum, evolution and peak luminosity, DES14X2byo is one of the bluest SLSNe ever discover reaching a photospheric temperature of 27,000K. One possible suggestion is that a pre-peak event like the one seen in DES14X3taz took place at the same time as the onset of the spin-down of the central engine injecting extra energy which thermalised to produce the excess temperature.
@@ -187,7 +187,7 @@ DES15X1noe is the most luminous and slowly evolving SN in the DES sample. It was
 DES15X3hm is perhaps one of the most 'ordinary' SLSNe in our sample. It was first detected several weeks after maximum light and selected for classification based on our magnetar model classification. A follow-up spectrum taken at a rest-frame phase of +20days confirmed the object to be a SLSN at z=0.86. The pre-maximum data was obtained thanks to the auxiliary SUDSS observations which allowed us to constrain the time of the maximum as well as its model parameters.
 
 \subsubsection{DES16C2aix}
-DES16C2aix was another example of a relatively faint but slowly evolving SLSNe in our sample. It was observed under a peculiar transient program at the GTC due to its long rise time. It was found to be a SLSN at z=1.07 with a peak luminosity of M$_u$=-20.6. DES16C2aix is a relatively red SN even when accounting for the redshift with no detections in the g-band and r-band flux below that expected from our magnetar model fits.
+DES16C2aix was another example of a relatively faint but slowly evolving SLSNe in our sample. It was observed under a peculiar transient program at the GTC due to its long rise time. It was found to be a SLSN at z=1.07 with a peak luminosity of M$_u$=-20.6. DES16C2aix is a relatively red SN even when accounting for the redshift with no detections in the $g$-band and $r$-band flux below that expected from our magnetar model fits.
 
 \subsubsection{DES16C2nm}
 DES16C2nm is the crown jewel in our sample as it is the highest redshift spectroscopically classified SN ever as recently published by \citet{Smith2018}. DES16C2nm was detected at the start of the season and followed-up under a peculiar transient program which was subsequently followed by observation from VLT and HST in a number of IR bands with the aiming of reconciling the rest-frame UV spectra with the optical components pushed into the IR due to the redshift. Discovering an object at such high redshift has provided us with a unique opportunity to determine the feasibility of detecting SLSN in DES at even higher redshifts. \citet{Smith2018} found that DES deep-fields should be able to detect objects like DES16C2nm up to z=3.0, which independently confirms our simulations found in \cref{Chapter4}, and provided a further motivation for our search for high redshift SLSN \cref{Chapter5}.
@@ -229,10 +229,10 @@ In this thesis, we have collected the data for a large number of literature SLSN
 \subsection{Quality cuts}
 Many of the objects in this list were of very poor quality containing only either a handful of photometric points and single classification spectra with no data for their evolution. Furthermore, the data originated from a variety of sources including PTF, iPTF, SNLS, DES, Pan-STARRS and LSQ amongst others, giving a broad range of photometric bands and systems.
 
-We devised a set of quality cuts to ensure that the objects used in our analysis meet a minimum standard. As most of our analysis, discussed in the forthcoming chapters, depends on fitting blackbodies to the data, we require that the light curve must contain a minimum of three distinct photometric bands. While in the latter modelling we treat such bands independently, for the purpose of the quality cuts we take bands that are derivatives of each other (i.e R and r) as the same. Furthermore, we make cuts based on the number of epochs observed per band. In order to use models which depend on the rise and decline time of the supernova, we require that there is a minimum of two photometric points before the maximum light and two points after the peak. As the SN evolve rapidly in temperature (and hence colour) the bluer bands peak several days before redder bands. We define the peak as the maximum in the band closest to rest-frame SDSS u-band. \tref{tab:PubishedSLSNe} shows the final list of SLSN, available at the time, that passed our data quality cuts and have hence been used in \cref{Chapter3} as the base for our definition of SLSNe.
+We devised a set of quality cuts to ensure that the objects used in our analysis meet a minimum standard. As most of our analysis, discussed in the forthcoming chapters, depends on fitting blackbodies to the data, we require that the light curve must contain a minimum of three distinct photometric bands. While in the latter modelling we treat such bands independently, for the purpose of the quality cuts we take bands that are derivatives of each other (i.e R and r) as the same. Furthermore, we make cuts based on the number of epochs observed per band. In order to use models which depend on the rise and decline time of the supernova, we require that there is a minimum of two photometric points before the peak and two points between the time of maximum light and $+30$ days. As the SN evolve rapidly in temperature (and hence colour) the bluer bands peak several days before redder bands. We define the peak as the maximum in the band closest to rest-frame SDSS $u$-band. \tref{tab:PubishedSLSNe} shows the final list of 15 SLSN, available at the time, that passed our data quality cuts and have hence been used in \cref{Chapter3} as the base for our definition of SLSNe.
 
 \subsection{Converting and converging photometric systems}
-It is standard practice in the SN literature to publish the photometry in the units of magnitudes. The magnitude scale is not however optimal for model fitting. Due to being logarithmic in nature, the photometric uncertainties, originally measured in the linear count space and Gaussian in nature, become asymmetric and therefore more difficult to use within the model fitting. It is easier to simply apply a conversion from the magnitudes, M, to flux, $\nu$ using a zero point, $zp$, for a given filter:
+It is standard practice in the SN literature to publish the photometry in the units of magnitudes. The magnitude scale is not however optimal for model fitting. Due to being logarithmic in nature, the photometric uncertainties, originally measured in the linear count space and Gaussian in nature, become asymmetric and therefore more difficult to use within the model fitting. It is easier to simply apply a conversion from the magnitudes, M, to flux, $\nu$ using a zero point, $zp$, for a given filter. We have also set an arbitrary error floor of 0.03 magnitudes for all photometric points to account for possible systematic uncertainties that were not included in the published data:
 
 \begin{equation}
 \label{eq:MagToFlux}
@@ -246,7 +246,7 @@ similarly, we convert the uncertainties in magnitude to flux using \eqref{eq:Mag
 \Delta \nu = 0.921034~\times~10^{-0.4 \times M~+~zp}~\times~\Delta M
 \end{equation}
 
-It is customary in literature to quote the magnitudes for the SDSS-like filters (\textit{ugrizy}) in the AB photometric system and the Johnson filters (\textit{UBVRIJHK}) in the Vega system. If not otherwise stated in the papers, these are the systems used for the zero points in conversion between magnitude and flux. If not stated otherwise it is also assumed that the photometry has been corrected for Milky Way extinction which is a standard procedure in most modern surveys.
+It is customary in literature to quote the magnitudes for the SDSS-like filters (\textit{ugrizy}) in the AB photometric system and the Johnson filters (\textit{UBVRIJHK}) in the Vega system. If not otherwise stated in the papers, these are the systems used for the zero points in conversion between magnitude and flux. If not stated otherwise it was also assumed that the photometry has been corrected for Milky Way extinction which is a standard procedure in most modern surveys.
 
 \begin{table}
 \begin{center}

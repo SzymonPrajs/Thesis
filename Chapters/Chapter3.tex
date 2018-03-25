@@ -5,6 +5,7 @@
 In this chapter I present the measurement of a volumetric rate of SLSNe at z$\sim$1 measured using the archival SNLS data. First I propose a photometric definition of a SLSN based on the modeling of light curves using the spin-down of a magnetar model followed by a search for missed objects within the SNLS dataset. I briefly introduce the new photometric sample before describing the Monte-Carlo simulation of the survey, aimed at measuring the rate and its uncertainties. Finally, I compare the value measured to those found in the literature and discuss the significance of the result in terms of the physical origin of the objects as well as their detectability by DES and other, future, surveys. The work presented in this chapter has been published in \citet{Prajs2016}.
 
 \section{Defining a SLSN}
+\label{sec:SLSNDefinition}
 Our first task in the process of measuring the rate of SLSNe was to develop a method for the photometric selection of optical transients that were to enter our SLSN sample. The earliest definitions of SLSNe relied on their peak luminosity and often defined them as SN with an absolute $u$-band magnitude of $M_{u}<-21$ \citep{2012Sci...337..927G}. It was our view that this definition is not adequate for our search for two main reasons. The first was that, already at that time, there existed several examples in the literature of events that are spectroscopically similar to SLSNe, but that do not pass this arbitrary threshold. Some of these events included DES13S2cmm \citep{2015MNRAS.449.1215P} and PTF11rks \citep{2013ApJ...770..128I} which both had M$_u$ > -21 but are also associated with a very slow evolution which is synonymous with SLSNe. The second reasons was the discovery of new classes of fast and luminous transients \citep{2016ApJ...819...35A} with luminosities similar to SLSNe, but with a faster light curve evolution and different spectroscopic types. Therefore, instead of an arbitrary luminosity cut, we use a photometric classification approach based on modeling SLSNe using the spin-down of a magnetar model as a simple analytical model that provides a good fit to a sample of confirmed SLSNe.
 
 This approach did, however, have its drawbacks. Use of an analytical model implied that the rate was calculated only for objects which are similar to the sample of confirmed SLSNe, as presented in \sref{sec:litSample}. We were aware that this would likely not capture all objects of this class at the time this work was undertaken but without a better definition of a SLSN more significant progress could not be achieved. In \cref{Chapter5} I present a more significantly more complex approach to this problem, as applied to DES, based on an artificial training sample of SLSNe and Machine Learning classifiers.
@@ -12,9 +13,118 @@ This approach did, however, have its drawbacks. Use of an analytical model impli
 \subsection{Modeling SLSNe}
 In order to model SLSN we required two main ingredients: an underlying model for the time-dependent bolometric luminosity of a SLSN, and an SED that can convert this bolometric luminosity into time-evolving spectra. This together forms a spectral series from which we can synthesis the photometry in any desired filter and at any desired redshift. This can then be used for comparison to observed data. For the purpose of this chapter the exact form or the physical meaning behind the light curve model parameters are irrelevant as, in theory, any model that satisfactorily replicates the observables could be used for this purpose. I therefore provide only a brief overview of the model here while the remaining details are described in \sref{sec:SLAP}.
 
-The spin-down of a magnetar model assumes that a collapse of a giant star with an initial mass of M $>$ 40M$_{\odot}$ produces a SNIc like explosion whilst giving birth to a magnetar; a highly magnetized neutron star with a rotation period on the time scale of milliseconds \citep{Kasen2009,Woosley2010,Inserra2013}. The simple toy model assumes a spherically symmetric ejecta and a constant opacity. The free parameters in the model are the Magnetic field, $B$, spin period, $P$ and the diffusion timescale $\tau_M$ which is directly proportional to the ejecta mass, M$_{ej}$.      
+\subsubsection{Magnetar model}
+The spin-down of a magnetar model assumes that a collapse of a giant star with an initial mass of M $>$ 40M$_{\odot}$ produces a SNIc like explosion whilst giving birth to a magnetar; a highly magnetized neutron star with a rotation period on the time scale of milliseconds \citep{Kasen2009,Woosley2010,Inserra2013}. The simple toy model assumes a spherically symmetric ejecta and a constant opacity. The free parameters in the model are the Magnetic field, $B_{14}$, spin period, $P_{\mathrm{ms}}$ and the diffusion timescale $\tau_M$ which is directly proportional to the ejecta mass, M$_{\mathrm{ej}}$ and the time of explosion, $t_{\mathrm{expl}}$.
+
+\subsubsection{Fitting literature light curves}
+The magnetar model provideded a good fit to all the SLSNe that formed part of our training sample. \tref{table:Magnetar} contains the model's best-fit parameters, as well as two additional derived observables which help us to identify the nature of the events without visually inspecting the light curves. These were the peak absolute magnitude in the SDSS $u$-band filter as well as the rise-time, $t_\mathrm{rise}$, of the SN as measured from explosion to maximum light in the rest-frame $u$-band. It is important to note here that the absolute magnitude, $M_u$, are given in the AB magnitude system. The zero-point correction factor betwee the AB and Vega magnitude system for the $u$-band filter is: $M_u^{\mathrm{AB}}\simeq M_u^{\mathrm{vega}}+0.9$ \citep{2007AJ....133..734B}. Therefore, while some of the training sample have $M_u^{\mathrm{AB}}>-21$, none have $M_u^{\mathrm{vega}}>-21$ which agrees with the previous definition of a SLSN.
+
+\begin{table}
+\begin{center}
+\caption{Magnetar model parameters for the sample of 15 published SLSNe.}
+\label{table:Magnetar}
+\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|}
+\hline
+  \multicolumn{1}{|c|}{Name} &
+  \multicolumn{1}{c|}{$M_u$} &
+  \multicolumn{1}{c|}{$t_\mathrm{rise}$} &
+  \multicolumn{1}{c|}{$\tau_\mathrm{m}$} &
+  \multicolumn{1}{c|}{$B_{14}$} &
+  \multicolumn{1}{c|}{$P_{\mathrm{ms}}$} &
+  \multicolumn{1}{c|}{$t_\mathrm{expl}$} &
+  \multicolumn{1}{c|}{$E(B-V)$} &
+  \multicolumn{1}{c|}{$\chi^2_{\nu}$} &
+  \multicolumn{1}{c|}{Template} \\ & &
+  \multicolumn{1}{c|}{(days)} &
+  \multicolumn{1}{c|}{(days)} &
+  \multicolumn{1}{c|}{($\times10^{14}$ G)} &
+  \multicolumn{1}{c|}{(ms)} &
+  \multicolumn{1}{c|}{(MJD)} & \\
+\hline
+  PTF12dam & -21.4 & 34.72 & 22.15 & 0.78 & 2.85 & 56044.5 & 0.18 & 2.49 & 06D4eu\\
+  SN2011ke & -21.2 & 24.84 & 30.61 & 3.67 & 2.13 & 55647.5 & 0.01 & 1.31 & iPTF13ajg\\
+  SN2010gx & -21.7 & 24.56 & 30.36 & 3.20 & 1.54 & 55247.1 & 0.19 & 0.86 & 06D4eu\\
+  SN2013dg & -21.2 & 25.37 & 28.05 & 3.30 & 2.75 & 56412.3 & 0.07 & 0.23 & SCP06F6\\
+  PS1-11ap & -21.8 & 32.1 & 20.08 & 0.79 & 2.51 & 55559.0 & 0.02 & 1.62 & 06D4eu\\
+  DES14X3taz & -21.7 & 47.21 & 26.16 & 0.23 & 1.67 & 57019.2 & 0.09 & 5.18 & 06D4eu\\
+  PS1-10bzj & -21.2 & 22.17 & 18.44 & 2.65 & 3.84 & 55524.0 & 0.07 & 0.37 & 06D4eu\\
+  DES13S2cmm & -20.0 & 30.7 & 21.19 & 1.28 & 5.29 & 56509.0 & 0.01 & 0.51 & 06D4eu\\
+  iPTF13ajg & -22.4 & 31.45 & 33.41 & 1.57 & 1.32 & 56346.9 & 0.19 & 0.30 & iPTF13ajg\\
+  07D2bv & -21.1 & 28.41 & 36.88 & 3.40 & 2.18 & 54132.4 & 0.05 & 0.41 & SCP06F6\\
+  06D4eu & -21.9 & 21.48 & 29.94 & 3.82 & 1.00 & 53956.3 & 0.11 & 1.26 & 06D4eu\\
+\hline\end{tabular}
+\end{center}
+\end{table}
+
+\subsubsection{Defing a SLSN parameter space}
+\fref{fig:SLAPparam} shows the best-fit magnetar model parameter space. In order to define a region of the parameter space that defines a SLSN we inclosed the cluster of our literature points with an ellipsoid. We chose the lowest volume, simplest geometric body that was consistent with all the SLSN in our training sample. The ellipsoid was defined in terms of the three main fit parameters of the magnetar model, $\tau_\mathrm{m}$, $B_{14}$ and $P_{\mathrm{ms}}$. In the Cartesian coordinate system a position on any generic ellipsoid can be defined using \eref{eq:Ellipsoid}.
+
+\begin{equation}
+\label{eq:Ellipsoid}
+\left( \begin{matrix}
+x \\
+y \\
+z
+\end{matrix} \right)
+=
+\mathbf{A}
+\left( \begin{matrix}
+R_x\cos(u)\cos(v) \\
+R_y\cos(u)\sin(v) \\
+R_z\cos(v)
+\end{matrix} \right)
++ \mathbf{C}
+\end{equation}
+
+\noindent where \textbf{A} is a rotation matrix, \textbf{R} is the radius of the ellipsoid and \textbf{C} is the position of its center. The following conditions must be satisfied: $-\pi /2 \leq u \leq \pi /2$ and $-\pi \leq v \leq \pi$. We have set up our parameter space such that $\tau_\mathrm{m}$ lays along the $x$-axis, $B_{14}$ is along the $y$-axis and $P_{\mathrm{ms}}$ corresponding to the $z$-axis. Using the Khachiyan Algorithm \citep{Aspvall19801,KHACHIYAN198053}, we have performed an analytical fit to determine the ellipsoid that best describes the known population of SLSNe. We found the ellipsoid to have the following properties:
+
+\begin{equation}
+\label{eq:A}
+\mathbf{A} =
+\left( \begin{matrix}
+-0.184 & 0.575 & -0.797\\
+ 0.008 & 0.812 & 0.586\\
+0.983 & 0.102 & -0.154
+\end{matrix} \right)
+\end{equation}
+
+\begin{equation}
+\label{eq:R}
+\mathbf{R} =
+\left( \begin{matrix}
+R_x \\
+R_y \\
+R_z
+\end{matrix} \right)
+=
+\left( \begin{matrix}
+1.89\\
+2.17\\
+11.32
+\end{matrix} \right)
+\end{equation}
+
+\begin{equation}
+\label{eq:C}
+\mathbf{C} =
+\left( \begin{matrix}
+26.76 \\
+2.14\\
+2.77
+\end{matrix} \right)
+\end{equation}
+
+\noindent \fref{fig:SLAPparam} shows the three, two-dimensional projections of this parameter space, populated with our training sample of literature SLSNe.
+
+\begin{figure}
+\includegraphics[scale=0.50]{figures/SLAPparam}
+\caption{The $\tau_\mathrm{m}$--$B_{14}$--$P_{\mathrm{ms}}$ parameter space constructed from the magnetar model fits. The SNLS objects are denoted by grey circles. The ellipses correspond to the two dimensional projections of the three dimensional ellipsoid, fitted around the parameter space of the known SLSNe (shown as triangles) to form a region defining them in terms of the model. The SNLS candidates that fall within this parameter space are shown as stars.}
+\label{fig:SLAPparam}
+\end{figure}
 
 \section{Searching for SLSN in SNLS}
+The definition of a SLSN presented in \sref{sec:SLSNDefinition} was then used to classify further objects that were not in our training sample by fitting the magnetar model to those light curves and comparing their best-fits to the parameter space defined by the training sample. In the ideal case we would have first liked to test our definition against a test sample of SLSNe that have not been used in forming of the definition. However, the number of known SLSN events at that time was low enough that we could have not afforded to split our sample into a training and test sample. We were therefore forced to assume that the parameter space in \fref{fig:SLAPparam} was defined by a representative sample of events. This has further motived us to seek a more elegant and robust solution for any future search of SLSN such as the one performed on the DES dataset in \cref{Chapter5}. I would also like to note that both the fitting method and the definition of a SLSN-like event presented in this chapter does not makes any assumption about the luminosity of the event; making it entirelly possible for fitted events to have $M_u>-21$ and still be classified as SLSNe. Equally, same is true for some events with $M_u<-21$, including those with a relatively short diffusion timescale, $\tau_\mathrm{m}$, giving rise to a faster evolution that is inconsistent with SLSNe. This natural consequence of the technique used here was therefore non susseptable to other classes of luminous (but faster) events \citep{Arcavi15}.
+
 \subsection{Magnetar model fitting}
 \subsection{Candidates}
 \subsection{SNLS04D3bs}
