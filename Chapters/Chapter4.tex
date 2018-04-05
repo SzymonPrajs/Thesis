@@ -1,8 +1,14 @@
-% Chapter 4
-
-\chapter{Techniques} % Write in your own chapter title
+\chapter{Techniques}
 \label{Chapter4}
-\lhead{Chapter 4. \emph{Codes}} % Write in your own chapter title to set the page header
+\lhead{Chapter 4. \emph{Codes}}
+
+Throughout this thesis my goals were to identify SLSNe in a number of surveys. I have approached this problem using a variaty of tools and techniques which I describe in this chapter. The methods of classification SLSN described in this chapter span a number of methods. In the early parts of this thesis I used an approached based on modelling of SLSNe using the popular spin-down of a magnetar model \sref{sec:SLAP}. While this technique was successful in identifying a new SLSN in the SNLS it was found to be insufficient in the case of mode diverse but also noisy DES data. To solve this problem I have followed a popular path for classification style problems by approaching it using a machine learning approach. It is the preparation for the sample building methods, described further in \cref{Chapter5}, that form the second part of this chapter. The use of machine learning means that the majority of the work is not put into the understanding of the parameter space of the model applied to the data and any potential cuts that need to be made by currating and cleaning the data. Our approach is to simulate DES using all tranient models that are currently availabe to us. This includes similating SNIa, CCSN, SLSN as well as random noise and AGN activity.
+
+While the models of SNIa are mature and ready to be applied to our work the simulations of CCSN could not have been accieved that easily. CCSN are usually faster and fainter than SNIa resulting is a significantly smaller sample of well observed objects. Most of them are also not observed using the same spectoscopic thoroughness making the a less understood class of objects. In recent years the interest in modeling this objects has increased dramatically with projects such as LSST underway. In this chapter I describe our approach to producing templates of CCSN as well as simulating them in a number of surveys. This project has originally been started as part of the LSST transients classification challenge however later I have applied it to DES to produce samples of both hydrogen rich and poor CCSN.
+
+The last, but perhaps the most key, technique descrined in this chapter is Gaussian Processing. As the DES data was not observed on regular cadance, it would be impossible to apply any machine learning technique to good success to the row data. We used GPs as a method of modelling the confidence regions of the underlying light curves for the observed and simulated DES objects in a model-independant way. This was key as at the next stage of the process it would be "BAD" if instead of classifing the objects we uncover the underlying model instead of the data itself.
+
+This chapter is divided in the following way. I begin by describing the method of modelling of SLSNe using the magnetar model in conjunction with SED templates. I then follow this by a discussion of the method as applied to the search for SLSNe in DES as well as their pre-peak 'bumps' and other rapidly evolving transients. Next, I describe the process of Gaussian Processing light curves as a model-independant approach to approximating the original data. Finally I describe the technique behind simulating samples of CCSN as used for machine learning classification of SLSNe.
 
 \section{Modeling SLSNe} \label{sec:SLAP}
 text
@@ -20,15 +26,6 @@ text
 \subsection{Searching for Rapidly Evolving Transients}
 text
 
-\section{Gaussian Processing}
-text
-\subsection{Theory}
-text
-\subsection{Choice of Kernels}
-text
-\subsection{Interpolating Light Curves}
-text
-
 \section{Modeling CCSN}
 text
 \subsection{CoCo}
@@ -38,4 +35,13 @@ text
 \subsection{SED UV Extensions}
 text
 \subsection{SNII with CoCo}
+text
+
+\section{Gaussian Processing}
+text
+\subsection{Theory}
+text
+\subsection{Choice of Kernels}
+text
+\subsection{Interpolating Light Curves}
 text
