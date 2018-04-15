@@ -49,7 +49,7 @@ T(t) &= T_0 - \dot{T}t &&
 \label{sec:Magnetar}
 To fully capture the evolution of the SED with time we must employ a model for an engine that provides the late time energy deposition needed to explain the photospheric velocity and temperature observed in SLSNe. While still a matter of active debate in literature, in recent years the birth and spin-down of a magnetar model has appeared as the strongest candidate to explain these extremely luminous events \citep{2013ApJ...770..128I,2013Natur.502..346N}. In this model, SLSNe begin as CCSN with a magnetar, a rapidly rotating, highly magnetised neutron star, born at its core. As the magnetar spins down due to the interactions with its environment, it dissipates its energy in the form of high energy radiation that is then captured by the expanding ejecta and thermalised to produce the observed blackbody SED \citep{2010ApJ...717..245K,2010ApJ...719L.204W,2012MNRAS.426L..76D}.
 
-I follow the method from \citet{2013ApJ...770..128I}. In order to model the bolometric luminosity, $L$, of a SLSN as a function of time, $t$, we use equation \ref{Eq:MagnetarLum} based on the Arnett function \citep{1982ApJ...253..785A}.
+I follow the method from \citet{2013ApJ...770..128I}, based on the Arnett law for the energy diffusion though a SN ejecta \citep{Arnett1982} and the energy radiated by the central engine from \citet{Bildsten2013,Wosley2012}. In order to model the bolometric luminosity, $L$, of a SLSN as a function of time, $t$, we use equation \ref{Eq:MagnetarLum}:
 \begin{equation}
 L(t) = 4.9\times 10^{46}\,e^{ -(t / \tau_\mathrm{m})^2 }\delta(t) \int_{0}^{t} \frac{2t'}{\tau_\mathrm{m}^2}\,e^{(t'/\tau_\mathrm{m})^2}\,\frac{B_{14}^{2}\,P_{\mathrm{ms}}^{-4}}{\left(1+t'/\tau_\mathrm{p}\right)^2} dt',
 \label{Eq:MagnetarLum}
@@ -58,14 +58,16 @@ L(t) = 4.9\times 10^{46}\,e^{ -(t / \tau_\mathrm{m})^2 }\delta(t) \int_{0}^{t} \
 \label{Eq:SDPeriod}
 \tau_{p} = 4.7B_{14}^{-2}P_{ms}^{2}days
 \end{equation}
-\noindent where $\tau_\mathrm{m}$ is the diffusion timescale, $B_{14}$ is the neutron star magnetic field in units of $10^{14}$\,G, $P_{\mathrm{ms}}$ is the magnetar spin period in ms, $\delta(t)$ is the deposition function or trapping coefficient, and $\tau_\mathrm{p}$ is the magnetar spin-down timescale, is defined in \eref{Eq:SDPeriod}, inferred from $B_{14}$ and $P_{\mathrm{ms}}$. The opacity and total energy parameters have been fixed as $\kappa = 0.1cm^2g^{-1}$ and $E = 10^{51}$erg respectively. It has been shown \citep{2013ApJ...770..128I,2014ApJ...796...87I,2015MNRAS.452.3869N,2015MNRAS.449.1215P} that these parameters only weakly affect the quality of fitting and can therefore be marginalised over.
+\noindent where $\tau_\mathrm{m}$ is the diffusion timescale, $B_{14}$ is the neutron star magnetic field in units of $10^{14}$\,G, $P_{\mathrm{ms}}$ is the magnetar spin period in ms, $\delta(t)$ is the deposition function or trapping coefficient, and $\tau_\mathrm{p}$ is the magnetar spin-down timescale, is defined in \eref{Eq:SDPeriod}, inferred from $B_{14}$ and $P_{\mathrm{ms}}$.
 
-Physically $\tau_M$ is proportional to the ejecta mass($M_{ej}$) which is sometimes chosen as the fit parameter instead. The two parameters can be converted between each other using equation \ref{Eq:Mej}, where $E$ is the explosion energy and $\kappa$ the opacity of ejecta.
+Physically $\tau_M$ is proportional to the ejecta mass($M_{ej}$) which is sometimes chosen as the fit parameter instead. The two parameters can be interconvert using equation \ref{Eq:Mej}, where $E$ is the explosion energy and $\kappa$ the opacity of ejecta.
 \begin{equation}
 \label{Eq:Mej}
 M_{ej} = (\frac{\tau_{M}}{10days})^{4/3}(\frac{\kappa}{0.1cm^2g^{-1}})^{-2/3}(\frac{E_k}{10^{51}erg})^{1/3}M_{\odot}
 \end{equation}
-\noindent The velocity of the ejecta, $v_{core}$ is assumed to be constant and is found using the inferred mass of the ejecta, $M_{ej}$ and its kinetic energy, $E_{mag}$ (\eref{Eq:vcore}), which in turn depends on the explosion energy and the energy released by the spin down of the magnetar (equation \ref{Eq:Emag}). Following the work of \cite{2013ApJ...770..128I,2013Natur.502..346N,2015MNRAS.452.3869N}, constant value of $10^{51}$ erg is used as the explosion energy.
+\noindent It has been shown \citep{2013ApJ...770..128I,2014ApJ...796...87I,2015MNRAS.452.3869N,2015MNRAS.449.1215P} that the opacity and the explosion energy parameters have only a weak affect the quality of fitting and have therefore been fixed as $\kappa = 0.1cm^2g^{-1}$ and $E = 10^{51}$erg respectively.
+
+The velocity of the ejecta, $v_{core}$ are assumed to be constant and value can be found using the inferred mass of the ejecta, $M_{ej}$ and its kinetic energy, $E_{mag}$ (\eref{Eq:vcore}), which in turn depends on the explosion energy and the energy released by the spin down of the magnetar, shown in \eref{Eq:Emag}:
 \begin{align}
 \label{Eq:Emag}
 E_{mag} = 4.9\times10^{46} B^2 P^{-4} \tau_{P}  \text{ erg} \\
@@ -74,62 +76,36 @@ E_k = 10^{51} + 0.5 \times E_{mag} \text{ erg}\\
 v_{core} =  \sqrt{\frac{10 E_{k}}{3 M_{ej}}} \text{ cm s}^{-1}
 \end{align}
 
-
-
-Combining this with the total luminosity and the assumption that the object radiates as a blackbody gives us the photospheric temperature. Feed this into the Planck equation gives an approximation for the SED of a SLSN. This method allows for the magnetar model to be fit directly to the multi-band photometry without the need to produce the pseudo-bolometric light curves. We combine this with the absorption templates to produce a model of the SLSN spectral evolution as a function of time.
-
 \paragraph{Trapping coofficient}
-The trapping coefficient, $\delta(t)$, is often assumed to be unity
-(i.e., implying the full trapping of the high-energy photons radiated
-by the magnetar within the supernova ejecta) and time-independent
-\citep{2013ApJ...770..128I,2015MNRAS.449.1215P,2015MNRAS.452.3869N}.
-Here we use a correction introduced by \cite{2015ApJ...799..107W} with
-a time-dependent trapping coefficient of
+The trapping coefficient, $\delta(t)$, is defined as the fraction of the high-energy radiation produced by the central engine that get trapped, and subsequently reproduced, by the ejecta. It is often assumed in the literature that the traping coofficient is time-independent and close to unity, implying the full trapping of radiated by the supernova ejecta \citep{2013ApJ...770..128I,2015MNRAS.449.1215P,2015MNRAS.452.3869N}. In this work I use a correction introduced by \cite{2015ApJ...799..107W} with a time-dependent trapping coefficient:
 \begin{equation}
 \delta(t) = 1 - \exp\left({-\frac{9\kappa \mathrm{M}_{\mathrm{ej}}^{2}}{40\pi  E_k} t^{-2}} \right),
 \label{Eq:Wang}
 \end{equation}
-where $\mathrm{M}_{\mathrm{ej}}$ is the ejecta mass, $E_k$ is the
-explosion energy, and $\kappa$ is the opacity.
-$\mathrm{M}_{\mathrm{ej}}$ is proportional to $\tau_\mathrm{m}$, $E_k$
-and $\kappa$ \citep{2013ApJ...770..128I}. We fix the explosion energy
-to be $E_k = 10^{51}$\,erg and the opacity as $\kappa =
-0.1$\,cm$^2$g$^{-1}$ following other studies
-\citep[e.g.][]{2013ApJ...770..128I,2014ApJ...796...87I,2015MNRAS.452.3869N,2015MNRAS.449.1215P}.
-Using this time-dependent trapping coefficient improves the late-time
-fit to the light curve.  For a typical SLSN we calculate $\delta
-\simeq 1$ up to 75 days post explosion. However, as the ejecta opacity
-to high energy photons decreases with time we find $\delta \simeq 0.8$
-at 150 days post explosion, emphasising the importance of this
-correction in the late time light curves.
+\noindent where $\mathrm{M}_{\mathrm{ej}}$ is the ejecta mass, $E_k$ is the explosion energy, and $\kappa$ is the opacity. $\mathrm{M}_{\mathrm{ej}}$ is proportional to $\tau_\mathrm{m}$, $E_k$ and $\kappa$ \citep{2013ApJ...770..128I}. We again fix the explosion energy to be $E_k = 10^{51}$\,erg and the opacity as $\kappa =0.1$\,cm$^2$g$^{-1}$.
+
+Using this time-dependent trapping coefficient improves the late-time fit to the light curve. For a typical SLSN we calculate $\delta \simeq 1$ up to 75 days post explosion. However, as the ejecta opacity to high energy photons decreases with time we find $\delta \simeq 0.8$ at 150 days post explosion, emphasising the importance of this correction in the late time light curves.
 
 \paragraph{Deriving Radius and Temperature}
-We use the equations derived in Appendix D of
-\cite{2013ApJ...770..128I} to relate the magnetar model parameters
-described above to the photospheric radius and temperature and their
-time evolution. The photospheric radius is proportional to the ejecta
-velocity, which is also a function of the kinetic energy and
-M$_{\mathrm{ej}}$. Thus, using Planck's law the magnetar
-model parameters can also be used to generate a simple smooth SED. In
-the next section, we discuss how we adjust this SED to physically
-resemble the spectra of SLSNe-I.
-
-In its simplest form the model only predicts the total radiated energy of the SN and does not make any predictions about the SED of the object. It is therefore most commonly used with bolometric light curves, synthesised from the photometry. \cite{2013ApJ...770..128I} shows, however, that is is possible to predict the photospheric radius of a SN based on this model.
+In its simplest form the magnetar model only predicts the total radiated energy of the SN and does not make any predictions about the SED of the object. It is therefore most commonly used with bolometric light curves, synthesised from the photometry. \cite{2013ApJ...770..128I} however shows that it is possible to predict the photospheric radius of a SN based on this model:
 \begin{align}
 r_{core}(t) = v_{core}  t \\
 \rho_{core}(t)= \frac{3 M_{ej}}{4  \pi  r_{core}^3(t)}\\
 \tau_{core}(t) = \kappa  \rho_{core}(t) v_{core} t
 \end{align}
-While the radius of the photosphere exceeds that of the core ejecta the radius can be found using equation \ref{Eq:R19}.
+
+While the radius of the photosphere exceeds that of the core ejecta, it can be found using equation \ref{Eq:R19}.
 \begin{equation}
 \label{Eq:R19}
 R(t) = r_{core}(t) \left(\frac{\alpha - 1}{\tau_{core}(t)}\right)^\frac{1}{1 - \alpha}
 \end{equation}
-When the photosphere recedes into the core the radius is instead found by equation \ref{Eq:R20} \citep{2013ApJ...770..128I}.
+However, when the photosphere recedes into the core the radius is instead found by equation \ref{Eq:R20}.
 \begin{equation}
 \label{Eq:R20}
 R(t) = r_{core}(t) - \frac{1 - \frac{\tau_{core}(t)}{\alpha - 1}}{\kappa \rho_{core}(t)}
 \end{equation}
+
+Combining this with the total luminosity and assuming that the object radiates as a spherical blackbody gives us the photospheric temperature. This can be injected into the Planck law to give an approximation for the SED of a SLSN. This method allows for the magnetar model to be fit directly to the multi-band photometry without the need to produce the pseudo-bolometric light curves. We combine this with the absorption templates to produce a model of the SLSN spectral evolution as a function of time.
 
 \subsection{SLAP}
 text
