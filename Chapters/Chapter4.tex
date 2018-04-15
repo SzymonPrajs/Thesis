@@ -108,14 +108,41 @@ R(t) = r_{core}(t) - \frac{1 - \frac{\tau_{core}(t)}{\alpha - 1}}{\kappa \rho_{c
 Combining this with the total luminosity and assuming that the object radiates as a spherical blackbody gives us the photospheric temperature. This can be injected into the Planck law to give an approximation for the SED of a SLSN. This method allows for the magnetar model to be fit directly to the multi-band photometry without the need to produce the pseudo-bolometric light curves. We combine this with the absorption templates to produce a model of the SLSN spectral evolution as a function of time.
 
 \subsection{SLAP}
+Upon establishing an approach for modelling SLSNe it was important to encapulate it in a software package capable of modelling the literature sample of SLSNe, was able to fit any transient passed to it without without crashing, produce the plots and statistics for the models as well as simualate SLSNe based on the combination of input parameters and absorption templates.
+
+Simulataniously all projects as part of this thesis dependant in to some extend on modelling of SLSNe, not only based on the existing objects and moving them to different redshifts but also by interpolating the training sample in order to provide new training samples, similar but not identical to the published objects
+
+There were xx main concerns when designing the code used for modelling of SLSNe. We needed it to be fast, both in terms of the fitting of light curves as well as modelling of them. The initial design was done in Python which allowed us to make sure that we understand the model and agree with its resuls. Later on the whole code base was moved to C++ to make it faster.
+
+[MAYBE PUT A LIST OF ALL THE REQUIREMENTS THAT I WANTED THE CODE TO HAVE AND THEN USE THE PARAGRAPHS TO DESCRIBE HOW I HAVE ACHIEVED THAT]
+
+\subsubsection{Code structure}
+The code was written in a modular way, using the object orientated paradigm and polymorphism to allow us to implement any model as a plugin to the code meaning based that we were able to test even large changes as well as combinations of models. The modelling was structured around a base \textsc{Model} class which would take any SED model and convert it into an observed photometry at any input redshift. Using the polymorphic design of the code, it was possible to implement a basic magnetar model and use any required model extension simply as a 'plug-in' to the base model. [THIS NEEDS A LOT MORE WORK]
+
+\subsubsection{Model extensions}
+While the basic magnetar model is already a very good fit to the light curves of SLSNe, in some cases such as DES14X3taz it was impossible to fully model the SN without introducing several further assumptions. For this purpose a number of magnetar model extensions were introduced which I will brienfly introduce in the context of the improvements to the modelling they have brough. It is important to highlight here that there were never used in teh simulation of SLSNe for both the Rate of SLSNe in \cref{Chapter3} nor the creation of the DES artificial training sample in \cref{Chapter5} as the base model remains a good fit around the maximum light which, in case of the DES and SNLS seasons, is the region observed by our data. The extensions were used mostly as the demonstration of the capabilities \textsc{SLAP}.
+
+\paragraph{\citet{Piro2015}}
+Upon the discovery of DES14X3taz the question of the engine powering the pre-cursor bump was an important one to answer. \citet{Smith2016} showed that the peak is well explained by a model wherein the supernova explodes inside of an envelope of dense and extended wind. The shock-breakout which usually would be observed as a short, <1day, flash of high energy radiation gets reprocessed into a longer duration emission of lower energy radiation. This model is highly degenerate in the ejecta mass and explosion energy parameter space. However, as these parameters also play part in the modelling of the spin-down of a magnetar. The combination of these two models gave us an unprecedented opportunity to derive these parameters directly from the observed data.
+
+In this version of the model, we intoduce a new free parameter, t$_d$, measuring the delay between the explosion of the SN and the onset of the magnetar spin-down. These have not been previosly considered to occur at different times \citep{Nicolls} as there are currently no models that require a delay between the supernova explosion and the formation of the magnetar[ME: NEED TO CHECK THIS, THERE MIGHT BE A PAPER BY WOOSLEY]. However, I have found though the modelling of DES14X3taz that it is impossible to reconcile these the magnetar and extended shock models without the introduction of this parameter. Further evidence for is shown in \cref{par:R0nonzero} where the best fit magnetar model for DES14X3taz is shown to require the radius of the photosphere to already be largely extended, consistent with a t$_d ~\sim$ 17days (assuming a constant explansion velocity), which matches that found in \citet{Smith2016}
+
+\paragraph{R$_0$ > 0}
+\label{par:R0nonzero}
+While it is currently widely believed that a magnetar is capable of producing the correct injection of energy into a SN ejecta to result in the SLSN, the exact process though which the high-energy radiation produced by the magnetric breaking is not transported into the outer shells of the ejecta. If the injection of energy did not precisely coincide with the explosion time of the star, the SN could go though a dark phase followed by a rapid rebrightening. In several cases including PS1-11ap and DES14X3taz (where we exclude the pre-peak bump data), the magnetar model does not correctly fit the earliest stages of the light curve.
+
+In order to investigate this delay, I have introduced a non-zero initial radius of the progenitor. While the radius of the progenitor star is never null, it is usually negligible in comparison with the expansion velocity of the ejecta. However, in the case of DES14X3taz and PS1-11ap I have found initial radiuses comparable to the ejecta which has undergone expansion at a constant velocity for 17 and xx days respectively. PS1-11ap has no observations prior to its first detections making it impossible to determine if the object was associated with a pre-peak events. This technique, however, can provide insight into the mechanism behind the magnetar energy injection even in the absence of the earliest and pre-explosion epochs.
+
+\paragraph{Nickel decay}
+Another intersting questions which we were able to investigate is the contribution from the decay of Ni56 and Co56 as an additional energy source powering the ejecta. I have introduced this in order to investigate this mechanism as a potential cause of the peculiarly flat evolution of DES13S2cmm. In this model I simply add the contribution from the decay of these radioactive elements into the bolumetric luminosity of the SN and then treat the model as normal from there on. In the case of the test DES13S2cmm, the radioactive decay was not able to describe the observed tale, further deepening its mistery. This is further investigated in Angus (in prep.).
+
+\subsubsection{Optimisation}
 text
-\subsection{Optimisation}
+\paragraph{Least-Squares fitting}
 text
-\subsubsection{Least-Squares fitting}
+\paragraph{\textsc{MultiNest}}
 text
-\subsubsection{\textsc{MultiNest}}
-text
-\subsection{pyMagnetar}
+\subsubsection{pyMagnetar}
 text
 
 \section{Searching for Fast Transients}
