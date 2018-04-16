@@ -136,12 +136,17 @@ In order to investigate this delay, I have introduced a non-zero initial radius 
 \paragraph{Nickel decay}
 Another intersting questions which we were able to investigate is the contribution from the decay of Ni56 and Co56 as an additional energy source powering the ejecta. I have introduced this in order to investigate this mechanism as a potential cause of the peculiarly flat evolution of DES13S2cmm. In this model I simply add the contribution from the decay of these radioactive elements into the bolumetric luminosity of the SN and then treat the model as normal from there on. In the case of the test DES13S2cmm, the radioactive decay was not able to describe the observed tale, further deepening its mistery. This is further investigated in Angus (in prep.).
 
-\subsubsection{Optimisation}
-text
+\subsubsection{Model fiiting}
+A large part of the success of SLAP in terms of modelling SLSNe came thanks to my work on optimising the fitting routines used within the package. We set out as one of the aims for \textsc{SLAP} that all the fitting has to happen in a fully automated way without the need for manual input or fine-tunning of parameters. This was crucial in order to be able to perform fitting on large datasets containing thousands of objects where only a small fraction would likely make a good match to the models used. Furthermore we do not wish to intruduce any human biases to the fitting procedure, particuarly in the case of the ML training sample.
+
 \paragraph{Least-Squares fitting}
-text
+Initially, while testing the fitting technique we have relied on a Levenberg–Marquardt non-linear least sqares fitter, \textsc{MPFIT} [CITE] based on \textsc{Fortran}'s \textsc{LMFIT} [CITE]. While the first signs were possitive, we have very soon realsied that the quality of our firts have strongly dependant on the choice of the iniatial guess for the best fit parameters.
+
+In order to investigate the cause of this, I have performed a fit using some of the best sampled light curves in our training sample of SLSNe using the grid-search approach where we simply divide the magnetar model parameter space in an evenly spaced grid before trying all values. This demonstrated that there are many local minima within the paramters space demonstrating the need for a global optimisation approach where all degeneracies, and local minima can be explored without stopping like in the case of a MPFIT regression.
+
 \paragraph{\textsc{MultiNest}}
-text
+In the case of a 
+
 \subsubsection{pyMagnetar}
 text
 
