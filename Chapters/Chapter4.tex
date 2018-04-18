@@ -2,7 +2,9 @@
 \label{Chapter4}
 \lhead{Chapter 4. \emph{Codes}}
 
-Throughout this thesis my goals were to identify SLSNe in a number of surveys. I have approached this problem using a variaty of tools and techniques which I describe in this chapter. The methods of classification SLSN described in this chapter span a number of methods. In the early parts of this thesis I used an approached based on modelling of SLSNe using the popular spin-down of a magnetar model \sref{sec:SLAP}. While this technique was successful in identifying a new SLSN in the SNLS it was found to be insufficient in the case of mode diverse but also noisy DES data. To solve this problem I have followed a popular path for classification style problems by approaching it using a machine learning approach. It is the preparation for the sample building methods, described further in \cref{Chapter5}, that form the second part of this chapter. The use of machine learning means that the majority of the work is not put into the understanding of the parameter space of the model applied to the data and any potential cuts that need to be made by currating and cleaning the data. Our approach is to simulate DES using all tranient models that are currently availabe to us. This includes similating SNIa, CCSN, SLSN as well as random noise and AGN activity.
+Throughout this thesis my goals were to identify SLSNe in a number of surveys. I have approached this problem using a number of tools and techniques, each playing an important role in achieving this goal. The aim of this chapter is to provide and overview of the methods used in this work as well as their evolution over time. In the early parts of this thesis, I used an approached based on modelling of SLSNe using the popular spin-down of a magnetar model \sref{sec:SLAP}. I begin by describing the model and the improvements I have introduces in order to better model the UV region of the SLSN SED. I also describe the fitting routines used in the modelling of SLSNe as well as throughtout the entire thesis. Although, this technique was successful in identifying a new SLSN in the SNLS, it was not able to fully capture the diversity of the SLSN sample that was emerging in the DES spectroscopic dataset. As a solution to this problem, I followed a popular route of applying the state-of-the-art artifficial inteligence (AI) technqiues to automate the classification process using a machine learning approach. The second part of this chapter describes the preparatory work undertaken to build the tools and the training sample required for such study in \cref{Chapter5}.
+
+The use of machine learning means that the majority of the work is not put into the understanding of the parameter space of the model applied to the data and any potential cuts that need to be made by currating and cleaning the data. Our approach is to simulate DES using all tranient models that are currently availabe to us. This includes similating SNIa, CCSN, SLSN as well as random noise and AGN activity.
 
 While the models of SNIa are mature and ready to be applied to our work the simulations of CCSN could not have been accieved that easily. CCSN are usually faster and fainter than SNIa resulting is a significantly smaller sample of well observed objects. Most of them are also not observed using the same spectoscopic thoroughness making the a less understood class of objects. In recent years the interest in modeling this objects has increased dramatically with projects such as LSST underway. In this chapter I describe our approach to producing templates of CCSN as well as simulating them in a number of surveys. This project has originally been started as part of the LSST transients classification challenge however later I have applied it to DES to produce samples of both hydrogen rich and poor CCSN.
 
@@ -127,7 +129,7 @@ Upon the discovery of DES14X3taz the question of the engine powering the pre-cur
 
 In this version of the model, we intoduce a new free parameter, t$_d$, measuring the delay between the explosion of the SN and the onset of the magnetar spin-down. These have not been previosly considered to occur at different times \citep{Nicolls} as there are currently no models that require a delay between the supernova explosion and the formation of the magnetar[ME: NEED TO CHECK THIS, THERE MIGHT BE A PAPER BY WOOSLEY]. However, I have found though the modelling of DES14X3taz that it is impossible to reconcile these the magnetar and extended shock models without the introduction of this parameter. Further evidence for is shown in \cref{par:R0nonzero} where the best fit magnetar model for DES14X3taz is shown to require the radius of the photosphere to already be largely extended, consistent with a t$_d ~\sim$ 17days (assuming a constant explansion velocity), which matches that found in \citet{Smith2016}
 
-\paragraph{R$_0$ > 0}
+\paragraph{R$_0~>$ 0}
 \label{par:R0nonzero}
 While it is currently widely believed that a magnetar is capable of producing the correct injection of energy into a SN ejecta to result in the SLSN, the exact process though which the high-energy radiation produced by the magnetric breaking is not transported into the outer shells of the ejecta. If the injection of energy did not precisely coincide with the explosion time of the star, the SN could go though a dark phase followed by a rapid rebrightening. In several cases including PS1-11ap and DES14X3taz (where we exclude the pre-peak bump data), the magnetar model does not correctly fit the earliest stages of the light curve.
 
@@ -136,30 +138,40 @@ In order to investigate this delay, I have introduced a non-zero initial radius 
 \paragraph{Nickel decay}
 Another intersting questions which we were able to investigate is the contribution from the decay of Ni56 and Co56 as an additional energy source powering the ejecta. I have introduced this in order to investigate this mechanism as a potential cause of the peculiarly flat evolution of DES13S2cmm. In this model I simply add the contribution from the decay of these radioactive elements into the bolumetric luminosity of the SN and then treat the model as normal from there on. In the case of the test DES13S2cmm, the radioactive decay was not able to describe the observed tale, further deepening its mistery. This is further investigated in Angus (in prep.).
 
-\subsubsection{Model fiiting}
-[RENAME THIS AND MAKE IT LINEAR FITTING]
+\subsubsection{Least Squares fitting}
 A large part of the success of SLAP in terms of modelling SLSNe came thanks to my work on optimising the fitting routines used within the package. We set out as one of the aims for \textsc{SLAP} that all the fitting has to happen in a fully automated way without the need for manual input or fine-tunning of parameters. This was crucial in order to be able to perform fitting on large datasets containing thousands of objects where only a small fraction would likely make a good match to the models used. Furthermore we do not wish to intruduce any human biases to the fitting procedure, particuarly in the case of the ML training sample.
 
-\paragraph{Least-Squares fitting}
-Initially, while testing the fitting technique we have relied on a Levenberg–Marquardt non-linear least sqares fitter, \textsc{MPFIT} [CITE] based on \textsc{Fortran}'s \textsc{LMFIT} [CITE]. While the first signs were possitive, we have very soon realsied that the quality of our firts have strongly dependant on the choice of the iniatial guess for the best fit parameters.
+In LeastSQ fitting we want to minimise the residual [INSERT RESIDUAL EQUATION]. A residual assumes that the uncertainties are gaussian. Most techniques find the nearest minumum to the initial values given.
+
+\paragraph{MPFIT}
+The first optimisation technique used in this thesis relied on the Levenberg–Marquardt non-linear least sqares fitting algorithm.
+
+In this method both the function and the expression for the gradient are provided boositing the efficiency and accuracy of the  optimisation as the parameters can be updated in an educated way towards the local minimum. This however rarely allows for a jump outside of a local minimum as the gradient prevents that.
+
+I have used the \textsc{MPFIT} implementation [CITE] that was based on \textsc{Fortran}'s well known package \textsc{LMFIT} [CITE]. , I have used this approach both during the initial Python testing and in the first version of SLAP. While the first signs were possitive, we have very soon realsied that the quality of our fits have strongly dependant on the choice of the iniatial parameter guesses. This goes against one of our strongest demands on SLAP as, in order to get the method working, we would need to either hand select the starting point for the fit or design an algorithm to do this for us. In either case breaking our requirements.
 
 \paragraph{Grid search}
-In order to investigate the cause of this, I have performed a fit using some of the best sampled light curves in our training sample of SLSNe using the grid-search approach where we simply divide the magnetar model parameter space in an evenly spaced grid before trying all values. This demonstrated that there are many local minima within the paramters space demonstrating the need for a global optimisation approach where all degeneracies, and local minima can be explored without stopping like in the case of a MPFIT regression.
+This behaviour of the fitting routine is usually a strong indication that the model contains many local minima. In order to test this we required a method of sampling the entire parameter space. For this purpose, I have performed a simple grid search fit. Here, I have simply devided the magnetar parameter space, box confined within reasonable parameter boundries. These sets of paramaters were then all tried in turn creating a multi-dimentional grid of the goodness-of-fit values. This simple test demonstrated that there are many local minima within the paramters space. It was thus clear that a global optimisation approach was necessary in order to find the true global minimum of the model. Grid search, however, could not be used in the production version of the \textsc{SLAP} due to its poor performance with the fits taking up to several hours based on the resolution of the input parameter grid.
 
-[MAKE A BAYESIAN INFERENCE SECTION]
+\subsubsection{Bayesian Inference}
+The solution to this came in form of Bayesian inference. This technique is based on the concepts of Bayesian statistics with the goal of maximising the likelihood function defined as:
+[EQUATION]
+\noindent where the ... is the prior ... evidence
+
+\paragraph{MCMC}
+Markov Chain Monte Carlo is a very popular technique for estimating the posterior distribution. In this method a 'walker' moves though the posterior with a large probability of moving towards a higher likelihood value but a non-zero chance of moving towards a lower likelihood value. This is the most striking difference between the fitting performed using MPFIT and MCMC as it is not possible to sample the whole parameter space even if a local minimum has been found the fitter can still go and explore other parts of the posterior.
+
+The added benefit of the Bayesian approach is that essentially as a by product of the calculation we can calculate the Posterior distributuon which tells us the probability of the model.
+
+While this is a great technique with a huge amount of benefits as outlines before it is still very slow and in fact requires even more model evaluations that then grid-search approach. After testing my own custom implementation of the algorithm I also tested a heavily optimised, multitreated package, \textsc{Emcee} [CITE] which has largely accelerated the fitting but not to an acceptable level.
+
 \paragraph{\textsc{MultiNest}}
-In order to fully explore the magnetar model parameter space I have turned to Bayesian inference.
+A recently developed technique for approximating the posterior distribution that shows a much higher efficiency is Nested Sampling [CITE]. Here, the likelyhood is evalued at a number of positions within the prior and then new points are updated based on the evidence of each point. This provides an almost 1000 fold improvement in the efficience of the Bayesian inference performed as compared to the MCMC approach making the algorithm fast enough for the production version of \textsc{SLAP}
 
--One of the most established techniques is MCMC
--Describe how it works
--Describe terms: prior, posterior, likelihood
--It is slowly
-
--Multinest is faster
--Multinest works on sampling small parts of the paramater space and jumping to a better place
+In this thesis, I use a Fortran based implementation of the algorithm, \textsc{MultiNest} [CITE]. This is one of the origal implementations of the algorithm. It is very robust and has previously been used in cosmological stufies making it the perfect package for us. On eof its greatest advantages teh posibility of running \textsc{MultiNest} in multi-modal mode where teh resulting fit produces not only the value of best fit but also all modes (or local minima) in the posterior. The output is compatible with the CosmoMC chains giving us a number of tools that can be used to show the posterior distribution and calculate its statistics.
 
 \subsubsection{pyMagnetar}
-text
+In order to simulate the light curves of SLSNe we also used SLAP in almost a reverse mode. As the majorority of pipelines and modern tools use Python it was beneficial to wrap the C++ code as a python package. This is done using Cython. [EXPAND]
 
 \section{Searching for Fast Transients}
 text
