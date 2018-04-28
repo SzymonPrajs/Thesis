@@ -161,35 +161,26 @@ The MLE fitting approach was implemented in \textsc{SLAP} using \textsc{MPFIT} [
 While \textsc{MPFIT} was very promising during our testing, we discovered that the quality of our fits strongly dependant on the choice of the initial parameter guesses. This is a common issue amongst all gradient descent algorithms informed only by the gradient at the measured point. This leads to them finding the local likelihood maximum, nearest to the initial parameter guess instead of the global value. This contradicted one of our strongest demands for the package, as \textsc{SLAP} would require manual modification for the initial parameter guesses, making it impossible to use with a large number of objects.
 
 \subsubsection{Bayesian Inference}
-While a number of global optimisation approches have been trialed, including parameter grid searches, we realised that the complexity and degeneracies of the magnetar model require a full Bayesian treatment in order to efficiently global minimum (or Maximum Likelihood) of the model. Bayesian Inference is a technique based on the concepts of Bayesian statistics with the goal of maximising the likelihood function defined as:
-[EQUATION]
-\noindent where the ... is the prior ... evidence
+While a number of global optimisation approches have been trialed, we realised that the complexity and degeneracies of the magnetar model require a full Bayesian treatment in order to efficiently find the global minimum (or Maximum Likelihood) of the model. Bayesian Inference is a technique based on the Bayesian view of probability, derived from Bayes' Theorem which states that for a set of model parameters $\textbf{\theta}$ and data $\textbf{D}$:
+\begin{equation}
+  P(\textbf{\theta}|\textbf{D}) = \frac{P(\textbf{\theta}) P(\textbf{D}|\textbf{\theta})}{P(\textbf{D})}
+\end{equation}
+\noindent where $P(\textbf{\theta}|\textbf{D})$ is the Posterior Probability, $P(\textbf{\theta})$ denotes the Prior Probability, $P(\textbf{D}|\textbf{\theta})$ defines the Likelihood and finally, $P(\textbf{D})$ is the model Evidence.
+
+The Posterior Probability describes the probability of the model $\textbf{\theta}$ given the observed data $\textbf{D}$. The biggest difference between the frequentist and bayesian view of probability is the inclusion of the Prior Probability which describes our believe in the model before we make the observations $\textbf{D}$. The Likelihood function here is analogous to the Likelihood function used in MLE. In fact, in the special case where the Prior distribution is uninformative (i.e flat), Bayesian Inference is equivalent to MLE and would yield the same result. The Evidence, $P(\textbf{D})$, acts as a normalisation constant and is only used in comparing distinct models and not in determining their "best-fit" parameters. $P(\textbf{D})$ is usually very difficult to computer as it requires the Likelihood function to be intergrated over the entire parameter space. The following two paragraphs describe the methods I used to compute the Posterior Probability distribution as well as estimate the model Evidence.
 
 \paragraph{MCMC}
-Markov Chain Monte Carlo is a very popular technique for estimating the posterior distribution. In this method a 'walker' moves though the posterior with a large probability of moving towards a higher likelihood value but a non-zero chance of moving towards a lower likelihood value. This is the most striking difference between the fitting performed using MPFIT and MCMC as it is not possible to sample the whole parameter space even if a local minimum has been found the fitter can still go and explore other parts of the posterior.
+Markov chain Monte Carlo (MCMC) is an extremely popular and widely used set of techniques for estimating the Posterior distribution. One of its simplest implementations, the Metropolis-Hasting algorithm, iteratively samples the Posterior distribution by drawing a new point from the normal distribution centered at the previous parameter and accepts it if the value has a higher probability. However, what differenciates the MCMC approach from MLE techniques is that a sample can also be accepted if it has a lower porbability that the previous point in the chain. The acceptence ratio here is defined as the ratio of the new probaility to that of the previous iteration. This allows the 'walker' to sample the entire Posterior Probability distribution provided that the chain a sufficiently long chain is computet.
 
-The added benefit of the Bayesian approach is that essentially as a by product of the calculation we can calculate the Posterior distributuon which tells us the probability of the model.
-
-While this is a great technique with a huge amount of benefits as outlines before it is still very slow and in fact requires even more model evaluations that then grid-search approach. After testing my own custom implementation of the algorithm I also tested a heavily optimised, multitreated package, \textsc{Emcee} [CITE] which has largely accelerated the fitting but not to an acceptable level.
+In this thesis I have tested both a custom MCMC implementation as well as the popular and heavily optimised, multitreated package, \textsc{Emcee} [CITE]. While both approaches can estimate the Posterior distriburions as well as the best-fit parameters with no external input or hyperparameter finetuning, their performance based on a need to evaluate millions of models to provide a full sampling of the Posterion distribution, was however very poor. A light curve fit would often require in excess of 8 CPU hours, despite the heavy optimisations of the model.
 
 \paragraph{\textsc{MultiNest}}
-A recently developed technique for approximating the posterior distribution that shows a much higher efficiency is Nested Sampling [CITE]. Here, the likelyhood is evalued at a number of positions within the prior and then new points are updated based on the evidence of each point. This provides an almost 1000 fold improvement in the efficience of the Bayesian inference performed as compared to the MCMC approach making the algorithm fast enough for the production version of \textsc{SLAP}
+A recently developed technique for approximating the Posterior Probability distribution, showing a great improvement in efficiency is Nested Sampling [CITE]. Here, the Posterior distribution is calculated as a by product of the model Evidence evaluation. While this is usually a very computationally expensite calculation, Nested Sampling used the properties and relationship between the likelihood and the prior reduces the multi-dimentional integral into a single dimention, which is much simple to evaluate. The algorithm populates the prior with a relatively small (I used 2000) 'live' points which calculate the Likelihood. The point with the lowest Likelihood is replaced by a new point, geometrically closer to the point of highest Likelihood. The new point is accepted if its Likelihood is higher than the point it originally replaced. Nested sampling provides a near 1000-fold efficientcy improvement over the common MCMC methods. This makes this approach fast and robust enough to satisfy the designrequirements of \textsc{SLAP}.
 
-In this thesis, I use a Fortran based implementation of the algorithm, \textsc{MultiNest} [CITE]. This is one of the origal implementations of the algorithm. It is very robust and has previously been used in cosmological stufies making it the perfect package for us. On eof its greatest advantages teh posibility of running \textsc{MultiNest} in multi-modal mode where teh resulting fit produces not only the value of best fit but also all modes (or local minima) in the posterior. The output is compatible with the CosmoMC chains giving us a number of tools that can be used to show the posterior distribution and calculate its statistics.
+In this thesis, I use \textsc{MultiNest} [CITE], a Fortran based implementation of the algorithm,  [CITE]. This is one of the origal implementations of the algorithm. It is very robust and has previously been used in cosmological stufies making it the perfect package for us. On eof its greatest advantages teh posibility of running \textsc{MultiNest} in multi-modal mode where teh resulting fit produces not only the value of best fit but also all modes (or local minima) in the posterior. The output is compatible with the CosmoMC chains giving us a number of tools that can be used to show the posterior distribution and calculate its statistics.
 
 \subsubsection{pyMagnetar}
 In order to simulate the light curves of SLSNe we also used \textsc{SLAP} in almost a reverse mode. As the majorority of pipelines and modern tools use Python it was beneficial to wrap the C++ code as a python package. This is done using Cython. [EXPAND]
-
-\section{Searching for Fast Transients}
-text
-\subsection{Blackbody per epoch}
-text
-\subsection{Blackbody and spline interpolation}
-text
-\subsection{Searching for Bumps of SLSNe}
-text
-\subsection{Searching for Rapidly Evolving Transients}
-text
 
 \section{Modeling CCSN}
 text
@@ -209,4 +200,6 @@ text
 \subsection{Choice of Kernels}
 text
 \subsection{Interpolating Light Curves}
+text
+\subsection{Blackbody per epoch}
 text
