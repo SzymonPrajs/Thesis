@@ -177,15 +177,19 @@ In this thesis I have tested both a custom MCMC implementation as well as the po
 \paragraph{\textsc{MultiNest}}
 A recently developed technique for approximating the Posterior Probability distribution, showing a great improvement in efficiency is Nested Sampling [CITE]. Here, the Posterior distribution is calculated as a by product of the model Evidence evaluation. While this is usually a very computationally expensite calculation, Nested Sampling used the properties and relationship between the likelihood and the prior reduces the multi-dimentional integral into a single dimention, which is much simple to evaluate. The algorithm populates the prior with a relatively small (I used 2000) 'live' points which calculate the Likelihood. The point with the lowest Likelihood is replaced by a new point, geometrically closer to the point of highest Likelihood. The new point is accepted if its Likelihood is higher than the point it originally replaced. Nested sampling provides a near 1000-fold efficientcy improvement over the common MCMC methods. This makes this approach fast and robust enough to satisfy the designrequirements of \textsc{SLAP}.
 
-In this thesis, I use \textsc{MultiNest} [CITE], a Fortran based implementation of the algorithm,  [CITE]. This is one of the origal implementations of the algorithm. It is very robust and has previously been used in cosmological stufies making it the perfect package for us. On eof its greatest advantages teh posibility of running \textsc{MultiNest} in multi-modal mode where teh resulting fit produces not only the value of best fit but also all modes (or local minima) in the posterior. The output is compatible with the CosmoMC chains giving us a number of tools that can be used to show the posterior distribution and calculate its statistics.
+In this thesis, I use \textsc{MultiNest} [CITE], a Fortran based implementation of the Nested Sampling algorithm. This is one of the most popular implementations of the technique. Its robustness and performance tested and demonstrated in a number of cosmological studies using the CosmoMC package [CITE], making it the perfect package for us. On of the greatest advantages of \textsc{MultiNest} is its operation in a multi-modal mode where the algorithm returns not only the Maximum-a-Posteriori (MAP) parameters but also positions of other, local, maxima. [SHOULD I PUT AN EXAMPLE CHAIN/CORNER PLOT HERE?]
 
 \subsubsection{pyMagnetar}
-In order to simulate the light curves of SLSNe we also used \textsc{SLAP} in almost a reverse mode. As the majorority of pipelines and modern tools use Python it was beneficial to wrap the C++ code as a python package. This is done using Cython. [EXPAND]
+While SLAP was very heavily used thoughout this thesis as a tool for modelling SLSNe, putting an emphesis on the optisations involving model fitting, I have also used it as a tool for building synthetic cataloges of SLSNe. While this was directly possible from within the C++ frontend, it is difficult and inefficient to interface the code with the majority of modern astronomy pipelines which are most commonly written in \textsc{Python}. Using the \textsc{Cython} language, I have created a higher level interface to the code named \textsc{pyMagnetar} [EXPAND OR DELETE].
 
 \section{Modeling CCSN}
-text
+- In recent years there is an increase in interest in modelling of CCSN.
+--- This is mainly driven by the attempts to use Machine Learning for classification of SN in large surveys  
+
 \subsection{CoCo}
-text
+- CoCo was written in C++ for performance reasons. We always
+
+
 \subsection{pyCoCo}
 text
 \subsection{SNIb/c SED UV Extensions}
