@@ -184,16 +184,57 @@ While SLAP was very heavily used thoughout this thesis as a tool for modelling S
 
 \section{Modeling CCSN}
 - In recent years there is an increase in interest in modelling of CCSN.
---- This is mainly driven by the attempts to use Machine Learning for classification of SN in large surveys  
+--- This is mainly driven by the attempts to use Machine Learning for classification of SN in large surveys such as LSST
+--- Previous templates were not very good as they only included a few objects
+--- The best templates are Kessler10 used to create a sample of CCSN for the SPCC which produced a sample of 2000 SN including SNIa anCCSN and is widely used as a training sample for SN Machine Learning projects, this is not enough. There were only 3 SNIb in the whole sample!
+
+- A lot of similarities here can be taken between this projects and SLAP as we are simulating SN in large numbers, the code performance is crucial
 
 \subsection{CoCo}
-- CoCo was written in C++ for performance reasons. We always
+- CoCo was written in C++ for performance reasons.
+- We start by fitting the light curves with a number of models to essentiallyy interpolate them
+--- A few models have been tried out but the Bazin one seems to be doing biggest
+----- This is a model used in a SNLS paper on identifying CCSNe
+--- Kessler10 and Karpenka12 are better fits but they are often unnecessarely complicated
 
+- We then mangle the spectra
+--- Explain what mangling is
+--- Explain the extensions that we need to do to the spectra to make it work
+--- Explain the cuts we need to do on the number of photometry epochs
+--- Talk about notbeing able to use all the photometry when the filters are close and overlap
+
+- We find the phase of the spectra by fitting it with a model of a single filter and then decide where everything is in respect to that
+--- This happens by moving the spectra to z=0 and then fitting it again with the light curve model
+--- This is done using a MPE fitter because we could not get the performance to be sufficient using the MultiNest setup even though it was very optinised.
+--- At this stage I also scale the spectra to make sure that they are absolute magnitude so that I can move them to any redshift and luminosity without knowing how bright they actually are.
+
+- Finally we can make a fake light curves.
+--- All we need is the date of the maximum light so we can arange that with the phase
+--- After that everything is done in the same was as in SpecPhase except that now the spectra get shifted to the desired redshift, galactic extinction is added for both the Milky way and the host galaxy and the spectra are shifted not only by the distance modulus but also an arbitrary number that will be assigned later at randon in the simulations.
 
 \subsection{pyCoCo}
-text
+- Same as in SLAP the interface to the code was very important
+--- This code will hopefully form part of a number of studies within LSST and DES and we needed it to be portable and easy to us
+
+- We again use Cython to extend the C++ code to Python
+--- On top of this a library of tools was build by Firth et al.
+----- This included cleaning the code and making sure that all the files exists etc. Basically the house keeping is done in a higher level Python code leaving C++ to only handle the heavy duty stuff.
+--- All interface is done in Jupyter Notebooks and is available on GitHub
+
 \subsection{SNIb/c SED UV Extensions}
-text
+- SNIb/c were the main focus of this study
+--- They are the most interesting type of SN to model as they are very rare and the previous samples such as Kesslet et al. have only a very few objects but because of the physics they are powered by radioactive decay of Nickel56 same as SNIa they may appear very somiliar to their brigher cussins, especially in the cases where the redshift is either unknown or incorrect.
+
+- Firth et al. collected a sample of 'good' SNIbc lightcurves and spectra
+--- These ranged from pre-SDSS era to modern objects collected by iPTF
+--- Most of these objects did not have a very big range in the SEDs
+----- Most lightcurves covered the BVR range
+--- This meant that the objects need to be extended in both IR and UV
+----- IR extension are needed to allow the low redshift objects to be simulated in the DES z-band and the LSST z and y bands.
+----- The UV extensions are the most important part and are crucial to be able to simulate the objects at high redshifts.
+
+- I first downloaded the data ... 
+
 \subsection{SNII with CoCo}
 text
 
