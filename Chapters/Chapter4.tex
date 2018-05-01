@@ -268,10 +268,22 @@ While SLAP was very heavily used thoughout this thesis as a tool for modelling S
 ----- This was done though testing more than anything else and
 
 - Extending IR and UV a bit
+--- Not all SN had spctra that would extend far enough to include at least 3 filters
+--- These were often just missing a few tens of hundred Angstrom
+--- In those cases I have used a linear function that would extrapolate them a bit just enough to provide a handle for the mangling.
 
 - Full extension using Bazin like shape
+--- After the spectra are mangled I use the bazin function to extend the IR part of the spectra.
+--- This was more important than in the SNIbc case as we used more old supernova that did not go as far red
+--- The Blackbody approach used in Firth et al. was not as good here as in the case of SNIb/c with a lot of objects failing to fit at all
+--- En exponential decay was a much better fit overall and approximately similar to the expected Blackbody
 
 - UV extension using BB
+--- Same procedure was first followed as for SNIb/c but I soon realised that this won't work as they tent to be hotter in the early phases and that really screws up with the offset
+----- The UVW1 filter is usually brighter for the first week before dissapearing almost entirely later on
+--- Instead, after mangling the spectum is fit with a black body.
+----- I have plotted this in the same way as I have plotted the UVW1 vs V band and it appears to be very similar in behavious
+----- Making a direct comparison is hard because none of the light curves and spectra that we use overlap.
 
 \section{Gaussian Processing}
 text
