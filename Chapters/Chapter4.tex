@@ -233,10 +233,45 @@ While SLAP was very heavily used thoughout this thesis as a tool for modelling S
 ----- IR extension are needed to allow the low redshift objects to be simulated in the DES z-band and the LSST z and y bands.
 ----- The UV extensions are the most important part and are crucial to be able to simulate the objects at high redshifts.
 
-- I first downloaded the data ... 
+- Using the OSC I have downloaded all the UV data for all SN in our samples
+--- Most of them did not have a sufficient coverage and
+----- Those that covered only the shock breakout I have not included as we need the main part f the light curve.
+----- This leaves us only with the following SN [MAKE A LIST]
+--- To compare the UVW1 filter to V band I Gaussian Process all the light curves and plotted the ratio between them
+----- This shows a bit of a scatter but on average the offset is roughly linear and is equivalent to 2.5mag which is 10x difference in the luminocity
+----- To make a fake light curve I simply take the V band for each supernova and scale it by the offset calling it UVW1.
+----- This is not great but it is the best we can do
+
+- We have a light curve, now we need to extend the spectrum ...
+--- With the lack of any other information about the spectra I fit the spectrum with a blackbody model same as Firth et al for the IR extensions
+--- The extended spectrum is then mangled to match the extended spectrum to the observed photometry.
+--- As a result we get the following spectrum at high redshift + photometry plot.
 
 \subsection{SNII with CoCo}
-text
+- While SNIb/c were worked on as part of other projects I was part of, SNII were not one of the concerns
+- I had to do it all myself from sratch as part of thesis only.
+--- I downloaded all the data from OSC including the spectra and the light curves.
+--- I used Firth et al. toolkits to clean the data and avarage the nightly spectra
+--- I cleared the spectra manually:
+----- Everything that had a coverage of less than 2 complete filters had to go
+----- Everything that didn't cover V band had to go
+----- Afterwards I have plotted all the specta for each object using Firth el al. toolkits
+
+- Once the spectra are cleaned I could decide which objects I am keeping
+--- I have fit all the light Curves
+--- I then looked at how long they are and the quality of the fit
+----- if the fit wasn't good I tried a more complex model
+--- Once all the models were fit I plotted the position of the spectra over the light curves
+----- This was needed to decide which light curves I can keep
+----- I recuired 2 spectra before minima and two after maxima at the very least.
+----- This cut was not very precise though as if there were point just around the maximum we could not reliably extrapolate the spectum further so I needed some point to extent far enough to allow for the generated light curves to replicate the real Once
+----- This was done though testing more than anything else and
+
+- Extending IR and UV a bit
+
+- Full extension using Bazin like shape
+
+- UV extension using BB
 
 \section{Gaussian Processing}
 text
