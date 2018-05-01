@@ -183,14 +183,18 @@ In this thesis, I use \textsc{MultiNest} [CITE], a Fortran based implementation 
 While SLAP was very heavily used thoughout this thesis as a tool for modelling SLSNe, putting an emphesis on the optisations involving model fitting, I have also used it as a tool for building synthetic cataloges of SLSNe. While this was directly possible from within the C++ frontend, it is difficult and inefficient to interface the code with the majority of modern astronomy pipelines which are most commonly written in \textsc{Python}. Using the \textsc{Cython} language, I have created a higher level interface to the code named \textsc{pyMagnetar} [EXPAND OR DELETE].
 
 \section{Modeling CCSN}
-- In recent years there is an increase in interest in modelling of CCSN.
+In recent years there is an increase in interest in modelling of CCSN. This very heavily driven by the arrival of very large surveys such as LSST.
+
 --- This is mainly driven by the attempts to use Machine Learning for classification of SN in large surveys such as LSST
 --- Previous templates were not very good as they only included a few objects
 --- The best templates are Kessler10 used to create a sample of CCSN for the SPCC which produced a sample of 2000 SN including SNIa anCCSN and is widely used as a training sample for SN Machine Learning projects, this is not enough. There were only 3 SNIb in the whole sample!
 
-- A lot of similarities here can be taken between this projects and SLAP as we are simulating SN in large numbers, the code performance is crucial
+In many way the package I have developed for simulating CCSN is very similar to \textsc{SLAP}, used for modelling SLSN. The performance aspect was again a critical part of the code design as we aim to similate millions of light curves in LSST and DES. This has lead to our decision to again follow the principle of developing the core of the package in \textsc{C++} and using \textsc{Cython} to create a \textsc{Python} front-end interface. From here on I will refer to the backend software as \textsc{CoCo} and the \textsc{Python} front-end as \text{pyCoCo}.
+
+In this section I will describe the main design choices behind both CoCo and pyCoCo, discuss the models used in modelling the light curves of CCSN as well as those undertaken to create their spectroscopic templates. I then describe the steps taken to extend out spectroscopic templates into both the UV and IR parts of the SED not observed by the spectra.
 
 \subsection{CoCo}
+
 - CoCo was written in C++ for performance reasons.
 - We start by fitting the light curves with a number of models to essentiallyy interpolate them
 --- A few models have been tried out but the Bazin one seems to be doing biggest
