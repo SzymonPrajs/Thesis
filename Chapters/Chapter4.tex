@@ -189,17 +189,37 @@ In recent years there is an increase in interest in modelling of CCSN. This very
 --- Previous templates were not very good as they only included a few objects
 --- The best templates are Kessler10 used to create a sample of CCSN for the SPCC which produced a sample of 2000 SN including SNIa anCCSN and is widely used as a training sample for SN Machine Learning projects, this is not enough. There were only 3 SNIb in the whole sample!
 
-In many way the package I have developed for simulating CCSN is very similar to \textsc{SLAP}, used for modelling SLSN. The performance aspect was again a critical part of the code design as we aim to similate millions of light curves in LSST and DES. This has lead to our decision to again follow the principle of developing the core of the package in \textsc{C++} and using \textsc{Cython} to create a \textsc{Python} front-end interface. From here on I will refer to the backend software as \textsc{CoCo} and the \textsc{Python} front-end as \text{pyCoCo}.
+- Things that we needed to change to make better templates
+--- Use all the latest data
+--- Extent the spectra
+--- Don't interpolate the Toyah
 
 In this section I will describe the main design choices behind both CoCo and pyCoCo, discuss the models used in modelling the light curves of CCSN as well as those undertaken to create their spectroscopic templates. I then describe the steps taken to extend out spectroscopic templates into both the UV and IR parts of the SED not observed by the spectra.
 
-\subsection{CoCo}
+\subsection{\textsc{CoCo}}
+In many way the package I have developed for simulating CCSN is very similar to \textsc{SLAP}, used for modelling SLSN. Its performance was, again, a critical part of the code design as we aim to similate millions of light curves in LSST and DES. This has lead to our decision to again follow the principle of developing the core of the package in \textsc{C++} and using \textsc{Cython} to create a \textsc{Python} front-end interface. I will follow our internal naming for the packages and refer to the backend packages, developed in \textsc{C++}, as \textsc{CoCo} and the \textsc{Python} front-end wrapper as \text{pyCoCo}.
 
-- CoCo was written in C++ for performance reasons.
-- We start by fitting the light curves with a number of models to essentiallyy interpolate them
---- A few models have been tried out but the Bazin one seems to be doing biggest
------ This is a model used in a SNLS paper on identifying CCSNe
---- Kessler10 and Karpenka12 are better fits but they are often unnecessarely complicated
+\textsc{CoCo} consists of four core packages, \textsc{LCFit} used to fit the SN light curves with a number of models, \textsc{SpecFit} used to match the observed spectra to the photometry, \textsc{SpecPhase} which assigns the phase to each spectrum and corrects them common redshift and finally \textsc{LCSim} which simulated SN based on the outputs of the previous three packages. In the following subsections I will describe this packages as well as the models, decisions and assumptions we made that led to the final product.
+
+\subsubsection{\textsc{LCFit}}
+The process of creating the templates for CCSN by fitting the observed light curves with an analytical model able of describing their morphology as well as reliably extrapolating them. We need this in order to, in later steps, flux calibrate the observed spectra to match the photometry. The interpolation allows us to calibrate the spectra on epoch where there were no photometric observations. While a non-parametric aproach could be used such as Spline Interpolation or Gaussian Processes we needed the required the ability to extrapolate the light curve fits beyond the range of the observed point in cases where the spectroscopic follow either exceeded the photometric follow-up or, in even rarer cases, predeeded it. We have trialed and implemented a number of models thoughout this projects.
+
+\paragraph{Bazin09}
+The simplest, yet the most versatile, model for describing CCSN can be found in \citet{Bazin2009} (Bazin09 from here on). This simple model is a combination of a logistic function which describes the rise of the SN and an exponential decay which matches the decline of the light curve (\eref{eq:Bazin09}). This model was succesfully used to photometrically identify CCSN-like events in the SNLS. While the simplicity of the model means that it is not able to fully describe the behavious of all SNIb/c, it provides a good match to those dominated by the radioactive decay of Nickel56 as their power source. [WRITE MORE]
+
+\begin{equation}
+\label{eq:Bazin09}
+  F(t) = A \frac{e^{-\frac{t - t_{max}}{\Tau_{fall}}}} {1 + e^{\frac{t - t_{max}}{\Tau_{rise}}}}
+\end{equation}
+
+\paragraph{Kessler10}
+A more complex version of the model used in \citet{Bazin2009} was used in \citet{Kessler2010} (Kessler10) as a base for their work on creating a photometric sample of CCSN for the use in the Supernova Photometric Classification Challege. While the model parameterises SN using an underlying exponential decay and rise, it additionally provides the ability for the model to account for a secondary maximum often observed by SNIa. While their motivation behind this modification was mainly the modelling of SNIa and CCSN using the same model, the additional feature behaves differently in these distinct classes of SN. As CCSN rarely show signs of a seconadary maximum, teh extra digrees of freedom often improve the early fits around the early rise time phases of the SN where there are often other mechanism (shock breakout, Hydrogen recombination ect.) That inject additional sources of energy into the light curve.
+
+One of the drowback of this model, and the reason why we have not found it to improve the quality of our fitting is the common timescale behind the decay of the primary and secondary maxima. This is likely motivated by the physics of SNIa, but does not correspond to the observed behavious in CCSN where the power sources are not physically linked and therefore act on different dynamic timescales.
+
+\paragraph{Karpenka12}
+\citet{Karpenka2012} (Karpenka12) further improves on the model found in Kessler10 by decoupling the timescale of the primary and secondary maxima. [CONTINUE]
+
 
 - We then mangle the spectra
 --- Explain what mangling is
