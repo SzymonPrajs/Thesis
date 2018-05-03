@@ -217,10 +217,18 @@ A more complex version of the model used in \citet{Bazin2009} was used in \citet
 
 One of the drowback of this model, and the reason why we have not found it to improve the quality of our fitting is the common timescale behind the decay of the primary and secondary maxima. This is likely motivated by the physics of SNIa, but does not correspond to the observed behavious in CCSN where the power sources are not physically linked and therefore act on different dynamic timescales.
 
+\begin{equation}
+  F(t) = A \times [1 + a_1(t - {t_0}) + a_2(t - {t_0})] \times \frac{e^{-\frac{t - t_{0}}{\Tau_{fall}}}} {1 + e^{\frac{t - t_{max}}{\Tau_{rise}}}}
+\end{equation}
+
 \paragraph{Karpenka12}
-\citet{Karpenka2012} (Karpenka12) further improves on the model found in Kessler10 by decoupling the timescale of the primary and secondary maxima. [CONTINUE]
+\citet{Karpenka2012} (Karpenka12) further improves on the model found in Kessler10 by decoupling the timescale of the primary and secondary maxima. While the downside of this is an even higher number of free parameters, the improvements in the fitting quality is considerable for some SNIb/c with a more complex morphology.
 
+\begin{equation}
+  F(t) = A \times [1 + B(t - {t_1})] \times \frac{e^{-\frac{t - t_{0}}{\Tau_{fall}}}} {1 + e^{\frac{t - t_{max}}{\Tau_{rise}}}}
+\end{equation}
 
+\subsubsection{Mangling Spectra}
 - We then mangle the spectra
 --- Explain what mangling is
 --- Explain the extensions that we need to do to the spectra to make it work
