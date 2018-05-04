@@ -203,8 +203,12 @@ In many way the package I have developed for simulating CCSN is very similar to 
 
 \textsc{CoCo} consists of four core packages, \textsc{LCFit} used to fit the SN light curves with a number of models, \textsc{SpecFit} used to match the observed spectra to the photometry, \textsc{SpecPhase} which assigns the phase to each spectrum and corrects them common redshift and finally \textsc{LCSim} which simulated SN based on the outputs of the previous three packages. In the following subsections I will describe this packages as well as the models, decisions and assumptions we made that led to the final product.
 
-\subsubsection{\textsc{LCFit}}
-The process of creating the templates for CCSN by fitting the observed light curves with an analytical model able of describing their morphology as well as reliably extrapolating them. We need this in order to, in later steps, flux calibrate the observed spectra to match the photometry. The interpolation allows us to calibrate the spectra on epoch where there were no photometric observations. While a non-parametric aproach could be used such as Spline Interpolation or Gaussian Processes we needed the required the ability to extrapolate the light curve fits beyond the range of the observed point in cases where the spectroscopic follow either exceeded the photometric follow-up or, in even rarer cases, predeeded it. We have trialed and implemented a number of models thoughout this projects.
+\subsubsection{\textsc{LCFit}} \label{sec:LCFit}
+The process of creating the templates for CCSN by fitting the observed light curves with an analytical model able of describing their morphology as well as reliably extrapolating them. We need this in order to, in later steps, flux calibrate the observed spectra to match the photometry. The interpolation allows us to calibrate the spectra on epoch where there were no photometric observations. While a non-parametric aproach could be used such as Spline Interpolation or Gaussian Processes we needed the required the ability to extrapolate the light curve fits beyond the range of the observed point in cases where the spectroscopic follow either exceeded the photometric follow-up or, in even rarer cases, predeeded it.
+
+At this phase of the procedure, the models are fitted using the \textsc{MultiNest} fitting routine. We followed a similarly route to \textsc{SLAP} giving us the state of the art fitting accuracy and reliability. The photometry is fitten individual for each band ... [WRITE MORE HERE ABOUT THE OUTPUTS]
+
+We have trialed and implemented a number of models thoughout this projects.
 
 \paragraph{Bazin09}
 The simplest, yet the most versatile, model for describing CCSN can be found in \citet{Bazin2009} (Bazin09 from here on). This simple model is a combination of a logistic function which describes the rise of the SN and an exponential decay which matches the decline of the light curve (\eref{eq:Bazin09}). This model was succesfully used to photometrically identify CCSN-like events in the SNLS. While the simplicity of the model means that it is not able to fully describe the behavious of all SNIb/c, it provides a good match to those dominated by the radioactive decay of Nickel56 as their power source. [WRITE MORE]
@@ -224,23 +228,33 @@ One of the drawback of this model, and the reason why we have not found it to im
 \end{equation}
 
 \paragraph{Karpenka12}
-\citet{Karpenka2012} (Karpenka12) further improves on the model found in Kessler10 by decoupling the timescale of the primary and secondary maxima. While the downside of this is an even higher number of free parameters, the improvements in the fitting quality is considerable for some SNIb/c with a more complex morphology.
+\citet{Karpenka2012} (Karpenka12) further improves on the model found in Kessler10 by decoupling the onset of the primary and secondary peak. While retaining the same number of free parameters as Kessler10, the improvements in the fitting quality is considerable for the SNIb/c with a more complex morphology.
 
 \begin{equation}
-  F(t) = A \times [1 + B(t - {t_1})] \times \frac{e^{-\frac{t - t_{0}}{\tau_{fall}}}} {1 + e^{\frac{t - t_{max}}{\tau_{rise}}}}
+  F(t) = A \times [1 + B(t - {t_1})^2] \times \frac{e^{-\frac{t - t_{0}}{\tau_{fall}}}} {1 + e^{\frac{t - t_{max}}{\tau_{rise}}}}
 \end{equation}
 
-\subsubsection{Mangling Spectra}
-- We then mangle the spectra
---- Explain what mangling is
---- Explain the extensions that we need to do to the spectra to make it work
---- Explain the cuts we need to do on the number of photometry epochs
---- Talk about not being able to use all the photometry when the filters are close and overlap
+This model was successfully used in a project involving SN photometric classification using basic Neural Networks \citep{Karpenka2012}, demonstrating that it is a suitable model for our use.
 
-- We find the phase of the spectra by fitting it with a model of a single filter and then decide where everything is in respect to that
---- This happens by moving the spectra to z=0 and then fitting it again with the light curve model
+\subsubsection{\textsc{SpecFit}}
+One of the most crucial parts of our procedure for generating the CCSN templates is matching the observed spectra flux to the photometry. It is commonly assumed that due to the complexity of flux calibrating spectra they are only correct to within 10\% accuracy. While in most studies this accuracy is often not an issue as other factors contribute larger errors, in the case of the DES and LSST SN simulations this accuracy is significantly below the precision of the photometry. The process used to correct the flux calibration, refered to as spectral 'mangling', adjusts the spectrum such that the synthetic flux measured by passing the spectrum though filter response functions matches the observed photometry. I have excapsulated this in the \textsc{SpecFit} package.
+
+In order to adjus the spectrum we multiply is my a spline function designed in such a way to smoothly move the flux in different parts of the spectrum. A spline is a smooth, continuus function defined using a number of control points defined using a position and amplitude. The wavelength at which we place the control points matches that of the central wavelength of the filters while the amplitude is determined using minimisation. We again use \textsc{MultiNest} for the fitting here. The choice of the end points of the spline are important and were places at 100\AA outside of the wavelength range of the mangled spectrum. The ampltude of these points is not subject to the fitting, instead they are determined by extrapolating two most extreme points on either side of the spectrum using a straight line.
+
+While developing the mangling code we have discovered several issues which neeeded to be addressed in order to produce reliable results. One of the major issues arose due to control points of the splines laying to close to each other, causing the interpolated function to behave eratically and far from the expected. We have traced this to using filters which are derivatives of each other, such as Johnson's R and SDSS-\textit{r}, that only vary in central wavelength by $\sim$50\AA. This should not be a problem if the control points were already calibrated but due to the nature of the fitting process, the points were fit independantly meaning causing huge, non-linear degeneracies that not even \textsc{MultiNest} could cope with. We were therefore force to remove the overlapping spectra from the mangling. As we were mainly focusing on preserving a maximum amount of information in the blue parts of the spectrum we have retained the band with a lower central wavelenth.
+
+Furthermore, we have found that the mangling is not reliable when less than three bands are used to set the control points. This is caused by the end points being extrapolated using the previous two points. Spectra which only overlapped with two distinct bands could therefore not be used as the control points used for the extrapolation were the same for the upper and lower bands, causing degeneracies that were difficult to handle with even suphisticated fitting routines. As a final product, \textsc{SpecFit} saves the flux calibrated spectrum in the ASCII format, scaled to the observed photometry and is not redshift (or otherwise) corrected.
+
+\subsubsection{\textsc{SpecPhase}}
+A major difference between my approach to fitting the SLSNe and CCSN if the treatment of their explosion date (or start date). In the case of SLSNe we have a well defined explosion date, set as a free parameter in our model, prior to which we can assume the flux to be null. In the case of the models in \sref{sec:LCFit}, their rise is not abrupt but following a logistic function which only tends towards zero at negative infinity making it impossible to define the explosion date without adding extra assumptions.
+
+We must therefore define the time at which we insert the light curve in our simualations using a different system. In this case, we use the time of the maximum light of the SN as the point of reference, measured in the rest-frame V-band. The phase is determined in the following way; the spectra are shifted to z=0 (rest-frame). Using the distance moduli for the host galaxies obrained from the NED archives [CITE] I scale the flux for each spectrum to give their apparent flux at 10pc (e.g the absolute magnitude). I then synthesis a V-band light curce from the spectral time series and fit it using the same approach as in \sref{sec:LCFit}. The peak is determined numerically as the maximum of the light curve fit. As a final result the package returns a list containing the phase relative to peak for each spectrum found for the object as well as a spectral time series normalised to z=0 and absolute magnitude of the SN.
+
+\subsubsection{\textsc{LCSim}}
+Following the previous steps we can obtain a set of spectral templetes that can now be used to generate a new sample of synthetic SN light curves. 
+
+
 --- This is done using a MPE fitter because we could not get the performance to be sufficient using the MultiNest setup even though it was very optinised.
---- At this stage I also scale the spectra to make sure that they are absolute magnitude so that I can move them to any redshift and luminosity without knowing how bright they actually are.
 
 - Finally we can make a fake light curves.
 --- All we need is the date of the maximum light so we can arange that with the phase
