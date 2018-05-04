@@ -155,7 +155,7 @@ In the early testing phases of the project we have explored fitting the model us
   \chi^2 = \sum\limits_i^N \left( \frac{O_i - m_i}{\sigma_i} \right)^2
 \end{equation}
 
-\paragraph{MPFIT}
+\paragraph{MPFIT} \label{sec:MPFIT}
 The MLE fitting approach was implemented in \textsc{SLAP} using \textsc{MPFIT} [CITE], based on \textsc{Fortran}'s well known package \textsc{LMFIT} [CITE]. \textsc{MPFIT} is an implementation of the Levenberg–Marquardt non-linear LS fitting algorithm. This is a popular and highly optimised example of the class of iterative, gradiant descent algorithms that work by traversing the likelihood function, moving in the direction of lower $\chi^2$ (i.e. higher likelihood). The algoriths use a gradient (either analytical or numerical) of the likelihood function to inform the direction and size of a jump taken at each iteration. In the Levenberg–Marquardt algorith a damping coefficient is introduced decreasing the number of steps taken by the algorithm before converging on a minimum.
 
 While \textsc{MPFIT} was very promising during our testing, we discovered that the quality of our fits strongly dependant on the choice of the initial parameter guesses. This is a common issue amongst all gradient descent algorithms informed only by the gradient at the measured point. This leads to them finding the local likelihood maximum, nearest to the initial parameter guess instead of the global value. This contradicted one of our strongest demands for the package, as \textsc{SLAP} would require manual modification for the initial parameter guesses, making it impossible to use with a large number of objects.
@@ -251,14 +251,12 @@ A major difference between my approach to fitting the SLSNe and CCSN if the trea
 We must therefore define the time at which we insert the light curve in our simualations using a different system. In this case, we use the time of the maximum light of the SN as the point of reference, measured in the rest-frame V-band. The phase is determined in the following way; the spectra are shifted to z=0 (rest-frame). Using the distance moduli for the host galaxies obrained from the NED archives [CITE] I scale the flux for each spectrum to give their apparent flux at 10pc (e.g the absolute magnitude). I then synthesis a V-band light curce from the spectral time series and fit it using the same approach as in \sref{sec:LCFit}. The peak is determined numerically as the maximum of the light curve fit. As a final result the package returns a list containing the phase relative to peak for each spectrum found for the object as well as a spectral time series normalised to z=0 and absolute magnitude of the SN.
 
 \subsubsection{\textsc{LCSim}}
-Following the previous steps we can obtain a set of spectral templetes that can now be used to generate a new sample of synthetic SN light curves. 
+Following the previous steps we can obtain a set of spectral templetes that can now be used to generate a new sample of synthetic SN light curves. This step is based on the same concept as \textsc{SpecPhase} used to determine the phases of the template spectra. The template spectra are shifted to the required redshift and corrected for the distance modulus. Synthetic photometry is them generated from them for the requested bands before a light curve model is fit to them allowing us to generate simulated photometry points at any phase.
 
+-galactic extinction is added for both the Milky way and the host galaxy and the spectra are shifted not only by the distance modulus but also an arbitrary number that will be assigned later at randon in the simulations.
 
---- This is done using a MPE fitter because we could not get the performance to be sufficient using the MultiNest setup even though it was very optinised.
+This is the only part of the whole package that does not rely on \textsc{MultiNest} as the tool minimisations. While it would have been optimal from the accuracy and robustness point of view to use it, we have found that its performance was insufficient in order to allow us to generate millions of CCSN. After discovering issues with numerical instabilities in \textsc{MPFIT} (used in \sref{sec:MPFIT}) when computing the derivative of our residual function, we have switched to \textsc{Minuit2}. This modern package has been designed by CERN and relies on a much more modern and robust library of numerical libraries which helps it to handle numerical uncertainties better than its \textsc{Fortran} derived predecesors while still utilising the efficiency of the gradient descend family of algoriths.
 
-- Finally we can make a fake light curves.
---- All we need is the date of the maximum light so we can arange that with the phase
---- After that everything is done in the same was as in SpecPhase except that now the spectra get shifted to the desired redshift, galactic extinction is added for both the Milky way and the host galaxy and the spectra are shifted not only by the distance modulus but also an arbitrary number that will be assigned later at randon in the simulations.
 
 \subsection{pyCoCo}
 - Same as in SLAP the interface to the code was very important
