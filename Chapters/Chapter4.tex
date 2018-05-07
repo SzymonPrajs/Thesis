@@ -263,11 +263,9 @@ As the package was always intended for a wider audiance, not limited purely to t
 \subsection{SNIb/c SED UV Extensions}
 SNIb/c were the main focus of \textsc{CoCo}. Their simulations are some of the most desired amonsts various classes of SN as they are the main source of contamination in the samples of SNIa due to the similarities in the physics that powers their luminosity. SNIb/c are, however, relatively rare in comparison to SNIa or even hydrogen-rich SN.   Firth et al. (in prep) collected a sample of 'good' SNIb/c lightcurves and their respective spectra from the literature. 29 SN were part of the initial sample before extra quality cuts (described in [CITE SECTION]) were appplied. The final sample included 17 SN that were used to generate the templates. This sample is larger than that created by \citet{Kessler2010} and included SN from the pre-SDSS era to latest objects observed by iPTF.
 
-Most of these objects did not have a very big range in the SEDs
------ Most lightcurves covered the BVR range
---- This meant that the objects need to be extended in both IR and UV
------ IR extension are needed to allow the low redshift objects to be simulated in the DES z-band and the LSST z and y bands.
------ The UV extensions are the most important part and are crucial to be able to simulate the objects at high redshifts.
+As could be extected in such a diverse sample of objects, a large number of the spectra do not have a very good wavelength coverage, often not exceeding the range of 4000-7000\AA. On a contrary, the light curves for almost all SN in the sample include the minimum of BVR bands with a number of obsects including both redder and bluer bands. It was therefore possible to use the extra light curve information as a base upon which we can extend the spectroscopic templates of the SNe. Red extensions were required in order to simulate the low redshift SN in the reddest bands (e.g. DES \textit{z}-band). These extensions were performed as part of Firth et al. (in prep) and used the black body equation to extend the spectra up to 10500\AA. The flux was then corrected to the photometry by again passing the time series though \textsc{SpecFit}.
+
+In contrast with the red extensions, in the UV extensions we could not rely on the observed photometry. As we aim to simulate SNIb/c to redshifts of up to z=0.8 in the DES deep-fields, we require the templates to extend to $\sim$2000\AA in order to overlap with the observer-frame \textit{g}-band at that redshift. The required region of the light curve most closely matches that of the Swift-UVOT UVW1 filter [CITE]. The Swift satellite launched in late 2004 as a rapid response Gamma-Ray Burst (GRB) detector. Since then it has observed a number of SNIb/c, giving us a glimpse at their UV light curves. ...
 
 - Using the OSC I have downloaded all the UV data for all SN in our samples
 --- Most of them did not have a sufficient coverage and
