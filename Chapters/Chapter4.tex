@@ -236,6 +236,9 @@ One of the drawback of this model, and the reason why we have not found it to im
 
 This model was successfully used in a project involving SN photometric classification using basic Neural Networks \citep{Karpenka2012}, demonstrating that it is a suitable model for our use.
 
+\paragraph{Firth18}
+Finally the last model considered by us in this study is based on the Karpenka12 model but adds an aditional, completely independant 
+
 \subsubsection{\textsc{SpecFit}}
 One of the most crucial parts of our procedure for generating the CCSN templates is matching the observed spectra flux to the photometry. It is commonly assumed that due to the complexity of flux calibrating spectra they are only correct to within 10\% accuracy. While in most studies this accuracy is often not an issue as other factors contribute larger errors, in the case of the DES and LSST SN simulations this accuracy is significantly below the precision of the photometry. The process used to correct the flux calibration, refered to as spectral 'mangling', adjusts the spectrum such that the synthetic flux measured by passing the spectrum though filter response functions matches the observed photometry. I have excapsulated this in the \textsc{SpecFit} package.
 
@@ -278,15 +281,13 @@ Using the data collected by the Open Supernova Catalogue (OSC), I have created a
 Using the extended light curve coverage we can extend the spectra in the same way as we did with in the case of IR. As there is little information about the spectral evoution of CCSN, I follow the same technique as Firth et al. (in prep) by using a black body to extend the SEDs. We then again pass the extended spectrum though \textsc{SpecFit}, matching the spectrum to the syntheric UVW1 filter.
 
 \subsection{SNII with CoCo}
-- While SNIb/c were worked on as part of other projects I was part of, SNII were not one of the concerns
-- I had to do it all myself from sratch as part of thesis only.
---- I downloaded all the data from OSC including the spectra and the light curves.
---- I used Firth et al. toolkits to clean the data and avarage the nightly spectra
---- I cleared the spectra manually:
------ Everything that had a coverage of less than 2 complete filters had to go
------ Everything that didn't cover V band had to go
------ Afterwards I have plotted all the specta for each object using Firth el al. toolkits
+The aim of Firth et al. (in prep) was predominanty to generate a sample of SNIb/c in order to study and classify the samples of SNIa for cosmological studies. While we knew that our approach should be able to tackle SNII in a similar analysis, this was never attempted as part of Firth et al. (in prep) and instead was performed only as part of this thesis. In large, I have followed the same methodology excluding several steps that were optimised to better suit hydrogen rich SNe or improved based on the lessons we have learned in Firth et al. (in prep). This also gives me an opportunity to describe the steps taken to produce the sample of spectral templates in a project similar, but performed independantly, to Firth et al. (in prep).
 
+All data in this project was obtained using the Open Supernova Catalogue repository. The data was collected for objects matching the hydrogen-rich SN classes including: SNII, SNIIP, SNIIL, SNIIn, SNIIb and SN1987A-like. Only objects with a light curve covering the pre-peak and post-peak data as well as a relatively dense spectral coverage covering the same regions were included in the sample. I have used the toolkits developed in Firth et al. (in prep) to nightly average any spectra that were taken in rapid succession. I have also removed the regions of each spectra where no supernova light was detected or the noise was too large to confidently recover the underlying morphology of the SED.
+
+In the next step, I have removed all spectra with a coverage shorter than two photometric bands. I have also removed the spectra that did not overlap with the V-band. Following this clearing stage, I have removed all objects that no longer satisfied the coverage required for our analysis. This has retained a sample of 11 objects that can be used as templates.
+
+The light curves for all remaining objects were then fit with all models described in \sref{sec:LCFit}. While, due to the increased number of degrees of freedom, the more complex models such as Karpenka12 and Kessler10
 - Once the spectra are cleaned I could decide which objects I am keeping
 --- I have fit all the light Curves
 --- I then looked at how long they are and the quality of the fit
