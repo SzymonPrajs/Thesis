@@ -265,21 +265,17 @@ SNIb/c were the main focus of \textsc{CoCo}. Their simulations are some of the m
 
 As could be extected in such a diverse sample of objects, a large number of the spectra do not have a very good wavelength coverage, often not exceeding the range of 4000-7000\AA. On a contrary, the light curves for almost all SN in the sample include the minimum of BVR bands with a number of obsects including both redder and bluer bands. It was therefore possible to use the extra light curve information as a base upon which we can extend the spectroscopic templates of the SNe. Red extensions were required in order to simulate the low redshift SN in the reddest bands (e.g. DES \textit{z}-band). These extensions were performed as part of Firth et al. (in prep) and used the black body equation to extend the spectra up to 10500\AA. The flux was then corrected to the photometry by again passing the time series though \textsc{SpecFit}.
 
-In contrast with the red extensions, in the UV extensions we could not rely on the observed photometry. As we aim to simulate SNIb/c to redshifts of up to z=0.8 in the DES deep-fields, we require the templates to extend to $\sim$2000\AA in order to overlap with the observer-frame \textit{g}-band at that redshift. The required region of the light curve most closely matches that of the Swift-UVOT UVW1 filter [CITE]. The Swift satellite launched in late 2004 as a rapid response Gamma-Ray Burst (GRB) detector. Since then it has observed a number of SNIb/c, giving us a glimpse at their UV light curves. ...
+In contrast with the red extensions, in the UV extensions we could not rely on the observed photometry. As we aim to simulate SNIb/c to redshifts of up to z$\approx$0.8 in the DES deep-fields, we require the templates to extend to $\sim$2000\AA in order to overlap with the observer-frame \textit{g}-band at that redshift. The required region of the light curve most closely matches that of the Swift-UVOT UVW1 filter [CITE]. The Swift satellite launched in late 2004 as a rapid response Gamma-Ray Burst (GRB) detector. Since then, it has observed a number of SNIb/c, giving us a glimpse at their UV light curves. The data, however, is not present for all objects rising a need to approximate the behaviour for the objects with no UV data.
 
-- Using the OSC I have downloaded all the UV data for all SN in our samples
---- Most of them did not have a sufficient coverage and
------ Those that covered only the shock breakout I have not included as we need the main part f the light curve.
------ This leaves us only with the following SN [MAKE A LIST]
---- To compare the UVW1 filter to V band I Gaussian Process all the light curves and plotted the ratio between them
------ This shows a bit of a scatter but on average the offset is roughly linear and is equivalent to 2.5mag which is 10x difference in the luminocity
------ To make a fake light curve I simply take the V band for each supernova and scale it by the offset calling it UVW1.
------ This is not great but it is the best we can do
+Using the data collected by the Open Supernova Catalogue (OSC), I have created a subsample of our template SNe with available UV data. Amonst these, a large number of obsects only included the very earliest epochs likely triggered as a follow-up based x-ray detections for the object. A number of objects later received an extended follow-up campaign that gave us the light curve information past maximum light. For this objects, I have performed light curve interpolatin using Gaussian Processes (\cref{sec:GP}). This allowed me to compare the UVW1 light curve to the V-band, as shown in figure \fref{fig:VvsUVW1}. This showed that during the main phase of the SN (excluding the shock breakout), the UWV1 and V band light curves followed a very similar evolution. The UVW1 showed to be 2.5 magnitude dimmer (10 times dimmer in flux). I therefore use this property to create artificial UVW1 light curves by offsetting the V-band light curve by 2.5 magnitudes in flux and retaining its overall evolution.
 
-- We have a light curve, now we need to extend the spectrum ...
---- With the lack of any other information about the spectra I fit the spectrum with a blackbody model same as Firth et al for the IR extensions
---- The extended spectrum is then mangled to match the extended spectrum to the observed photometry.
---- As a result we get the following spectrum at high redshift + photometry plot.
+\begin{figure}
+  \includegraphics{/path/to/figure}
+  \caption{The ratio between the UVW1 and V band filters plotted for a number of stipped envelope SNe.}
+  \label{fig:VvsUVW1}
+\end{figure}
+
+Using the extended light curve coverage we can extend the spectra in the same way as we did with in the case of IR. As there is little information about the spectral evoution of CCSN, I follow the same technique as Firth et al. (in prep) by using a black body to extend the SEDs. We then again pass the extended spectrum though \textsc{SpecFit}, matching the spectrum to the syntheric UVW1 filter.
 
 \subsection{SNII with CoCo}
 - While SNIb/c were worked on as part of other projects I was part of, SNII were not one of the concerns
@@ -319,7 +315,7 @@ In contrast with the red extensions, in the UV extensions we could not rely on t
 ----- I have plotted this in the same way as I have plotted the UVW1 vs V band and it appears to be very similar in behavious
 ----- Making a direct comparison is hard because none of the light curves and spectra that we use overlap.
 
-\section{Gaussian Processing}
+\section{Gaussian Processing} \label{sec:GP}
 text
 \subsection{Theory}
 text
