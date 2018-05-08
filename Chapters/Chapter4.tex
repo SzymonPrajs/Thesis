@@ -237,7 +237,11 @@ One of the drawback of this model, and the reason why we have not found it to im
 This model was successfully used in a project involving SN photometric classification using basic Neural Networks \citep{Karpenka2012}, demonstrating that it is a suitable model for our use.
 
 \paragraph{Firth18}
-Finally the last model considered by us in this study is based on the Karpenka12 model but adds an aditional, completely independant 
+Finally the last model considered by us in this study is based on the Karpenka12 model but adds an aditional, independant of other properties peak which helps to model the shock breakout observed in some supernova
+
+[WRITE THE EQUATION HERE]
+
+This model has too many free parameters and can only be used on light curves with a lot of data point and those that have a very well defined shock breakout otherwise the extra degrees of freedom simply act as an aditional degeneracy in the modelling.
 
 \subsubsection{\textsc{SpecFit}}
 One of the most crucial parts of our procedure for generating the CCSN templates is matching the observed spectra flux to the photometry. It is commonly assumed that due to the complexity of flux calibrating spectra they are only correct to within 10\% accuracy. While in most studies this accuracy is often not an issue as other factors contribute larger errors, in the case of the DES and LSST SN simulations this accuracy is significantly below the precision of the photometry. The process used to correct the flux calibration, refered to as spectral 'mangling', adjusts the spectrum such that the synthetic flux measured by passing the spectrum though filter response functions matches the observed photometry. I have excapsulated this in the \textsc{SpecFit} package.
@@ -287,16 +291,9 @@ All data in this project was obtained using the Open Supernova Catalogue reposit
 
 In the next step, I have removed all spectra with a coverage shorter than two photometric bands. I have also removed the spectra that did not overlap with the V-band. Following this clearing stage, I have removed all objects that no longer satisfied the coverage required for our analysis. This has retained a sample of 11 objects that can be used as templates.
 
-The light curves for all remaining objects were then fit with all models described in \sref{sec:LCFit}. While, due to the increased number of degrees of freedom, the more complex models such as Karpenka12 and Kessler10
-- Once the spectra are cleaned I could decide which objects I am keeping
---- I have fit all the light Curves
---- I then looked at how long they are and the quality of the fit
------ if the fit wasn't good I tried a more complex model
---- Once all the models were fit I plotted the position of the spectra over the light curves
------ This was needed to decide which light curves I can keep
------ I recuired 2 spectra before minima and two after maxima at the very least.
------ This cut was not very precise though as if there were point just around the maximum we could not reliably extrapolate the spectum further so I needed some point to extent far enough to allow for the generated light curves to replicate the real Once
------ This was done though testing more than anything else and
+The light curves for all remaining objects were then fit with all models described in \sref{sec:LCFit}. While, due to the increased number of degrees of freedom, the more complex models such as Karpenka12 and Firth18 are able to fit the data more precisely, they are unable to constrain light curves will a small number of epochs. Unfortunately, in the process of simulating the light curves we fit the models to photometry synthesised from the spectra which is sparse for most objects in our sample. Instead of using the more complex models, I fit all SN in the sample with the most basic Bazin model. Despite its lack of complexity it has produced a good fit all light curves in our sample. I must note here that this was not an expected result. SNIIP are associated with a light curve platoe phase which could not be accounted in this model. However, none of the objects that observe this behaviour had sufficient spectral coverage to pass the previous quality cut. This is not an optimal scenario as a whole class of objects are, seemingly, excluded from the sample. The platoe is, however, more prominant in the redder bands and therefore does not appear as a strong feature in the rest-frame blue bands that form the majority of the observed SED at high redshift where we will be simulating the majority of our SNe.
+
+One mayor difference between the work undergone on SNII and SNIb/c in Firth et al. (in prep) is the treatment of the spectra before \textsc{SpecFit} is used to apply the mangling step. In Firth et al. (in prep) we excluded all spectra that did not have a sufficient wavelength coverage to successfully undergo mangling. We found that objects with a coverage shorter than three filters were not able to constrain the correcting spline function. In many cases the spectra were only short of few hundred Angstrom, most often in the red part of the spectrum. Instead of removing such objects, I linearly extrapolated the final 100\AA of the observed spectra to the wavelength required to complete the third filter coverage. This helped me to retain a much larger number of spectra, in some cases saving the object from being removed from the sample under my quality cuts.
 
 - Extending IR and UV a bit
 --- Not all SN had spctra that would extend far enough to include at least 3 filters
