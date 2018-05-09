@@ -306,11 +306,17 @@ The method for the UV extensions also had to be heavily modified. The UV data fo
 \end{figure}
 
 \section{Gaussian Processing} \label{sec:GP}
-text
+One of the biggest obsticles, and perhapse the main reason, why SN classification is still often performed without the use of ML is the irregular nature of the observations. As a broad simplification, ML techniques are based onrecognising repeating sequences or patterns giving rise to the need for uniformally sampled data as to not bias the result towards any preferential explosion time.
+
+A number of machine learning approaches used physically motivated features extracted from light curve model fits [CITE LOCHNER] fit the SALT2 SNIa model to a number of SN classes and used these properties to classify the supernovae. We were reluctant to follow a similar path as we feel that this apprach was only successfut because it has focused on the classification of SNe with a similar morphology, motivated by the physics of their central engines. SLSN and other peculiar transients would likely not be able to give a good quality fit to the SALT model resulting in a very biased classication method that would be stongly prone to overfitting.
+
+Our aim was to develop a method for interplating SN light curves, and subsequently extracting their features, independant of any physically motivated model. There is a number of approaches that I have considered in this thesis. This included models similar to these used in \sref{sec:LCFit}, polynomial equations and splines before settling on Gaussian Processes as the best approach for this project.
+
 \subsection{Theory}
-text
+Gaussian process regression, also often refered to as Krigging is a process of interpolating the data ...
+
 \subsection{Choice of Kernels}
-text
+I have tried a number of kernels. The choice of the correct kernel was not one that I could do using a rigurous statistical approach. By design the way that GPs work is that they return a model with a Chi2 of 1 so we cannot use that as a metric, instead I have visually inspected a number of kernels and decided on one that has 
 \subsection{Interpolating Light Curves}
 text
 \subsection{Blackbody per epoch}
