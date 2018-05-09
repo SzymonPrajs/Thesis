@@ -295,23 +295,15 @@ The light curves for all remaining objects were then fit with all models describ
 
 One mayor difference between the work undergone on SNII and SNIb/c in Firth et al. (in prep) is the treatment of the spectra before \textsc{SpecFit} is used to apply the mangling step. In Firth et al. (in prep) we excluded all spectra that did not have a sufficient wavelength coverage to successfully undergo mangling. We found that objects with a coverage shorter than three filters were not able to constrain the correcting spline function. In many cases the spectra were only short of few hundred Angstrom, most often in the red part of the spectrum. Instead of removing such objects, I linearly extrapolated the final 100\AA of the observed spectra to the wavelength required to complete the third filter coverage. This helped me to retain a much larger number of spectra, in some cases saving the object from being removed from the sample under my quality cuts.
 
-- Extending IR and UV a bit
---- Not all SN had spctra that would extend far enough to include at least 3 filters
---- These were often just missing a few tens of hundred Angstrom
---- In those cases I have used a linear function that would extrapolate them a bit just enough to provide a handle for the mangling.
+Another major difference between the projects is the approach to extending the light curves in both the IR and UV. In the IR, I have found that a number of objects, pre-mangling would fail to correctly fit a black body function. At this stage such objects were removed from the Firth et al. (in prep) sample. To retain the maximum number of objects I have instead fit the objects using an exponential decline function. As a much simpler numerical form, this function correctly fit all objects. It is not necessary for this function to physically correspond to the expected SED as the mangling step corrects this later.
 
-- Full extension using Bazin like shape
---- After the spectra are mangled I use the bazin function to extend the IR part of the spectra.
---- This was more important than in the SNIbc case as we used more old supernova that did not go as far red
---- The Blackbody approach used in Firth et al. was not as good here as in the case of SNIb/c with a lot of objects failing to fit at all
---- En exponential decay was a much better fit overall and approximately similar to the expected Blackbody
+The method for the UV extensions also had to be heavily modified. The UV data for the limited number of SNII shows that these objects begin as very UV bright but rapidly evolve in colour, quickly loosing all of their UV flux. This meant that I could not use the same methodology of creating an atrificial UVW1 band by scaling any of the optical bands. The number of objects with a sufficient UV coverage was also insufficient to to try to obtain a relationship between the UV and optical evolution of the SNe. As an approximate solution, I have extended the spectra of SNII by fitting their SEDs with a black body model and did not follow it with a mangling step. In figure \fref{fig:SNIIbbExtension} I compare the evolution of the modified spectra to an example light curve of SNXXXXX, showing that this is a good, first-order approximation.
 
-- UV extension using BB
---- Same procedure was first followed as for SNIb/c but I soon realised that this won't work as they tent to be hotter in the early phases and that really screws up with the offset
------ The UVW1 filter is usually brighter for the first week before dissapearing almost entirely later on
---- Instead, after mangling the spectum is fit with a black body.
------ I have plotted this in the same way as I have plotted the UVW1 vs V band and it appears to be very similar in behavious
------ Making a direct comparison is hard because none of the light curves and spectra that we use overlap.
+\begin{figure}
+  \includegraphics{/path/to/figure}
+  \caption{}
+  \label{fig:SNIIbbExtension}
+\end{figure}
 
 \section{Gaussian Processing} \label{sec:GP}
 text
