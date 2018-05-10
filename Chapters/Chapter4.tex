@@ -313,11 +313,11 @@ A number of machine learning approaches used physically motivated features extra
 Our aim was to develop a method for interplating SN light curves, and subsequently extracting their features, independant of any physically motivated model. There is a number of approaches that I have considered in this thesis. This included models similar to these used in \sref{sec:LCFit}, polynomial equations and splines before settling on Gaussian Processes as the best approach for this project.
 
 \subsection{Theory}
-Gaussian Process (GP) is defined as a set of normally distributed random variables where any subset of them can be drawn from a joint Multivariate Gaussian Distribution, defined entirely using a mean function $\bar{f}(\mb{x})$ and covariance function $k(\mb{x},\mb{x}')$ \\. The process of interpolating data using GPs is refered to as Gaussian Process Regression (GPR) or Krigging.
+Gaussian Process (GP) is defined as a set of normally distributed random variables where any subset of them can be drawn from a joint Multivariate Gaussian Distribution, defined entirely using a mean function $m = m(x)$ and covariance function, K = k(x, x'). The process of interpolating data using GPs is refered to as Gaussian Process Regression (GPR) or Krigging.
 
 \begin{equation}
 \begin{pmatrix} y \\
-y_* \end{pmatrix} \sim N\Biggl(0,\begin{pmatrix} K & K'_*\\
+y_* \end{pmatrix} \sim N\Biggl(m,\begin{pmatrix} K & K'_*\\
  K_* & K_{**} \end{pmatrix}\Biggr),
 \end{equation}
 where $K$ is the covariance matrix for the labeled points, $K_*$ is the covariance vector between the new point and the labeled points, and $K_{**}$ is the inherent measurement noise.
