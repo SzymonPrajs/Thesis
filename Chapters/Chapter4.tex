@@ -313,18 +313,20 @@ A number of machine learning approaches used physically motivated features extra
 Our aim was to develop a method for interplating SN light curves, and subsequently extracting their features, independant of any physically motivated model. There is a number of approaches that I have considered in this thesis. This included models similar to these used in \sref{sec:LCFit}, polynomial equations and splines before settling on Gaussian Processes as the best approach for this project.
 
 \subsection{Theory}
-Gaussian Process (GP) is defined as a set of normally distributed random variables, (x, y), where any subset of them can be drawn from a joint Multivariate Gaussian Distribution, defined using a mean function, $m = m(x)$, and covariance function, K = k(x, x'). The process of interpolating data using GPs is refered to as Gaussian Process Regression (GPR) or Krigging.
-
+Gaussian Process (GP) is defined as a set of normally distributed random variables, (x, y), where any subset of them can be drawn from a joint Multivariate Gaussian Distribution, defined using a mean function, $\bar{y}$, and covariance function, K = k(x, x'). The process of interpolating data using GPs is referred to as Gaussian Process Regression (GPR) or Krigging.
 
 \begin{equation}
-\begin{pmatrix} y \\
-y_* \end{pmatrix} \sim N\Biggl(m,\begin{pmatrix} K & K'_*\\
- K_* & K_{**} \end{pmatrix}\Biggr),
+\begin{bmatrix} y \\ y_* \end{bmatrix} \sim \mathcal{N}\Biggl(\begin{bmatrix} \bar{y} \\ \bar{y_*} \end{bmatrix},\begin{bmatrix} K & K'_*\\
+ K_* & K_{**} \end{bmatrix}\Biggr),
 \end{equation}
 where $K$ is the covariance matrix for the labeled points, $K_*$ is the covariance vector between the new point and the labeled points, and $K_{**}$ is the inherent measurement noise.
 Then,
 \begin{equation}
-p(y_*|y) \sim N(K_*K^{-1}y,K_{**}-K_*K^{-1}K'_*).
+p(y_*|y) \sim \mathcal{N}(\bar{y_*},cov(K_*)).
+\end{equation}
+
+\begin{equation}
+p(y_*|y) \sim \mathcal{N}(K_*K^{-1}y,K_{**}-K_*K^{-1}K'_*).
 \end{equation}
 
  also often refered to as Krigging, is a technique based on the principle that the observed data points are normally distribution, connected using a common kernel, K, and drown from a Multivariate Gaussian Distribution with a mean matching that of the data.
