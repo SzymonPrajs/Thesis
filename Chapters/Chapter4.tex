@@ -277,7 +277,7 @@ In contrast with the red extensions, in the UV extensions we could not rely on t
 Using the data collected by the Open Supernova Catalogue (OSC), I have created a subsample of our template SNe with available UV data. Amonst these, a large number of obsects only included the very earliest epochs likely triggered as a follow-up based x-ray detections for the object. A number of objects later received an extended follow-up campaign that gave us the light curve information past maximum light. For this objects, I have performed light curve interpolatin using Gaussian Processes (\cref{sec:GP}). This allowed me to compare the UVW1 light curve to the V-band, as shown in figure \fref{fig:VvsUVW1}. This showed that during the main phase of the SN (excluding the shock breakout), the UWV1 and V band light curves followed a very similar evolution. The UVW1 showed to be 2.5 magnitude dimmer (10 times dimmer in flux). I therefore use this property to create artificial UVW1 light curves by offsetting the V-band light curve by 2.5 magnitudes in flux and retaining its overall evolution.
 
 \begin{figure}
-  \includegraphics{/path/to/figure}
+  % \includegraphics{/path/to/figure}
   \caption{The ratio between the UVW1 and V band filters plotted for a number of stipped envelope SNe.}
   \label{fig:VvsUVW1}
 \end{figure}
@@ -300,7 +300,7 @@ Another major difference between the projects is the approach to extending the l
 The method for the UV extensions also had to be heavily modified. The UV data for the limited number of SNII shows that these objects begin as very UV bright but rapidly evolve in colour, quickly loosing all of their UV flux. This meant that I could not use the same methodology of creating an atrificial UVW1 band by scaling any of the optical bands. The number of objects with a sufficient UV coverage was also insufficient to to try to obtain a relationship between the UV and optical evolution of the SNe. As an approximate solution, I have extended the spectra of SNII by fitting their SEDs with a black body model and did not follow it with a mangling step. In figure \fref{fig:SNIIbbExtension} I compare the evolution of the modified spectra to an example light curve of SNXXXXX, showing that this is a good, first-order approximation.
 
 \begin{figure}
-  \includegraphics{/path/to/figure}
+  % \includegraphics{/path/to/figure}
   \caption{}
   \label{fig:SNIIbbExtension}
 \end{figure}
@@ -313,10 +313,25 @@ A number of machine learning approaches used physically motivated features extra
 Our aim was to develop a method for interplating SN light curves, and subsequently extracting their features, independant of any physically motivated model. There is a number of approaches that I have considered in this thesis. This included models similar to these used in \sref{sec:LCFit}, polynomial equations and splines before settling on Gaussian Processes as the best approach for this project.
 
 \subsection{Theory}
-Gaussian process regression, also often refered to as Krigging is a process of interpolating the data ...
+Gaussian Process (GP) is defined as a set of normally distributed random variables where any subset of them can be drawn from a joint Multivariate Gaussian Distribution, defined entirely using a mean function $\bar{f}(\mb{x})$ and covariance function $k(\mb{x},\mb{x}')$ \\. The process of interpolating data using GPs is refered to as Gaussian Process Regression (GPR) or Krigging.
+
+\begin{equation}
+\begin{pmatrix} y \\
+y_* \end{pmatrix} \sim N\Biggl(0,\begin{pmatrix} K & K'_*\\
+ K_* & K_{**} \end{pmatrix}\Biggr),
+\end{equation}
+where $K$ is the covariance matrix for the labeled points, $K_*$ is the covariance vector between the new point and the labeled points, and $K_{**}$ is the inherent measurement noise.
+Then,
+\begin{equation}
+p(y_*|y) \sim N(K_*K^{-1}y,K_{**}-K_*K^{-1}K'_*).
+\end{equation}
+
+ also often refered to as Krigging, is a technique based on the principle that the observed data points are normally distribution, connected using a common kernel, K, and drown from a Multivariate Gaussian Distribution with a mean matching that of the data.
+
+
 
 \subsection{Choice of Kernels}
-I have tried a number of kernels. The choice of the correct kernel was not one that I could do using a rigurous statistical approach. By design the way that GPs work is that they return a model with a Chi2 of 1 so we cannot use that as a metric, instead I have visually inspected a number of kernels and decided on one that has 
+I have tried a number of kernels. The choice of the correct kernel was not one that I could do using a rigurous statistical approach. By design the way that GPs work is that they return a model with a Chi2 of 1 so we cannot use that as a metric, instead I have visually inspected a number of kernels and decided on one that has
 \subsection{Interpolating Light Curves}
 text
 \subsection{Blackbody per epoch}
