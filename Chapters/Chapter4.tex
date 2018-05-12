@@ -331,11 +331,13 @@ y_* &\sim K_*K^{-1}y \\
 var(K_*) &\sim K_{**}-K_*K^{-1}K'_*
 \end{align}
 
-The above equations can be solved using linear algebra and do any optimisation technques making this a very rapid computation for small data sets containing no more than several thousand data points. For larger datasets taking the inverse of a matrix becomes very computationally expensive using even highly optimised algorithms such as Cholesky Decomposition. A log likelihood, $log(\mathcal{L})$ of the Gaussian Process can be computed using \eref{eg:logGP} (as derived in [CITE BOOK]) and can be used to inform the choice for the hyperparameters that define the relationship between the data points in the covariance matrix K.
+The above equations can be solved using linear algebra and do any optimisation technques making this a very rapid computation for small data sets containing no more than several thousand data points. For larger datasets taking the inverse of a matrix becomes very computationally expensive using even highly optimised algorithms such as Cholesky Decomposition. A log likelihood, $log(\mathcal{L})$ of the Gaussian Process can be computed using \eref{eg:logGP} (as derived in [CITE BOOK]) and can be used to inform the choice for the hyperparameters, $\theta$, that define the relationship between the data points in the covariance matrix K.
 
 \begin{equation} \label{eg:logGP}
 \mathrm{log(\mathcal{L})} = - \log p(y|y_*, K(\theta)) = \frac{1}{2} y^{\mathrm{T}} K(\theta)^{-1} y + \frac{1}{2} \log |K(\theta)| + \frac{N}{2} \log 2 \pi
 \end{equation}
+
+The hyper parameters have been optimised using standard python fitting techniques found in \textsc{NumPy} [CITE], based on the \textsc{FORTRAN}'s \textsc{LMFIT} package discussed in \sref{sec:MPFIT}. ... I have tested other fitters and they were a bit better but we did not have sufficient computational power to solve so many light curves using more powerful techniques.
 
 \subsection{Covariance Kernels}
 The true magic of Gaussian Processes lays in the choice of the coverience kernel. This is responsible for drawing the connection between the points and decoding on the region and degree to which one data point has on another. I have trialed a number of kernels in icluding the popular Squared Exponential (SE), Mate\'rn\,$3/2$ (M32) and Mate\'rn\,$5/2$ (M52).
@@ -351,7 +353,7 @@ The squared exponential kernel is the most commonly used kernel in GPR. It is de
 \end{equation}
 \noindent where the value $\sigma_n$ only controls the value of self-correlation, e.g the correlated noise on the measurements.
 
-
+This kernel represents a simplified form of the Normal distribution, giving rise to its popularity as many naturally occuring events do follow this distribution [CITE]. This is not a correct assumptions for most types of SNe with an exception of peculiar transients. [CITE Miika] which does use Gaussians to model RATs. From modelling of SNe using both radioactive decay and the magnetar model we know that the dependance of the light curve evolution on time is linearly exponential.  
 
 \subsection{Interpolating Light Curves}
 text
