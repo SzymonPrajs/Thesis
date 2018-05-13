@@ -356,7 +356,7 @@ The squared exponential kernel is the most commonly used kernel in GPR. It is de
 This kernel represents a simplified form of the Normal distribution, giving rise to its popularity as many naturally occuring events do follow this distribution [CITE]. This is not a correct assumptions for most types of SNe with an exception of peculiar transients. [CITE Miika] which does use Gaussians to model RATs. From modelling of SNe using both radioactive decay and the magnetar model we know that the dependance of the light curve evolution on time is linearly exponential.
 
 \subsubsection{Mate\'rn Kernels}
-The Mate\'rn family of kernels is a better suited kernel choice for modelling SNe. It has a linearly exponential dependance on the covariance between data points controlled by a time scale factor, l. We use the first and second order Mate\'rn kernels denoted by $\mu = 3/2$ (\eref{eq:M32}) and $\mu = 5/2$ (\eref{eq:M52}) where the Mate\'rn kernel becomes equivalent to the Squared Exponential kernel at $\mu -> \infty$.
+The Mate\'rn family of kernels is a better suited kernel choice for modelling SNe. It has a linearly exponential dependance on the covariance between data points controlled by a time scale factor, l. We use the first and second order Mate\'rn kernels denoted by $\mu = 3/2$ (\eref{eq:M32}) and $\mu = 5/2$ (\eref{eq:M52}) where the Mate\'rn kernel becomes equivalent to the Squared Exponential kernel at $\mu -> \infty$. Accidentally, these kernels have a similar form to the Bazin09, Kessler10 and Karpenka12.
 
 \begin{equation} \label{eq:M32}
   k_{\textrm{M32}}(x,x') = \left(1 + \frac{\sqrt{3}(x - x')}{l}\right) \exp \left( \frac{\sqrt{3}(x - x')}{l} \right)
@@ -366,6 +366,10 @@ The Mate\'rn family of kernels is a better suited kernel choice for modelling SN
   k_{\textrm{M52}}(x,x') = \left(1 + \frac{\sqrt{5}(x - x')}{l} + \frac{\sqrt{5}(x - x')^2}{2l^2}\right) \exp \left( \frac{\sqrt{5}(x - x')}{l} \right)
 \end{equation}
 
+\subsubsection{Choosing the Kernel}
+The choice of kernel that is suitable for the use with a wide range of transients is not a straight forward one. While from the point of view of number of SNe alone one could consider the Mate\'rn kernels to be the most suitable choice, this is not imediatelly obvious when considering AGN and other objects with a quasi-periodic light curve evolution. For such objects we would usually combine one of the above mentioned kernels with a periodic kernel to account for the long term variability. However, this would be incompatible with the light curves of SNe.
+
+I have used a small sample of SNe, drawn from all classes simulated in this thesis as well as a sample of AGNs. As expected the Mate\'rn kernel results in a much higher log($\mathcal{L}$) when applied to SNe than the SE kernel. Here while both M52 and M32 kernels were a significant improvement over the SE kernel, the best fitting of these kernels was object dependant. For the case of AGN, the SE filter and the Mate\'rn kernels have all performed differently depending on the object and the level of variability in the light curve. However, as in the majority of cases the M32 filter, which would be the optimal choice for SNe, behaved very well. I have therefore chosen this kernel as the basis for all light curve interpolation performed as part of this survey. We have demonstrated the use of the Mate\'rn 3/2 kernel in \citet{Inserra2018} where we used GPs to interpolate light curves of SLSNe in order to robustly determine their time of maximum light along with other observable properties.
 
 \subsection{Interpolating Light Curves}
 text
