@@ -372,7 +372,9 @@ I have applied GPR to a small sample of SNe, randomly drawn from all subclasses 
 \subsection{Interpolating Light Curves}
 There is a number of packaged and libraries that implement the GP algorith outlined in the previous sections. In this thesis I have predominantly used the \textsc{George} package written in a combination of \textsc{Python} and \textsc{C++} \citep{Ambikasaran2014}. This package implements a number of kernels, including those described in \sref{sec:GPkernels}. Using techniques similar to those applied by me for both \textsc{CoCo} and \textsc{SLAP}, \textsc{George} optimises the linear algebra solvers by implementing it in \textsc{C++} while producing the interface in \textsc{Python}. This produces a fantastic performance, interpolating a typical DES light curve in $\sim$10ms.
 
-To optimise the hyperparameters I have used a \textsc{Python} based pipeline utilising standard fitting routines found in the \textsc{SciPy} library \citep{Oliphant2007}, based on the \textsc{FORTRAN}'s \textsc{LMFIT} package discussed in \sref{sec:MPFIT}. \textsc{MultiNest} or other more advanced fitting routines have not been used to perform the optimisations as the performance penelty incured by their use would render the  A more advanced fitting routine
+To optimise the hyperparameters I have used a \textsc{Python} based pipeline utilising standard fitting routines found in the \textsc{SciPy} library \citep{Oliphant2007}, based on the \textsc{FORTRAN}'s \textsc{LMFIT} package discussed in \sref{sec:MPFIT}. \textsc{MultiNest} or other more advanced fitting routines have not been used to perform the optimisations as the performance penelty incured by their use would render the process computationally too expensive.
+
+This approach was applied in this thesis to all artificially generated light curves as well as the observed DES data. Furthermore, this pipeline was used in \citet{Inserra2018} in order to extract observable properties from a sample of SLSN light curves. It will also be used as a base for the light curve modelling in Angus et al. (in prep) describing the spectroscopic sample of SLSNe in DES.
 
 \subsection{Blackbody per epoch}
-text
+One particular use of the GP interpolated light curves is the use of them
