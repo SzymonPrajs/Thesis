@@ -306,14 +306,14 @@ The method for the UV extensions also had to be heavily modified. The UV data fo
 \end{figure}
 
 \section{Gaussian Processing} \label{sec:GP}
-One of the biggest obsticles, and perhapse the main reason, why SN classification is still often performed without the use of ML is the irregular nature of the observations. As a broad simplification, ML techniques are based onrecognising repeating sequences or patterns giving rise to the need for uniformally sampled data as to not bias the result towards any preferential explosion time.
+One of the biggest obsticles, and perhapse the main reason, behind SN classification still relying on non-ML approaches is the irregular nature of the observing cadances. As a broad simplification, ML techniques rely on recognising repeating sequences or patterns. In order to recognise paterns independently of their position along the time series they must be uniformally sampled. Without this any classifiers would bias the result towards a preferential explosion time. Moreover, even in cases where we would be willing to accept this drawback, there is a limited number of algorithms that are designed to work with unevenly sampled data.
 
-A number of machine learning approaches used physically motivated features extracted from light curve model fits [CITE LOCHNER] fit the SALT2 SNIa model to a number of SN classes and used these properties to classify the supernovae. We were reluctant to follow a similar path as we feel that this apprach was only successfut because it has focused on the classification of SNe with a similar morphology, motivated by the physics of their central engines. SLSN and other peculiar transients would likely not be able to give a good quality fit to the SALT model resulting in a very biased classication method that would be stongly prone to overfitting.
+Previous SN studies using ML approaches used physically motivated features extracted from light curve model fits. In the most complete study of this kind to date, [CITE LOCHNER] fit the SALT2 SNIa model to a number of SN classes and used these properties to classify the SNe. I am reluctant to follow a similar path as I feel that this apprach was only successfut because it focused on the classification of SNe with a similar morphology (SNIa and SNIb/c), motivated by the physics of their central engines. The SALT2 model is incapable of reproducing the light curves of SLSN and other peculiar transients. This would result in a classication very strongly dependant on the quality of the light curves e.i. SALT2 could produce a SNIa-like light curve if fit to very low S/N data based on its priors alone.
 
-Our aim was to develop a method for interplating SN light curves, and subsequently extracting their features, independant of any physically motivated model. There is a number of approaches that I have considered in this thesis. This included models similar to these used in \sref{sec:LCFit}, polynomial equations and splines before settling on Gaussian Processes as the best approach for this project.
+My aim in this section it to develop a method for interpolating SN light curves using a non-parametric approach in order to enable the classication of SN using ML models that do not rely on explicit feature extraction. Amongst a number of approaches that I have considered in this thesis, Gaussian Processes introduces an extremely powerful and robust way of modelling the light curves.
 
 \subsection{Theory}
-Gaussian Process (GP) is defined as a set of normally distributed random variables, (x, y), where any subset of them can be drawn from a joint Multivariate Gaussian Distribution, $\mathcal{N}$, defined using the mean of the data, $\bar{y}$, and a covariance function, $K = k(x, x')$. The process of interpolating data using GPs is referred to as Gaussian Process Regression (GPR) or Krigging.
+Gaussian Process (GP) \citep{Rasmussen2006} is defined as a set of normally distributed random variables, (x, y), where any subset of them can be drawn from a joint Multivariate Gaussian Distribution, $\mathcal{N}$, defined using the mean of the data, $\bar{y}$, and a covariance function, $K = k(x, x'|\mathbf{\theta})$. The process of interpolating data using GPs is referred to as Gaussian Process Regression (GPR) or Kriging \citep{krige1951,Rasmussen2006,Ebden2015}.
 
 From the definition of a Gaussian Process we know that the observed data points, $y$, and the points we wish to evaluate, $y_*$, are drown from the same Multivariate Gaussian Distribution giving us the relationship between the data points:
 \begin{equation}
@@ -321,7 +321,7 @@ From the definition of a Gaussian Process we know that the observed data points,
  K_* & K_{**} \end{bmatrix}\Biggr),
 \end{equation}
 
-\noindent where $K$ is the covariance matrix for the observed data, $K_*$ is the covariance between the new and the observed data, and $K_{**}$ is covarience between the new points. It can be shown [CITE arXiv:1505.02965v2] that the probability distribution of data points $y_*$ gived the observed data $y$ is:
+\noindent where $K$ is the covariance matrix for the observed data, $K_*$ is the covariance between the new and the observed data, and $K_{**}$ is covarience between the new points. It can be shown \citep{Rasmussen2006} that the probability distribution of data points $y_*$, given the observed data, $y$ is:
 \begin{equation}
 p(y_*|y) \sim \mathcal{N}(\bar{y_*},var(K_*)).
 \end{equation}
@@ -331,32 +331,30 @@ y_* &\sim K_*K^{-1}y \\
 var(K_*) &\sim K_{**}-K_*K^{-1}K'_*
 \end{align}
 
-The above equations can be solved using linear algebra and do any optimisation technques making this a very rapid computation for small data sets containing no more than several thousand data points. For larger datasets taking the inverse of a matrix becomes very computationally expensive using even highly optimised algorithms such as Cholesky Decomposition. A log likelihood, $log(\mathcal{L})$ of the Gaussian Process can be computed using \eref{eg:logGP} (as derived in [CITE BOOK]) and can be used to inform the choice for the hyperparameters, $\theta$, that define the relationship between the data points in the covariance matrix K.
+The above equations can be solved using linear algebra and do require any optimisation technques allowing for a very rapid computation for small data sets containing no more than several thousand data points. For larger datasets taking the inverse of the covarience matrix, $K^{-1}$, becomes very computationally expensive using even highly optimised algorithms such as the Cholesky Decomposition. A log likelihood, $log(\mathcal{L})$ of the Gaussian Process can be computed using \eref{eg:logGP} (as derived in \citet{Rasmussen2006}) and can be used to inform the choice for the hyperparameters, $\mathbf{\theta}$, that define the relationship between the data points in the covariance matrix $K$.
 
 \begin{equation} \label{eg:logGP}
-\mathrm{log(\mathcal{L})} = - \log p(y|y_*, K(\theta)) = \frac{1}{2} y^{\mathrm{T}} K(\theta)^{-1} y + \frac{1}{2} \log |K(\theta)| + \frac{N}{2} \log 2 \pi
+\mathrm{log(\mathcal{L})} = - \log p(y|y_*, K(\mathbf{\theta})) = \frac{1}{2} y^{\mathrm{T}} K(\mathbf{\theta})^{-1} y + \frac{1}{2} \log |K(\mathbf{\theta})| + \frac{N}{2} \log 2 \pi
 \end{equation}
 
-The hyper parameters have been optimised using standard python fitting techniques found in \textsc{NumPy} [CITE], based on the \textsc{FORTRAN}'s \textsc{LMFIT} package discussed in \sref{sec:MPFIT}. ... I have tested other fitters and they were a bit better but we did not have sufficient computational power to solve so many light curves using more powerful techniques.
-
-\subsection{Covariance Kernels}
-The true magic of Gaussian Processes lays in the choice of the coverience kernel. This is responsible for drawing the connection between the points and decoding on the region and degree to which one data point has on another. I have trialed a number of kernels in icluding the popular Squared Exponential (SE), Mate\'rn\,$3/2$ (M32) and Mate\'rn\,$5/2$ (M52).
+\subsection{Covariance Kernels} \label{sec:GPkernels}
+The true power behind GPs lays in the choice of the coverience function. The kernels are responsible for defining the connection between the points as well as deciding on the span and degree to which any data point can inform the position of another. I have trialed a number of kernels popularly used in when interpolating one dimentional time-series data \citep{Rasmussen2006}. This included the Squared Exponential (SE), Mate\'rn\,$3/2$ (M32) and Mate\'rn\,$5/2$ (M52) kernels.
 
 \subsubsection{Squared Exponential Kernel}
-The squared exponential kernel is the most commonly used kernel in GPR. It is defined as:
+The squared exponential kernel is the most commonly used covarience function in GPR. It is defined as:
 \begin{equation}
   k_{\textrm{SE}}(x,x') = \sigma^2 \exp\left(-\frac{(x - x')^2}{2\mathcal{l}^2}\right)
 \end{equation}
-\noindent where the $\sigma$ is the amplitude, or the value at maximum correlation, and $\mathcal{l}$ governs the range of influence of the data point on each other. I have sumplemented all kernels used in this thesis with a simple white noise kerned:
+\noindent where the $\sigma$ is the amplitude at maximum correlation and $\mathcal{l}$ governs the range of influence of the data point on each other. I have suplemented all kernels used in this thesis with a simple white noise kerned:
 \begin{equation}
   k_{\textrm{noise}}(x,x') = \delta_{x,x'}\sigma_n^2
 \end{equation}
 \noindent where the value $\sigma_n$ only controls the value of self-correlation, e.g the correlated noise on the measurements.
 
-This kernel represents a simplified form of the Normal distribution, giving rise to its popularity as many naturally occuring events do follow this distribution [CITE]. This is not a correct assumptions for most types of SNe with an exception of peculiar transients. [CITE Miika] which does use Gaussians to model RATs. From modelling of SNe using both radioactive decay and the magnetar model we know that the dependance of the light curve evolution on time is linearly exponential.
+This kernel corresponds to the Normal distribution, giving rise to its popularity. However, we know that the majority of SNe, with an exception of some peculiar classes \citep{Pursiainen2018}, do not have a light curve morphology consistent with a Gaussian distribution. From modelling of SNe using both radioactive decay and the Magnetar model, we know that the dependance of the light curve evolution on time is more closely approximated by a linear exponential.
 
 \subsubsection{Mate\'rn Kernels}
-The Mate\'rn family of kernels is a better suited kernel choice for modelling SNe. It has a linearly exponential dependance on the covariance between data points controlled by a time scale factor, l. We use the first and second order Mate\'rn kernels denoted by $\mu = 3/2$ (\eref{eq:M32}) and $\mu = 5/2$ (\eref{eq:M52}) where the Mate\'rn kernel becomes equivalent to the Squared Exponential kernel at $\mu -> \infty$. Accidentally, these kernels have a similar form to the Bazin09, Kessler10 and Karpenka12.
+The Mate\'rn family of kernels is a better suited kernel choice for modelling SNe. It has a linearly exponential dependance on the covariance between data points controlled by a time scale factor, l, as well as a quadratic term. We use the first and second order Mate\'rn kernels denoted by $\mu = 3/2$ (\eref{eq:M32}) and $\mu = 5/2$ (\eref{eq:M52}) where the Mate\'rn kernel becomes equivalent to the Squared Exponential kernel at $\mu -> \infty$. These kernels have a similar form to the Bazin09, Kessler10 and Karpenka12, combining a quadratic linearly exponential terms.
 
 \begin{equation} \label{eq:M32}
   k_{\textrm{M32}}(x,x') = \left(1 + \frac{\sqrt{3}(x - x')}{l}\right) \exp \left( \frac{\sqrt{3}(x - x')}{l} \right)
@@ -367,11 +365,14 @@ The Mate\'rn family of kernels is a better suited kernel choice for modelling SN
 \end{equation}
 
 \subsubsection{Choosing the Kernel}
-The choice of kernel that is suitable for the use with a wide range of transients is not a straight forward one. While from the point of view of number of SNe alone one could consider the Mate\'rn kernels to be the most suitable choice, this is not imediatelly obvious when considering AGN and other objects with a quasi-periodic light curve evolution. For such objects we would usually combine one of the above mentioned kernels with a periodic kernel to account for the long term variability. However, this would be incompatible with the light curves of SNe.
+The choice of kernel that is suitable for the use with a wide range of transients is not a straight forward one. While from the point of view of number of SNe alone one could consider the Mate\'rn kernels to be the most suitable choice, this is not imediatelly obvious when considering AGN and other objects with a quasi-periodic light curve variability. For such objects we would usually combine one of the above mentioned kernels with a periodic kernel to account for the long term variability. However, this would be incompatible with the light curves of SNe.
 
-I have used a small sample of SNe, drawn from all classes simulated in this thesis as well as a sample of AGNs. As expected the Mate\'rn kernel results in a much higher log($\mathcal{L}$) when applied to SNe than the SE kernel. Here while both M52 and M32 kernels were a significant improvement over the SE kernel, the best fitting of these kernels was object dependant. For the case of AGN, the SE filter and the Mate\'rn kernels have all performed differently depending on the object and the level of variability in the light curve. However, as in the majority of cases the M32 filter, which would be the optimal choice for SNe, behaved very well. I have therefore chosen this kernel as the basis for all light curve interpolation performed as part of this survey. We have demonstrated the use of the Mate\'rn 3/2 kernel in \citet{Inserra2018} where we used GPs to interpolate light curves of SLSNe in order to robustly determine their time of maximum light along with other observable properties.
+I have applied GPR to a small sample of SNe, randomly drawn from all subclasses simulated in this thesis as well as a number of AGNs. As expected the Mate\'rn kernel results in a much higher log($\mathcal{L}$) when applied to SNe than the SE kernel. While both M52 and M32 kernels were a significant improvement over the SE kernel, the choice between M32 and M52 was not clear as the best fitting kernels was object dependant. For the case of AGN, the SE filter and the Mate\'rn kernels have all performed differently depending on the object and the level of variability in the light curve. However, as in the majority of cases the M32 filter, behaved  well. I have therefore chosen this kernel as the basis for all light curve interpolation performed as part of this survey. We have demonstrated the use of the Mate\'rn 3/2 kernel in \citet{Inserra2018} where we used GPs to interpolate light curves of SLSNe in order to robustly determine their time of maximum light along with other observable properties.
 
 \subsection{Interpolating Light Curves}
-text
+There is a number of packaged and libraries that implement the GP algorith outlined in the previous sections. In this thesis I have predominantly used the \textsc{George} package written in a combination of \textsc{Python} and \textsc{C++} \citep{Ambikasaran2014}. This package implements a number of kernels, including those described in \sref{sec:GPkernels}. Using techniques similar to those applied by me for both \textsc{CoCo} and \textsc{SLAP}, \textsc{George} optimises the linear algebra solvers by implementing it in \textsc{C++} while producing the interface in \textsc{Python}. This produces a fantastic performance, interpolating a typical DES light curve in $\sim$10ms.
+
+To optimise the hyperparameters I have used a \textsc{Python} based pipeline utilising standard fitting routines found in the \textsc{SciPy} library \citep{Oliphant2007}, based on the \textsc{FORTRAN}'s \textsc{LMFIT} package discussed in \sref{sec:MPFIT}. \textsc{MultiNest} or other more advanced fitting routines have not been used to perform the optimisations as the performance penelty incured by their use would render the  A more advanced fitting routine
+
 \subsection{Blackbody per epoch}
 text
