@@ -4,7 +4,7 @@
 
 Throughout this thesis, my goals were to identify SLSNe in a number of surveys. I have approached this problem using a number of tools and techniques, each playing an important role in achieving this goal. The aim of this chapter is to provide an overview of the methods used in this work. I begin by discussing my approach to the modelling of SLSNe using the popular spin-down of a magnetar model \sref{sec:SLAP}. I describe the model and the improvements I have introduces in order to better model the UV region of the SLSN SED. I also describe the fitting routines used in the modelling of SLSNe (and other projects as part of this thesis). While this technique was successful in reproducing the light curves of SLSNe as well as identifying a new SLSN in the SNLS, it was not robust enough to fully capture the diversity of the SLSN sample and was not sufficient to classify SLSNe by itself. To solve this problem, I followed an increasingly popular approach of applying the state-of-the-art Machine Learning (ML) techniques to automate the classification process. The later parts of this chapter focus on the techniques and software developed in order to build the training sample of SNe and other transients required for this study, described in \cref{Chapter5}.
 
-The use of ML moves the focus of this work away from understanding the parameter spaces of the SLSN models, or the choice of cuts needed to define them. Instead, I focus on simulating transients and their detectability in DES. This includes SNIa, hydrogen-poor (SNIb/c) and rich CCSNe (SNII), SLSNe, AGNs as well as random noise spikes which are the main source of contamination in the data. The models of SN\,Ia are mature and ready to be deployed in this work \citep{Kessler2009,Kessler2015} thanks to being used as cosmological probes for over two decades \citep{Riess1998,Perlmutter1999}. Simulations of CCSNe, however, not driven by similar motivations as SNIa, have not been developed equally extensively, becoming one of the key subjects of this thesis. CCSNe are usually more rapidly evolving and fainter than SNIa, resulting in a significantly smaller sample of well-observed objects. The number of objects with a high-quality spectroscopic follow-up is also much lower in comparison. In recent years, the interest in modelling these objects has increased dramatically with large surveys, such as LSST, requiring samples of fake transients in order to inform the design of their observing strategies. In this chapter, I describe our approach to creating a new set of spectroscopic templates for  CCSN as well as simulating them in a number of surveys. This project was build to provide a sample of stripped-envelope CCSNe as part of the LSST photometric lightcurves classification challenge. However, later I have extended its use to DES in order to create samples of both hydrogen-rich and poor CCSNe.
+The use of ML moves the focus of this work away from understanding the parameter spaces of the SLSN models, or the choice of cuts needed to define them. Instead, I focus on simulating transients and their detectability in DES. This includes SN\,Ia, hydrogen-poor (SN\,Ib/c) and rich CCSNe (SN\,II), SLSNe, AGNs as well as random noise spikes which are the main source of contamination in the data. The models of SN\,Ia are mature and ready to be deployed in this work \citep{Kessler2009,Kessler2015} thanks to being used as cosmological probes for over two decades \citep{Riess1998,Perlmutter1999}. Simulations of CCSNe, however, not driven by similar motivations as SNIa, have not been developed equally extensively, becoming one of the key subjects of this thesis. CCSNe are usually more rapidly evolving and fainter than SNIa, resulting in a significantly smaller sample of well-observed objects. The number of objects with a high-quality spectroscopic follow-up is also much lower in comparison. In recent years, the interest in modelling these objects has increased dramatically with large surveys, such as LSST, requiring samples of fake transients in order to inform the design of their observing strategies. In this chapter, I describe our approach to creating a new set of spectroscopic templates for CCSN as well as simulating them in a number of surveys. This project was build to provide a sample of stripped-envelope CCSNe as part of the LSST photometric lightcurves classification challenge. However, later I have extended its use to DES in order to create samples of both hydrogen-rich and poor CCSNe.
 
 The last, but perhaps the most important, technique described in this chapter is Gaussian Process Regression (GPR). DES, like to other transient surveys, does not support a stable and uniform cadence of observed making the data incompatible with the majority of ML techniques that require evenly samples data. I used GPR as a method for interpolating the light curves using a non-parametric approach which does not introduce any physically motivated biases in the fitting process. This is key to solving the overfitting problem, often encountered when working with relatively small training sample within ML framework.
 
@@ -267,8 +267,9 @@ One of the most crucial parts of our procedure for generating templates of CCSN 
 In order to adjust the spectrum, a spline is applied to it, designed in a way to smoothly correct the spectra, as shown in \fref{fig:SpecMangling}. A spline is a smooth, continuous function defined using a number of control points; a position and amplitude. The wavelength at which we place the control points matches that of the central wavelength of the filters while the amplitude is determined using a numerical minimisation routine. We again use \textsc{MultiNest} as our fitting tool. The choice of the endpoints of the spline is important. In this code, I have placed them at 100\AA outside of the wavelength range of the mangled spectrum. The amplitude of these points is not subject to the fitting, instead, they are determined by extrapolating two most extreme points on either side of the spectrum using a straight line.
 
 \begin{figure}
-  % \includegraphics{/path/to/figure}
-  \caption{\textit{top}: An example spectrum of SNxxxxx before mangling  }
+  \centering
+  \includegraphics[width=\textwidth]{Figures/Chapter4/Mangling}
+  \caption{\textit{top}: An example of an early `raw' spectrum of SN2011dh. Synthetic photometry is computed from the spectrum in the \textit{gri} bands before. Then, a minimisation routine is used to find a spline function which, when applied to the spectum, will result in the synthetic photometry matching that observed SN flux producing the `mangled' spectrum.}
   \label{fig:SpecMangling}
 \end{figure}
 
@@ -301,8 +302,9 @@ In contrast with the red extensions, we could not rely on the observed photometr
 Using the data collected by the Open Supernova Catalogue \citep[OSC;]{Guillochon2017}, I have created a subsample of our template SNe with available UV data. Amongst these, a large number of objects only included the very earliest epochs likely triggered as a follow-up based on the x-ray detections of the object. A number of these objects, however, did later received an extended follow-up campaign, giving us light curve information past maximum light. For these objects, I have performed light curve interpolating using Gaussian Process Regression (\cref{sec:GP}). This allowed me to compare the UVW1 light curve to the V-band, as shown in figure \fref{fig:VvsUVW1}, showing that during the main phase of the SN (excluding the shock breakout), the UWV1 and V band light curves followed a very similar evolution. The UVW1 were found to be 2.5 magnitude dimmer (10 times dimmer in flux). I, therefore, use this property to create artificial UVW1 light curves by offsetting the V-band light curve by 2.5 magnitudes in flux and retaining its overall evolution.
 
 \begin{figure}
-  % \includegraphics{/path/to/figure}
-  \caption{The ratio between the UVW1 and V band filters plotted for a number of stipped envelope SNe.}
+  \centering
+  \includegraphics[width=\textwidth]{Figures/Chapter4/VOffset_Ibc}
+  \caption{The offset between the observed UVW1 and V band filters plotted all stripped-envelope SNe with the available Swift data. The light curves have been interpolated using Gaussian Process Regression.}
   \label{fig:VvsUVW1}
 \end{figure}
 
@@ -324,7 +326,8 @@ Another major difference between the projects is the approach to extending the l
 The method used for the UV extensions were also modified. The UV data for the SN\,II was very limited. It shows that these objects raise as very UV bright but rapidly evolve in colour, quickly losing all of their UV flux. This meant that the same methodology of creating an artificial UVW1 band by scaling any of the optical bands. The number of objects with a sufficient UV coverage was also insufficient to obtain a relationship between the UV and optical evolution of the SNe. As an approximate solution, I have extended the spectra of SN\,II by fitting their SEDs with a black body model and did not follow it with a mangling step. In figure \fref{fig:SNIIbbExtension} I compare the evolution of the modified spectra to an example light curve of SNXXXXX, showing that this is a good, first-order approximation.
 
 \begin{figure}
-  % \includegraphics{/path/to/figure}
+  \centering
+  % \includegraphics[width=\textwidth]{/path/to/figure}
   \caption{}
   \label{fig:SNIIbbExtension}
 \end{figure}
@@ -406,7 +409,8 @@ One use of the GP interpolated light curves not directly linked to ML is its app
 Using GPs we can interpolate the light curves in a non-parametric approach driven only by the data, its uncertainty and our measurement of their correlations based on the covariance function. \fref{fig:GPBB} shows an example of the radius and temperature measurement for DES14X3taz, a DES SLSN with a prominent pre-peak `bump'. A further advantage of the GP interpolation approach is the treatment and defacto interpolation of the uncertainties for the data points as well as the fluxes themselves giving a confidence region for the measurement of the photospheric temperature and radius. This technique is applied in Angus et al. (in prep) to all spectroscopically confirmed SLSN in the DES sample.
 
 \begin{figure}
-  % \includegraphics{/path/to/figure}
+  \centering
+  % \includegraphics[width=\textwidth]{/path/to/figure}
   \caption{}
   \label{fig:GPBB}
 \end{figure}
