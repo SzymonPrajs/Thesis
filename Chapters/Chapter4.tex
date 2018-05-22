@@ -327,8 +327,8 @@ The method used for the UV extensions were also modified. The UV data for the SN
 
 \begin{figure}
   \centering
-  % \includegraphics[width=\textwidth]{/path/to/figure}
-  \caption{}
+  \includegraphics[width=\textwidth]{Figures/Chapter4/VOffset_II}
+  \caption{The offset between the observed UVW1 and V band filters plotted all hydrogen-rich SNe with the available Swift data. The light curves have been interpolated using Gaussian Process Regression. [THIS PLOT IS INCOMPLETE ... I WILL FIX IT ONCE I GET ACCESS TO THE IMAC]}
   \label{fig:SNIIbbExtension}
 \end{figure}
 
@@ -366,6 +366,13 @@ The above equations can be solved using linear algebra and do require any optimi
 
 \subsection{Covariance Kernels} \label{sec:GPkernels}
 The true power behind GPs lays in the choice of the covariance function. The kernels are responsible for defining the connection between the points as well as deciding on the span and degree to which any data point can inform the position of another. I have trialled a number of kernels popularly used in when interpolating one-dimensional time-series data \citep{Rasmussen2006}. This included the Squared Exponential (SE), Mate\'rn\,$3/2$ (M32) and Mate\'rn\,$5/2$ (M52) kernels.
+
+\begin{figure}
+  \centering
+  % \includegraphics[width=\textwidth]{/path/to/figure}
+  \caption{}
+  \label{fig:GPKernels}
+\end{figure}
 
 \subsubsection{Squared Exponential Kernel}
 The squared exponential kernel is the most commonly used covariance function in GPR. It is defined as:
