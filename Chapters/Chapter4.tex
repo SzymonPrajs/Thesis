@@ -369,17 +369,17 @@ The true power behind GPs lays in the choice of the covariance function. The ker
 
 \begin{figure}
   \centering
-  % \includegraphics[width=\textwidth]{/path/to/figure}
-  \caption{}
+  \includegraphics[width=\textwidth]{Figures/Chapter4/GP_Example}
+  \caption{An example GPR fit to the \textit{r}-band light curve of a SLSN, DES14X2byo. The fit was performed using the Mate\'rn\,$3/2$ covarience function. This fit demonstrates the power of GPR in creating smooth interpolations which take into account, but are not controlled by, outlier points.}
   \label{fig:GPKernels}
 \end{figure}
 
 \subsubsection{Squared Exponential Kernel}
 The squared exponential kernel is the most commonly used covariance function in GPR. It is defined as:
 \begin{equation}
-  k_{\textrm{SE}}(x,x') = \sigma^2 \exp\left(-\frac{(x - x')^2}{2\mathcal{l}^2}\right)
+  k_{\textrm{SE}}(x,x') = \sigma^2 \exp\left(-\frac{(x - x')^2}{2l^2}\right)
 \end{equation}
-\noindent where the $\sigma$ is the amplitude at maximum correlation and $\mathcal{l}$ governs the range of influence of the data point on each other. I have suplemented all kernels used in this thesis with a simple white noise kerned:
+\noindent where the $\sigma$ is the amplitude at maximum correlation and $l$ governs the range of influence of the data point on each other. I have suplemented all kernels used in this thesis with a simple white noise kerned:
 \begin{equation}
   k_{\textrm{noise}}(x,x') = \delta_{x,x'}\sigma_n^2
 \end{equation}
@@ -417,8 +417,8 @@ Using GPs we can interpolate the light curves in a non-parametric approach drive
 
 \begin{figure}
   \centering
-  % \includegraphics[width=\textwidth]{/path/to/figure}
-  \caption{}
+  \includegraphics[width=\textwidth]{Figures/Chapter4/GP_BB}
+  \caption{The \textit{griz} light curve of SLSN DES14X3taz interpolated using GPR. The Planck function was fit to the interpolated photometry in order to determine the photospheric temperature and radius of the SN. Using interpolated data allowed for much higher sampling of the function.}
   \label{fig:GPBB}
 \end{figure}
 
