@@ -2,6 +2,14 @@
 \label{Chapter5}
 \lhead{Chapter 5. \emph{Machine Learning Classification}}
 
+Throughtout this thesis, I worked with an underlying theme of performing SN classifications, focusing particularly on the selection of SLSN. In \cref{Chapter3}, I establised a definition of SLSNe in terms of the parameter space of the spin-down of a Magnetar model, later used to photometrically classify one SLSNe in the SNLS archival data. In this chapter, I start by describing these techniques as applied to the DES data set during the real-time search for SN in seasons two and three. This included both the manual scanning of SNe and combining it with the Magnetar model fitting. While successful in identifying several, later confirmed, candidate SLSNe, a number of misclassifications highlighted a need for a more robust approach.
+
+In recent years the whole field of astronomy entered a new data analysis renaissance, utilising the Big Data tools and Machine Learning techniques to extract more from archival data and prepare for the arrival of new surveys such as Gaia, LSST, SKA that are expected to produce stagering amounts of data. These are not only difficult to handle for astronomers used to working on much smaller data samples but will infact require absolute state-of-the-art facilies and tools to handle and analyse the data streams. Following this revolution, I endevored to apply some of the latest techniques in ML to the problem of SN classification.
+
+To date, there has been a number of SN studies aiming at classifying SN with the help of ML. Here, I am focusing only on the studies classifying the light curves of SNe and not point source classification pipelines such the once used in DES \citep{Goldstein2015} and Suburu \citep{Morii2016}. Amongst a number of similar works \citep{Karpenka2012,Moller2016,Charnock2016} the most thorough and indepth study of ML classification of SNe is presented in \citet{Lochner2016}.  
+
+Startig with modelling of SLSNe and CCSN to rpoducing their interpolations in \cref{Chapter4}, I have worked towards a producing an aritificial training sample of a number of SN classes
+
 \section{Search for SLSN in DES using a Non-ML}
 Before using machine learning to find SLSN I have used the magnetar model in the same way as in \cref{Chapter2}. This did produce some results and resulted in the classification of a few SLSNe in the data, however, we then started finding objects which really did not fit the model at all and sometimes even had a Chi2 of 3000 like in the case of DES15S2nr. Because of this, we knew that we need to try a different approach.
 
@@ -10,7 +18,7 @@ text
 \subsection{Magnetar Model Fitting}
 text
 
-\section{Machine Learning}
+\section{Training sample}
 Machine Learning is the modern approach to problems of classification and broadly data analysis. It has been used throughout SN science for a while now mainly in surveys as a tool for distinguishing between real detections and artifacts in astronomical images. This has been very successful [CITE PTF, DES etc].
 
 \subsection{SN Classification using ML}
