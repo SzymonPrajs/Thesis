@@ -8,16 +8,14 @@ In recent years the whole field of astronomy entered a new data analysis renaiss
 
 To date, there has been a number of SN studies aiming at classifying SN with the help of ML. Here, I am focusing only on the studies classifying the light curves of SNe and not point source classification pipelines such the once used in DES \citep{Goldstein2015} and Suburu \citep{Morii2016}. Amongst a number of similar works \citep{Karpenka2012,Moller2016,Charnock2016} the most thorough and indepth study of ML classification of SNe is presented in \citet{Lochner2016}. In their work, a number of models are used to extract a range of light curve features. They also provide a comparison of a number of Supervised ML algorithms and discuss their merits in terms of SN classification. While thorough in their analysis, their approach is not ready for deployment in a real survey. The training sampled used in their analysis is the SPCC dataset containing a sanitised sample of SNe only. In a survey such as DES we would first have to separate SNe from other types of transients which, when considering ML techniques, can be performed at the same stage as the classification of SNe.
 
-The use of the SPCC dataset, containg only 2000 SNe weighed to match their observed rates, by \citet{Lochner2016} along with all previous ML classification studies of SNe is one of their greatest drawbacks. In this thesis, I endevour to provide the first SN classification study using a large (tens of thousands objects of each class), artificially generated sample of objects .....
+The use of the SPCC dataset, containg only 2000 SNe weighted to match their observed rates, by \citet{Lochner2016} along with all previous ML classification studies of SNe is one of their greatest drawbacks. In this thesis, I aim to provide the first SN classification study utilising a large (tens of thousands objects of each class), artificially generated sample of objects. With the size of the training sample I tackle the common issue with overfitting for the less common subclasses of SNe. Furthermore, by placing the SNe uniformally throughtout the DES observing season and at a wide range of redshifts, I introduce real survey inperfections including objects whoch suffer from season edge effects and low S/N.
 
-One of the greatest differences between all previous studies and this thesis is the family of ML algorithms used ...
+One of the greatest differences between all previous studies and this thesis is the family of ML algorithms used. \citet{Lochner2016} used the SALT2 model, in the process commonly refered to in ML as Feature Extraction or Feature Engineering, to extract a set of parameters that describe the light curve. These are then fed into the machine learning algorithm to produce their classifications. In this thesis, I use Convolutional Neural Networks (CNN), an overwelmingly powerful technique which dominates in the world of commercial ML solutions. CNNs, described in detail in \sref{sec:CNN}, use the data directly as they building their feature sets as part of the learning process. The use of a such a complex ML tool is only possible thanks to the size of the training sample and the data augmentation described in \sref{sec:DataAugmentation}.
 
-
-In this chapter, I describe the process of creating an artificial training sample of SNe for a majority of subclasses, based on the tools developed in \cref{Chapter4}, as well as AGNs and noise spikes which form the majority of transients detected by DES. In the next step I steps taken to apply the survey noise model to the otherwise perfect, simulated data before interpolating the data with the help of GPR described in \sref{sec:GP}. Finally I describe my use of the CNN framework to provide a photometric classification for all transients detected by DES in the first four years of its operations.
-
+In this chapter, I describe the process of creating an artificial training sample of SNe for a majority of subclasses, based on the tools developed in \cref{Chapter4}, as well as AGNs and noise spikes which form the majority of transients detected by DES. I then describe the steps taken to apply the survey noise model to the otherwise smooth simulated data before interpolating and ugmenting it with the help of GPR, described in \sref{sec:GP}. Finally, I discuss the use of the CNN framework to provide a photometric classification for all transients detected by DES in the first four years of its operations.
 
 \section{Search for SLSN in DES using a Non-ML}
-Before using machine learning to find SLSN I have used the magnetar model in the same way as in \cref{Chapter2}. This did produce some results and resulted in the classification of a few SLSNe in the data, however, we then started finding objects which really did not fit the model at all and sometimes even had a Chi2 of 3000 like in the case of DES15S2nr. Because of this, we knew that we need to try a different approach.
+Before using machine learning to find SLSN I have used the magnetar model in the same way as in \cref{Chapter2}. This did produce some results and resulted in the classification of a few SLSNe in the data, however, we then started finding objects which really did not fit the model at all and sometimes even had a Chi2 of 3000, as in the case of DES15S2nr. Because of this, we knew that we need to try a different approach.
 
 \subsection{Manual scanning of Transients}
 text
@@ -73,7 +71,7 @@ We modify the CoCo code [CITE CHAPTER 4] to include XXXXX model [CITE] and found
 \subsection{Others}
 There are many types of possible transient objects which we have not accounted for here. In some cases we did this because it is unlikely that we would ever detect any (GW counterpart) or because our understanding of them is so limited that we could not provide a comprehensive model for them that could capture the class. This is mostly the case with fast transients [CITE MIIKA] which can appear as having virtually any luminocity and colour and the only connection we have between all of them is their rapid evolution. Believed to be the result of a shock breakout passing though a dense and extended envelope of the star these events are very likely to be connected to the "bumps" often found in SLSN events. We can try to model them as such and see if we can recover such objects [CITE : I REALLY NEED TO TEST THIS, I WOULD HEAVILY BE STEPPING ON MIIKA'S TOES BUT WHO CARES]
 
-\section{Data Augmentation}
+\section{Data Augmentation} \label{sec:DataAugmentation}
 text
 \subsection{Choosing the observing block}
 text
@@ -84,7 +82,9 @@ text
 \subsection{Applying GPs}
 text
 
-\section{Neural Networks}
+\section{Classifications}
+text
+\subsection{Convolutional Neural Networks}
 text
 \subsection{Feeding the data}
 text
