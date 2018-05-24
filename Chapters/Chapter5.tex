@@ -45,9 +45,13 @@ Amonst the various SN classes simulated in as part of this thesis, SN\,Ia are un
 
 While it would be possible to perform our own simulations, starting with any implementation of the SALT2 model (e.g SNANA, SNCosmo or otherwise), and pass these through the DES noise model (\sref{sec:NoiseModel}), I would essentially be replicating the sample of fake SN\,Ia injected into the science images during the live data reduction stages. In DES, these objects are used to estimate the image quality and generate the \textsc{SIMLIB} files making them equivalent to light curve that would be generated through SNANA.
 
-The light curves of SN\,Ia that are injected into the images are generated using the extended SALT2 model as used in \citet{Betoule2014} and are drawn from the model's We set the upper redshift cut to be z=1.4 which we know, from previous work on SN-Ia simulations a redshift at which no objects can be detected by DES. We also use the rate evolution from \citet{Perrett2012} as the most precise and high redshift measurement.
+The light curves of SN\,Ia that are injected into the images are generated using the extended SALT2 model as used in \citet{Betoule2014}. The upper redshift range was set as z=1.4 ensuring that the sample is not limited by the simualted redshift. We expect that DES is able to detect SN\,Ia up to redshift z$\sim$1.3. The fake SNe are injected such as to match the rate evolution measured by \citet{Perrett2012}. 50,000 objects have passed the detection criteria and therefore form part of our training sample of SN\,Ia. \fref{fig:IaDist} shows the redshift distribution for the sample.
 
-The advantage of SNANA is that it simulates not just the supernovae as perfect events but also applies the observing cadence and conditions to the light curve making them look like real events. This is done using SNANA simulation files (SIMLIB) which record all atmospheric and other observing conditions as measured in real DES images. SNANA can only do this for SN-Ia, we, therefore, duplicate this behaviour using a custom code for other types of objects as described in the [CITE NEXT SECTION]
+\begin{figure}
+  % \includegraphics{/path/to/figure}
+  \caption{}
+  \label{fig:IaDist}
+\end{figure}
 
 \subsection{CCSN}
 While the rate of CCSN is higher than the rate of SN-Ia in the local universe, making the fraction of CCSN to SN-Ia 70\%-30\%, CCSN are a lot fainter objects with an average brightness a tenth of that of SN-Ia. This means that in a survey like DES we can only detect them to the redshift of z$\sim$0.5 instead of the z=1.0 for SN-Ia. The diversity of CCSN is perhaps the greatest amongst our entire training sample ranging between fast, stripped envelope events that can be serious source of contamination for the samples of SN-Ia because of the similarity in their light curves, driven by the powering of Nickel decay in both cases, to long, plotting SN-II which can have a great diversity in their light curve shapes due to the variation in the strength of CSM interactions which powers them.
