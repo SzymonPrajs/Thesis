@@ -59,13 +59,23 @@ The rate of CCSNe in the local universe is intrinsingly higher than the rate of 
 While there is a great diversity amongst CCSNe in terms of both their morphology and peak luminocity, our simulation package, \textsc{CoCo} (\sref{sec:CoCo}), was designed to simulate their whole population. As the overarching aim of this thesis is the classification of SLSNe, as opposed to providing an accurate photometric classification for all transients detected by DES, an accurate treatment of the CCSNe could be considered excesive. The Nickel decay, powering mechanisms behind SN\,Ia and SN\,Ib/c, results in light curves which are often difficult to separate, giving rise to the original inspiration behind developing \textsc{CoCo}. A possible drawback of this could be overfitting of SN\,Ia and CCSNe if these two classes were found to be too alike. Contrarily, I would not wish to indruduce such bias into our training sample as the low redshift behaviour of the SNe may not necessarily be reflected for objects observed at higher redshifts when all observational factors are considered. The behaviour of the objects may also differ between SN\,Ib/c and SN\,II, hence in this chapter I build separate samples for these two classes of SNe both matching the SN\,Ia sample in size. In \sref{sec:CNN} I then consider performing SN classification by mixing these objects at various abundancies.
 
 \subsubsection{SN\,Ib/c}
-In \cref{Chapter4}, I presented a method for creating templates as well as simulating SN\,Ib/c. I have used \textsc{CoCo}, the package developed for this purpose to simualate over 50,000 objects based on the spectroscopic templates shown in \tref{tab:IbcTemplates}. Due to the low number statistics of the sample, the spectral subtypes of the templates do not match their measured relative abundance. Following Firth et al. (in prep), I use the \citet{Li2011} measurement of the local rates of CCSNe to correct their abundancies. A question was raised as to whether the subclasses should be represented equally thoughout the sample or match their observed rates. I made the decision to follow their observed abundancies as we are not interested in assigning subclasses to these SNe. Furthermore, some subclasses are very ilrepresented in our sample and would therefore be replicated more than other objects likely leading to model overfitting.   
+In \cref{Chapter4}, I presented a method for creating templates as well as simulating SN\,Ib/c. I have used \textsc{CoCo}, the package developed for this purpose to simualate over 50,000 objects based on the spectroscopic templates shown in \tref{tab:IbcTemplates}. Due to the low number statistics of the sample, the spectral subtypes of the templates do not match their measured relative abundance. Following Firth et al. (in prep), I use the \citet{Li2011} measurement of the local rates of CCSNe to correct their abundancies. A question was raised as to whether the subclasses should be represented equally thoughout the sample or match their observed rates. I made the decision to follow their observed abundancies as we are not interested in assigning subclasses to these SNe. Furthermore, some subclasses are very ill-represented in our sample and would therefore be replicated more than other objects likely leading to model overfitting.
 
 \begin{table}
   \caption{}
   \label{tab:IbcTemplates}
 
 \end{table}
+
+I generate the light curves in the redshift range of 0$<$z$<$0.8, drown using a volume weighted, non-uniform random distribution corresponding to the star formation rate of the universe \citep{Hopkins2006}. To introduce a level of diversity into the sample, I apply host galaxy reddening to the templates (Milky Way extinction is not necessary as DES observed is very low extinction fields). I use the \citet{Cardelli1989} law with R$_\mathrm{v}$=3.7 and the A(B-V) values drawn randomly from the modulus of a Normal distribution centered at zero with a variance, \mu=0.2. Furthermore, I have used a similar (but unmodulated) distribution to apply an offset to the peak magnitude of the SNe. This is, again, aimed at introducing a scatter into the training sample as the low number of available templates, despite being placed at different redshifts and explosion dates, would produce a sample of repeating objects that yet again could lead to overfitting.
+
+From the simulations we measure the detectibility of each template as the function of redshift (see \tref{IbcTemplates}) as well as the detection frequency of the whole population as a function of redshift shown in \fref{fig:IbcDist}. As expected SN\,Ib/c are detectable only up to z$\sim$0.8 which is significantly lower than that of SN\,Ia (\fref{IaDist}).
+
+\begin{figure}
+  % \includegraphics{/path/to/figure}
+  \caption{}
+  \label{fig:IbcDist}
+\end{figure}
 
 \subsubsection{Hydrogen-Rich SN}
 text
