@@ -40,7 +40,7 @@ In DES, SNANA forms the backbone of the SN analysis and is used to extract the i
   \label{fig:IaNoiseComp}
 \end{figure}
 
-\subsection{SN-Ia}
+\subsection{SN\,Ia}
 Amonst the various SN classes simulated in as part of this thesis, SN\,Ia are unquestionably the most well-studied and understood class of objects. Thanks to over two decades of use as cosmological probes, there exists a number of packages able to model and simulate these objects with a high accuracy. Furthermore, the paramater spaces of SN\,Ia as well as peculiar outliries to the class (SN\,Ia-91bg and SN\,Ia-91T) are well understood, gives us a great starting point for our simulations.
 
 While it would be possible to perform our own simulations, starting with any implementation of the SALT2 model (e.g SNANA, SNCosmo or otherwise), and pass these through the DES noise model (\sref{sec:NoiseModel}), I would essentially be replicating the sample of fake SN\,Ia injected into the science images during the live data reduction stages. In DES, these objects are used to estimate the image quality and generate the \textsc{SIMLIB} files making them equivalent to light curve that would be generated through SNANA.
@@ -56,20 +56,22 @@ The light curves of SN\,Ia that are injected into the images are generated using
 \subsection{CCSN}
 The rate of CCSNe in the local universe is intrinsingly higher than the rate of SN\,Ia [CITE THE BOOK] in the local universe, with an approximate flaction of 70\% CCSNe to 30\% SN\,Ia. However, as CCSN are a fainter with an average brightness only a tenth of the SN\,Ia luminocity. As a result, survey such as DES we can only detect them up to the z$\sim$0.6 as opposed to z$\sim$1.3 for SN\,Ia, giving a much lower observed rate. In our study it was necessary for our sample not to replicate this observed rate as the training of a CNN required that all classes used in the classification are relatively equally represented.
 
-While there is a great diversity amongst CCSNe in terms of both their morphology and peak luminocity, our simulation package, \textsc{CoCo} (\sref{sec:CoCo}), was designed to simulate their whole population. At the overarching aim of this thesis is the classification of SLSNe, as oposed to providing an accurate photometric classification for all transients detected by DES, an accurate treatment of the CCSNe could be considered excesive. The Nickel decay, powering mechanisms behind SN\,Ia and SN\,Ib/c, results in light curves which are often difficult to separate, giving rise to the original inspiration behind developing \textsc{CoCo}. A possible drawback of this could be overfitting of SN\,Ia and CCSNe if these two classes were found to be too alike. On a contrary, I would not wish to indruduce such bias into our training sample as the low redshift behaviour of the SNe may not necessarily be reflected for objects observed at higher redshifts when all observational factors are considered. The behaviour of the objects may also differ between SN\,Ib/c and SN\,II, hence in this chapter I build separate samples for these two classes of SNe both matching the SN\,Ia sample in size. In \cref{Chapter6} I then consider performing SN classification using mixed abundancies of these objects.
+While there is a great diversity amongst CCSNe in terms of both their morphology and peak luminocity, our simulation package, \textsc{CoCo} (\sref{sec:CoCo}), was designed to simulate their whole population. As the overarching aim of this thesis is the classification of SLSNe, as opposed to providing an accurate photometric classification for all transients detected by DES, an accurate treatment of the CCSNe could be considered excesive. The Nickel decay, powering mechanisms behind SN\,Ia and SN\,Ib/c, results in light curves which are often difficult to separate, giving rise to the original inspiration behind developing \textsc{CoCo}. A possible drawback of this could be overfitting of SN\,Ia and CCSNe if these two classes were found to be too alike. Contrarily, I would not wish to indruduce such bias into our training sample as the low redshift behaviour of the SNe may not necessarily be reflected for objects observed at higher redshifts when all observational factors are considered. The behaviour of the objects may also differ between SN\,Ib/c and SN\,II, hence in this chapter I build separate samples for these two classes of SNe both matching the SN\,Ia sample in size. In \sref{sec:CNN} I then consider performing SN classification by mixing these objects at various abundancies.
 
-\subsubsection{Stripped-Envelope SN}
-Stripped Envelope SN, namely SN-Ib/c and SN-IIb are a very hot topic in the subject of modelling SN for cosmological purposes. Because their powering mechanism is very similar to that of SN-Ia (e.g. though the decay Ni56 and reprocessing of that radiation in the outter envelope of the ejecta), they often appear extremely similar in light curves causing a potentially large contamination in the sample of photometric SN-Ia that surveys such as DES and LSST may want to use to perform cosmological fitting.
+\subsubsection{SN\,Ib/c}
+In \cref{Chapter4}, I presented a method for creating templates as well as simulating SN\,Ib/c. I have used \textsc{CoCo}, the package developed for this purpose to simualate over 50,000 objects based on the spectroscopic templates shown in \tref{tab:IbcTemplates}. Due to the low number statistics of the sample, the spectral subtypes of the templates do not match their measured relative abundance. Following Firth et al. (in prep), I use the \citet{Li2011} measurement of the local rates of CCSNe to correct their abundancies. A question was raised as to whether the subclasses should be represented equally thoughout the sample or match their observed rates. I made the decision to follow their observed abundancies as we are not interested in assigning subclasses to these SNe. Furthermore, some subclasses are very ilrepresented in our sample and would therefore be replicated more than other objects likely leading to model overfitting.   
 
-In [CITE CHAPTER 4] I described our approach to creating templates of SN using the CoCo package. While originally written for the PLAsTiCC projects, the code could be trivially extended to DES to produce a large simulation of CCSN. We simulate the CCSN up to z=1.0 as the wide range of possible luminocities does not limit these events from being detected at higher redshift despite the majority of the population expected at z$\sim$0.3. We also assume that the rate of CCSN follows the star formation rate evolution of the universe and anchor the result to the local value found by the SNLS [CITE BAZIN]. \\
+\begin{table}
+  \caption{}
+  \label{tab:IbcTemplates}
+
+\end{table}
 
 \subsubsection{Hydrogen-Rich SN}
-Hydrogen-rich SN, or SN-II, are more difficult to define as a class of events than any other type. Their diversity in luminocity can reach over 5 magnitudes and their shapes can vary from SN-Ic like events in case of narrow emission line SN-IIn to long and plateoing SN-IIP events. Nonetheless we must attempt to replicate, to the best of our abilities, the behaviour of these objects for the purpose of our simulations.
-
-We modify the CoCo code [CITE CHAPTER 4] to include XXXXX model [CITE] and found the following templates XXXX [INSERT EVERYTHING THAT BERTIE HAS DONE AND EVERYTHING ELSE THAT I HAVE DONE HERE. IF WE END UP DOING TOO MUCH WORK THIS WILL HAVE TO BECOME ITS OWN SECTION, BUT I DOUBT IT]
+text
 
 \subsection{SLSN}
-[CITE : I AM LEAVING THIS SECTION UNTIL I HAVE A MODEL GOOD ENOUGH TO TALK ABOUT, OTHER THAN TOYAH]
+text
 
 \subsection{AGN}
 AGN form by far the largest contamination to the survey data. This is partially due to their physical behaviour and partially due to the caveats of the survey design and planning. AGNs often can have a long period of variability leading to the rise and decline in their light curves on scales comparable to SN. In the cases of SLSN, this is particularly troubling as SLSN can be the same duration as a DES observing season making it very possible for an AGN to act as an SLSN impostor if one considers only one season of DES data and not the remainder of the data. Looking at the multi-season light curves it is often very straightforward to identify AGNs though their multi-season variability. A caveat of the survey is that negative "detections" are not considered as detections. This means that if the object was brighter in the SV1 data set, which was used for creating the first set of DES templates than it has been at any point in the first season it would not have been detected until a much later season. Because of this, AGNs have still been misidentified as new transients as late as the last season of DES.
@@ -95,7 +97,7 @@ text
 \subsection{Applying GPs}
 text
 
-\section{Classifications}
+\section{Classifications} \label{sec:CNN}
 text
 \subsection{Convolutional Neural Networks}
 text
