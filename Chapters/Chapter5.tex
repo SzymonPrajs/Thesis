@@ -64,6 +64,7 @@ In \cref{Chapter4}, I presented a method for creating templates as well as simul
 \begin{table}
   \caption{}
   \label{tab:IbcTemplates}
+  \centering
   \begin{tabular}{l|r|r}
     SN Name  & redshift & count \\
     \hline
@@ -87,12 +88,12 @@ In \cref{Chapter4}, I presented a method for creating templates as well as simul
     SN2011bm & 0.80 & 7554 \\
     SN2011dh & 0.73 &  964 \\
     SN2011ei & 0.39 &  105 \\
-    SN2012ap & 0.54 &  191
+    SN2012ap & 0.54 &  191 \\
     \hline
   \end{tabular}
 \end{table}
 
-I generate the light curves in the redshift range of 0$<$z$<$0.8, drown using a volume weighted, non-uniform random distribution corresponding to the star formation rate of the universe \citep{Hopkins2006}. To introduce a level of diversity into the sample, I apply host galaxy reddening to the templates (Milky Way extinction is not necessary as DES observed is very low extinction fields). I use the \citet{Cardelli1989} law with R$_\mathrm{v}$=3.7 and the A(B-V) values drawn randomly from the modulus of a Normal distribution centered at zero with a variance, \mu=0.2. Furthermore, I have used a similar (but unmodulated) distribution to apply an offset to the peak magnitude of the SNe. This is, again, aimed at introducing a scatter into the training sample as the low number of available templates, despite being placed at different redshifts and explosion dates, would produce a sample of repeating objects that yet again could lead to overfitting.
+I generate the light curves in the redshift range of 0$<$z$<$0.8, drown using a volume weighted, non-uniform random distribution corresponding to the star formation rate of the universe \citep{Hopkins2006}. To introduce a level of diversity into the sample, I apply host galaxy reddening to the templates (Milky Way extinction is not necessary as DES observed is very low extinction fields). I use the \citet{Cardelli1989} law with R$_\mathrm{v}$=3.7 and the A(B-V) values drawn randomly from the modulus of a Normal distribution centered at zero with a variance, $\mu$=0.2. Furthermore, I have used a similar (but unmodulated) distribution to apply an offset to the peak magnitude of the SNe. This is, again, aimed at introducing a scatter into the training sample as the low number of available templates, despite being placed at different redshifts and explosion dates, would produce a sample of repeating objects that yet again could lead to overfitting.
 
 From the simulations we measure the detectibility of each template as the function of redshift (see \tref{IbcTemplates}) as well as the detection frequency of the whole population as a function of redshift shown in \fref{fig:IbcDist}. As expected SN\,Ib/c are detectable only up to z$\sim$0.8 which is significantly lower than that of SN\,Ia (\fref{IaDist}).
 
@@ -108,6 +109,7 @@ The method used for building the training sample of SN\,II followed that of SN\,
 \begin{table}
   \caption{}
   \label{tab:SNIITemplates}
+  \centering
   \begin{tabular}{l|r|r}
     SN Name  & redshift & count \\
     \hline
@@ -121,7 +123,7 @@ The method used for building the training sample of SN\,II followed that of SN\,
     SN2010al & 0.90 & 30882 \\
     SN2011hs & 0.26 &   792 \\
     SN2012ec & 0.36 &  5176 \\
-    SN2013ej & 0.36 &  4114
+    SN2013ej & 0.36 &  4114 \\
     \hline
   \end{tabular}
 \end{table}
