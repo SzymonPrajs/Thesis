@@ -59,12 +59,37 @@ The rate of CCSNe in the local universe is intrinsingly higher than the rate of 
 While there is a great diversity amongst CCSNe in terms of both their morphology and peak luminocity, our simulation package, \textsc{CoCo} (\sref{sec:CoCo}), was designed to simulate their whole population. As the overarching aim of this thesis is the classification of SLSNe, as opposed to providing an accurate photometric classification for all transients detected by DES, an accurate treatment of the CCSNe could be considered excesive. The Nickel decay, powering mechanisms behind SN\,Ia and SN\,Ib/c, results in light curves which are often difficult to separate, giving rise to the original inspiration behind developing \textsc{CoCo}. A possible drawback of this could be overfitting of SN\,Ia and CCSNe if these two classes were found to be too alike. Contrarily, I would not wish to indruduce such bias into our training sample as the low redshift behaviour of the SNe may not necessarily be reflected for objects observed at higher redshifts when all observational factors are considered. The behaviour of the objects may also differ between SN\,Ib/c and SN\,II, hence in this chapter I build separate samples for these two classes of SNe both matching the SN\,Ia sample in size. In \sref{sec:CNN} I then consider performing SN classification by mixing these objects at various abundancies.
 
 \subsubsection{SN\,Ib/c}
-In \cref{Chapter4}, I presented a method for creating templates as well as simulating SN\,Ib/c. I have used \textsc{CoCo}, the package developed for this purpose to simualate over 50,000 objects based on the spectroscopic templates shown in \tref{tab:IbcTemplates}. Due to the low number statistics of the sample, the spectral subtypes of the templates do not match their measured relative abundance. Following Firth et al. (in prep), I use the \citet{Li2011} measurement of the local rates of CCSNe to correct their abundancies. A question was raised as to whether the subclasses should be represented equally thoughout the sample or match their observed rates. I made the decision to follow their observed abundancies as we are not interested in assigning subclasses to these SNe. Furthermore, some subclasses are very ill-represented in our sample and would therefore be replicated more than other objects likely leading to model overfitting.
+In \cref{Chapter4}, I presented a method for creating templates as well as simulating SN\,Ib/c. I have used \textsc{CoCo}, the package developed for this purpose to simualate over 100,000 objects based on the spectroscopic templates shown in \tref{tab:IbcTemplates}. Due to the low number statistics of the sample, the spectral subtypes of the templates do not match their measured relative abundance. Following Firth et al. (in prep), I use the \citet{Li2011} measurement of the local rates of CCSNe to correct their abundancies. A question was raised as to whether the subclasses should be represented equally thoughout the sample or match their observed rates. I made the decision to follow their observed abundancies as we are not interested in assigning subclasses to these SNe. Furthermore, some subclasses are very ill-represented in our sample and would therefore be replicated more than other objects likely leading to model overfitting.
 
 \begin{table}
   \caption{}
   \label{tab:IbcTemplates}
-
+  \begin{tabular}{l|r|r}
+    SN Name  & redshift & count \\
+    \hline
+    SN1993J  & 0.79 & 1263 \\
+    SN1994I  & 0.70 &  313 \\
+    SN1996cb & 0.78 &  945 \\
+    SN1998bw & 0.80 & 6151 \\
+    SN2002ap & 0.80 & 1271 \\
+    SN2005bf & 0.80 & 3660 \\
+    SN2005hg & 0.80 &  887 \\
+    SN2006aj & 0.80 & 5002 \\
+    SN2007Y  & 0.57 &  146 \\
+    SN2007gr & 0.67 &  345 \\
+    SN2007uy & 0.64 &  263 \\
+    SN2008D  & 0.28 &   38 \\
+    SN2008ax & 0.43 &  208 \\
+    SN2008bo & 0.46 &  108 \\
+    SN2009iz & 0.80 &  623 \\
+    SN2009jf & 0.80 & 1844 \\
+    SN2010al & 0.80 & 5008 \\
+    SN2011bm & 0.80 & 7554 \\
+    SN2011dh & 0.73 &  964 \\
+    SN2011ei & 0.39 &  105 \\
+    SN2012ap & 0.54 &  191
+    \hline
+  \end{tabular}
 \end{table}
 
 I generate the light curves in the redshift range of 0$<$z$<$0.8, drown using a volume weighted, non-uniform random distribution corresponding to the star formation rate of the universe \citep{Hopkins2006}. To introduce a level of diversity into the sample, I apply host galaxy reddening to the templates (Milky Way extinction is not necessary as DES observed is very low extinction fields). I use the \citet{Cardelli1989} law with R$_\mathrm{v}$=3.7 and the A(B-V) values drawn randomly from the modulus of a Normal distribution centered at zero with a variance, \mu=0.2. Furthermore, I have used a similar (but unmodulated) distribution to apply an offset to the peak magnitude of the SNe. This is, again, aimed at introducing a scatter into the training sample as the low number of available templates, despite being placed at different redshifts and explosion dates, would produce a sample of repeating objects that yet again could lead to overfitting.
@@ -83,7 +108,22 @@ The method used for building the training sample of SN\,II followed that of SN\,
 \begin{table}
   \caption{}
   \label{tab:SNIITemplates}
-
+  \begin{tabular}{l|r|r}
+    SN Name  & redshift & count \\
+    \hline
+    SN1999el & 0.40 &  4052 \\
+    SN2000cb & 0.36 &  4127 \\
+    SN2000eo & 0.78 & 20895 \\
+    SN2002gd & 0.26 &  1924 \\
+    SN2006V  & 0.45 &  7178 \\
+    SN2007pk & 0.75 & 18822 \\
+    SN2009E  & 0.30 &  3538 \\
+    SN2010al & 0.90 & 30882 \\
+    SN2011hs & 0.26 &   792 \\
+    SN2012ec & 0.36 &  5176 \\
+    SN2013ej & 0.36 &  4114
+    \hline
+  \end{tabular}
 \end{table}
 
 From \tref{tab:SNIITemplates} we see that there is a bimodality in the detectibility o the training sample whereas most of the objects are detectable only at low redshhift with three templates being detected at a significantly greater redshift. As a result these objects have a much higher frequency of detection in my simulations, scewing the detection distribution (\fref{fig:IIDist}). This, again, may cause serious overfitting issues. However, as I generate an overabundance of points, in \sref{sec:CNN} I investigate different combinations of the training samples including one where I select it uniformally based on the original template the simulation was based on.
