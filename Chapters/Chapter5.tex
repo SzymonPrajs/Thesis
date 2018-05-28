@@ -35,7 +35,7 @@ The noise model applied to the data in this chapter is based heavily on the rout
 In DES, SNANA forms the backbone of the SN analysis and is used to extract the image quality logs from the science and reference frames; including the zero points, PSF and sky backgrounds amongst others. Internally these logs are refered to as the \textsc{SIMLIB} files. I follow the same procedure as implemented in SNANA to determine the uncertainty associated with an observation, given its mjd, observing field, filter and the CCD number. The final flux is then drawn randomly from a Normal distribution centered at the simulated flux, with a variance equal to the estimated uncertainty. To demonstrate the effectiveness of this approach, \fref{fig:IaNoiseComp} shows the comparison between the \textit{r}-band light curve of an example SN\,Ia observed by DES and a simulated light curve denerated based on a SALT2 model (performed using the SNCosmo package \citep{Barbary2014}) fit to the original object. The S/N ratio of the observed and simulated light curves fall close to unity, demonstrating their agreement.
 
 \begin{figure}
-  % \includegraphics{/path/to/figure}
+  % \includegraphics[width=\textwidth]{/path/to/figure}
   \caption{\textit{Top}: \textit{r}-band light curve of an example SN\,Ia observed by DES and a simulated object created to replicate the original data point. \textit{Bottom}: the ratio of the S/N for the observed and simulated data light curves shown to be in agreement.}
   \label{fig:IaNoiseComp}
 \end{figure}
@@ -48,7 +48,7 @@ While it would be possible to perform our own simulations, starting with any imp
 The light curves of SN\,Ia that are injected into the images are generated using the extended SALT2 model as used in \citet{Betoule2014}. The upper redshift range was set as z=1.4 ensuring that the sample is not limited by the simualted redshift. We expect that DES is able to detect SN\,Ia up to redshift z$\sim$1.3. The fake SNe are injected such as to match the rate evolution measured by \citet{Perrett2012}. 50,000 objects have passed the detection criteria and therefore form part of our training sample of SN\,Ia. \fref{fig:IaDist} shows the redshift distribution for the sample.
 
 \begin{figure}
-  \includegraphics{Figures/Chapter5/SNIa_z_dist.png}
+  \includegraphics[width=\textwidth]{Figures/Chapter5/SNIa_z_dist.png}
   \caption{The redshift distribution of SN\,Ia that form part of our training sample. }
   \label{fig:IaDist}
 \end{figure}
@@ -98,7 +98,7 @@ I generate the light curves in the redshift range of 0$<$z$<$0.8, drown using a 
 From the simulations we measure the detectibility of each template as the function of redshift (see \tref{IbcTemplates}) as well as the detection frequency of the whole population as a function of redshift shown in \fref{fig:IbcDist}. As expected SN\,Ib/c are detectable only up to z$\sim$0.8 which is significantly lower than that of SN\,Ia (\fref{IaDist}).
 
 \begin{figure}
-  \includegraphics{Figures/Chapter5/SNIbc_z_dist.png}
+  \includegraphics[width=\textwidth]{Figures/Chapter5/SNIbc_z_dist.png}
   \caption{}
   \label{fig:IbcDist}
 \end{figure}
@@ -131,7 +131,7 @@ The method used for building the training sample of SN\,II followed that of SN\,
 From \tref{tab:SNIITemplates} we see that there is a bimodality in the detectibility o the training sample whereas most of the objects are detectable only at low redshhift with three templates being detected at a significantly greater redshift. As a result these objects have a much higher frequency of detection in my simulations, scewing the detection distribution (\fref{fig:IIDist}). This, again, may cause serious overfitting issues. However, as I generate an overabundance of points, in \sref{sec:CNN} I investigate different combinations of the training samples including one where I select it uniformally based on the original template the simulation was based on.
 
 \begin{figure}
-  \includegraphics{Figures/Chapter5/SNII_z_dist.png}
+  \includegraphics[width=\textwidth]{Figures/Chapter5/SNII_z_dist.png}
   \caption{}
   \label{fig:IIDist}
 \end{figure}
@@ -142,7 +142,7 @@ The simulations of SLSNe have been one of the most challenging parts of this the
 The greatest step towards simulating SLSNe was achived in \citet{Inserra2018a} where we have established their new definition that is versitile and robust enough to produce a sample that matches all observed objects but at the same time is limited in the span such that it does not overlap with other classes of SNe. This definition is based on Four Observables Parameter Space (4OPS), defined in narrow (800\AA and 1000\AA wide respectively) box filteres centered at 4000\AA and 5200\AA, by; the peak in the 4000\AA band light curves, colour between the band at peak and +30 days post maximum, and the drop in magnitude between the peak and +30 days in the 4000\AA band. \citet{Inserra2018a} finds that SLSNe form linear correlations in this paramater space, with a narrow scatter shown in \fref{fig:4OPS}. I use this property to determine the magnetar model parameters which correspond to the definition of SLSNe.
 
 \begin{figure}
-  % \includegraphics{/path/to/figure}
+  % \includegraphics[width=\textwidth]{/path/to/figure}
   \caption{}
   \label{fig:4OPS}
 \end{figure}
@@ -158,7 +158,7 @@ I simulate a large number of SLSNe using the magnetar model and compare them to 
 In \fref{fig:4OPSMag}, I show the distribution of magnetar model paramaters that result in objects that match the 4OPS definition of SLSNe. Perhapse the most interesting result is the luminocity function that results from drawing objects uniformly from the magnetar model parameter space. With no external inputs, the functions matches that observed by \citet{DeCia2017} in the PTF sample of SLSNe. I use the sets of magnetar model parameters that match the SLSN definition to generate the training sample of SLSNe for the use in \sref{sec:CNN}. In total $\sim$100,000 SLSN were generated at a range redshifts with 0<z<3, drawn from a volume weighted distribution following the start formation rate of the universe \citep{Beacon2004} similarly to CCSNe (\fref{fig:SLSNDist}).
 
 \begin{figure}
-  \includegraphics{Figures/Chapter5/SLSN_z_dist.png}
+  \includegraphics[width=\textwidth]{Figures/Chapter5/SLSN_z_dist.png}
   \caption{}
   \label{fig:SLSNDist}
 \end{figure}
