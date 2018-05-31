@@ -22,7 +22,7 @@ text
 \subsection{Magnetar Model Fitting}
 text
 
-\section{Training sample}
+\section{Training sample} \label{sec:TrainingSample}
 In any ML project, the training sample used to build the classification model is its most import element. Regardless of the algorithm used without the correct samples the model will not be able to accurately label new data and often may fall victim to overfitting. An ideal training set would be large compared to the number of distint classes, containing unambiguesly labelled objects and be indistinguishable from the unlabelled test sample that we wish to classify. In reality, this is difficult to achive and often involves manual scanning and classification of the training sample by the user (e.g the manual scanning of point source detection in DES \citep[][and similar studies]{Goldstein2015}).
 
 In the case of SN light curves building the training sample is very difficult. The data comes from a very wide range of sources as the observations are taken using different telescopes, instruments and filters. The raw numbers of classified SNe are also insufficient with only several thousand objects classified to day [CITE?]. While commonly used, the SPCC dataset does not satisfy the requirement for a CNN training sample as the sample is too small.
@@ -192,16 +192,29 @@ While in this thesis, I have created one of the most thorough training samples o
 
 The omission of rapidly evolving SNe from our sample will result in these objects being mislabelled in our classifications. It would however be unlikely that any of the objects that we have not included in the training sample would get mislabelled as a SLSNe due to their significanly faster evolution. I test this assertion in \sref{CNN} using the ground-truth sample of objects identified by \citet{Pursiainen2018}.
 
-\section{Data Augmentation} \label{sec:DataAugmentation} 
-Before the 
+\section{Data Augmentation} \label{sec:DataAugmentation}
+Before the training sample of SNe created in \sref{sec:TrainingSample} can be used to build a CNN classification model, it has to first undergo a number of augmentation steps. The data passed through the CNN must be uniform in terms of the number of points as well  their separation, regardless of the field and season the data was taken from. To achieve this, I first select a length of observations, then I choose a new cadance that will overlap most closely with that observed by DES before applying the flux correction required to normalise the effect of using a changing subtraction template in different season. Finally I use GPR in order to interpolate and augment the data such as to meet the requirements of CNN.
+
 \subsection{Choosing the observing block}
-text
+I define the observing block, for the used in our classification study, as the span of time (measured in days) that is the longest period over which an DES season observes any of its field. Due to the observing conditions and sheduling the DES observing seasons vary between the seasons and fields, with a difference can between the longest and shortest observing window measuring 40 days. This is not only caused by the sheduling or the observability of the fields but also due to the observing conditions as in the early parts of the season a large number of observations is lost to the cloudy conditions. This results in either large gaps in the data for all or several filters.
+
+Selecting the observing block is not as straight foward as to simply use the length of the shortest season. \fref{fig:ObsBlock} shows the cedance of DES in each season, field and band.
+
+\begin{figure}
+  \includegraphics{Figures/Chapter5/ObsBlock_Season1.pdf}
+  \includegraphics{Figures/Chapter5/ObsBlock_Season2.pdf}
+  \includegraphics{Figures/Chapter5/ObsBlock_Season3.pdf}
+  \includegraphics{Figures/Chapter5/ObsBlock_Season4.pdf}
+  \caption{}
+  \label{fig:ObsBlock}
+\end{figure}
+
 \subsection{Choosing the cadence}
 text
 \subsection{Applying Flux correction to Real Data}
 text
 \subsection{Applying GPs}
-The size and extend of the training sample used in these thesis is one of the two advancements made towards classifying SNe in DES using an ML approach. An equally important step, crucial for the use of CNNs, was the use of GPR (\sref{sec:GP}) as a tool for light curve interpolation and augmentation. 
+The size and extend of the training sample used in these thesis is one of the two advancements made towards classifying SNe in DES using an ML approach. An equally important step, crucial for the use of CNNs, was the use of GPR (\sref{sec:GP}) as a tool for light curve interpolation and augmentation.
 
 \section{Classifications} \label{sec:CNN}
 text
