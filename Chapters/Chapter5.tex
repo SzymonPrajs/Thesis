@@ -198,7 +198,11 @@ Before the training sample of SNe created in \sref{sec:TrainingSample} can be us
 \subsection{Choosing the observing block}
 I define the observing block, for the used in our classification study, as the span of time (measured in days) that is the longest period over which an DES season observes any of its field. Due to the observing conditions and sheduling the DES observing seasons vary between the seasons and fields, with a difference can between the longest and shortest observing window measuring 40 days. This is not only caused by the sheduling or the observability of the fields but also due to the observing conditions as in the early parts of the season a large number of observations is lost to the cloudy conditions. This results in either large gaps in the data for all or several filters.
 
-Selecting the observing block is not as straight foward as to simply use the length of the shortest season. \fref{fig:ObsBlock} shows the cedance of DES in each season, field and band.
+Selecting the observing block is not as straight foward as to simply use the length of the shortest season. \fref{fig:ObsBlock1,fig:ObsBlock2,fig:ObsBlock3,fig:ObsBlock4} show the cedance of DES in seasons 1-4 in all fields and bands.
+
+This is done in two stages, first I find the span that covers all the filters. From the first point where all the filters are observed to the last point where all the filters are observed. I then remove the points at the start of the season where there is a gap in the data longer than 10 days. This happens in a few filters where an observation has been missed due to the atmospheric conditions. If a similar gap to this exists later on in the light curve the GPR interpolation can handle it well but at the start of the season there is not enough information to anchor the fit.
+
+From these measurements I determine the optimal observing block to be 149 days in duration. The span covered by the block in each season and filter is shown in \fref{fig:ObsBlock1,fig:ObsBlock2,fig:ObsBlock3,fig:ObsBlock4}. 
 
 \begin{figure}[h]
   \includegraphics[width=\textwidth]{Figures/Chapter5/ObsBlock_Season1.pdf}
