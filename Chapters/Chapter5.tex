@@ -202,7 +202,7 @@ Selecting the observing block is not as straight foward as to simply use the len
 
 This is done in two stages, first I find the span that covers all the filters. From the first point where all the filters are observed to the last point where all the filters are observed. I then remove the points at the start of the season where there is a gap in the data longer than 10 days. This happens in a few filters where an observation has been missed due to the atmospheric conditions. If a similar gap to this exists later on in the light curve the GPR interpolation can handle it well but at the start of the season there is not enough information to anchor the fit.
 
-From these measurements I determine the optimal observing block to be 149 days in duration. The span covered by the block in each season and filter is shown in \fref{fig:ObsBlock1,fig:ObsBlock2,fig:ObsBlock3,fig:ObsBlock4}. 
+From these measurements I determine the optimal observing block to be 149 days in duration. The span covered by the block in each season and filter is shown in \fref{fig:ObsBlock1,fig:ObsBlock2,fig:ObsBlock3,fig:ObsBlock4}.
 
 \begin{figure}[h]
   \includegraphics[width=\textwidth]{Figures/Chapter5/ObsBlock_Season1.pdf}
@@ -229,10 +229,23 @@ From these measurements I determine the optimal observing block to be 149 days i
 \end{figure}
 
 \subsection{Choosing the cadence}
-text
+Upon deciding on the observing block used in the simulations the next step I applied was was to decide on the cadance of the interpolated observations. As I am using GPRs I could apply essentially any cedence I want and there is no real rule for how much data should be included in the sample. I did however not want to either loose any information or use too many data points which would esentially only replicate the information that we already have.
+
+The observed cadence of DES is not uniform and varies through the season due to the observing conditions. Early in the season, the cadence is shorter as the obseving weather conditions don't allow for the observatins of the wide DES fields leading to a shorter DES cadence as the deep and shallow fields are given more observing time. On the contrary, the cadence stabilised as the season progresses and settles at the designed 7 days. This is seen in \fref{fig:cadence} resulting in a bimodal distribution with an average cadance of 5 days. With a lack of any other factors that could help us decide on the cadence for the interpolated I use this value in \sref{sec:UseGP}.
+
+\begin{figure}
+  \includegraphics{Figures/Chapter5/Cadence.pdf}
+  \caption{}
+  \label{fig:cadence}
+\end{figure}
+
 \subsection{Applying Flux correction to Real Data}
-text
-\subsection{Applying GPs}
+Before the GPR can be applied to all the data I need to correct the effect of DES switching the subtraction template between season. As DES focuses on a single season study of SN light curves, an issue where the SN light is present in the template for the following season is does not hinder the analysis. However, SLSN have an evolution that can often be slow enough to be detectable in multiple seasons in DES (Angus et al.; in prep). This may potentially be a strong factor in the classification of SLSN and hence cannot be ignored. This is even more important in the case of AGN where the continuus variability results in the AGN flux being present in every template used.
+
+To correct for this, 
+
+
+\subsection{Applying GPs} \label{sec:UseGP}
 The size and extend of the training sample used in these thesis is one of the two advancements made towards classifying SNe in DES using an ML approach. An equally important step, crucial for the use of CNNs, was the use of GPR (\sref{sec:GP}) as a tool for light curve interpolation and augmentation.
 
 \section{Classifications} \label{sec:CNN}
