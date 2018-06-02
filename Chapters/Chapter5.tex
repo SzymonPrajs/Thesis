@@ -240,13 +240,18 @@ The observed cadence of DES is not uniform and varies through the season due to 
 \end{figure}
 
 \subsection{Applying Flux correction to Real Data}
-Before the GPR can be applied to all the data I need to correct the effect of DES switching the subtraction template between season. As DES focuses on a single season study of SN light curves, an issue where the SN light is present in the template for the following season is does not hinder the analysis. However, SLSN have an evolution that can often be slow enough to be detectable in multiple seasons in DES (Angus et al.; in prep). This may potentially be a strong factor in the classification of SLSN and hence cannot be ignored. This is even more important in the case of AGN where the continuus variability results in the AGN flux being present in every template used.
+Before the GPR can be applied to all the data it first needs to be corrected for the effects of DES switching the image subtraction template between season. As the focus of the DES SN team is predominantly the study of SN\,Ia they have always focused on maximising the quality of single season light curves. As the image quality has improved in the first two seasons of observations the templates have been updated each year. This is not an for the study of short transients where only a single season is of interest, however, for slowly evolving SNe (and AGNs) this causes an issue where the supernova light curve is present in the template result in decreased flux in the subsequent season. This is a particular problem for SLSN, where their evolution can often be slow enough to be detectable in multiple seasons in DES (Angus et al.; in prep). This may potentially be a strong factor in their classification and hence cannot be ignored.
 
-To correct for this, 
+While the most optimal approach to this would be to perform the image subraction and source detection with a single template this was both computationally prohibitive due to the scale and complexity of the raw DES data. As an alternative solution, I used the DES analysis logs to determine which observations have been used in the creation of the template images. In these frames, I measure the median flux of the object and use this value to correct the offset. As a simple test for this approach, I use a light curve of a SN\,Ia that explosed early in the second season of DES. In the uncorrected DES light curves this results in a flat but negative light curve in the third season. \fref{fig:FluxOffset} shows the original and corrected light curve, consistant with zero flux in the third season.
 
+\begin{figure}
+  % \includegraphics{/path/to/figure}
+  \caption{}
+  \label{fig:FluxOffset}
+\end{figure}
 
 \subsection{Applying GPs} \label{sec:UseGP}
-The size and extend of the training sample used in these thesis is one of the two advancements made towards classifying SNe in DES using an ML approach. An equally important step, crucial for the use of CNNs, was the use of GPR (\sref{sec:GP}) as a tool for light curve interpolation and augmentation.
+The size and extend of the training sample used in this thesis is one of the two advancements made towards classifying SNe in DES using the ML approach. An equally important step, crucial for the use of CNNs, was the use of GPR (\sref{sec:GP}) as a tool for light curve interpolation and augmentation. CNN performs pattern recognision using a set of convolutional kernels with a fixed size, therefore requiring the data to be evenly sampled. This has tremendous benefits as it does not require any feature extraction steps and uses every data point in the classification process. While the observed data cannot be used directly in this technique due to its non-uniform sampling, using a GP interpolated light curve removes less information about the data than a parametric model. Simulataniously it does not introduces any correlations between the distinct bands, both in terms of the flux and the onset of the SN.
 
 \section{Classifications} \label{sec:CNN}
 text
