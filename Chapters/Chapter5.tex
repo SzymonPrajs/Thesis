@@ -251,7 +251,9 @@ While the most optimal approach to this would be to perform the image subraction
 \end{figure}
 
 \subsection{Applying GPs} \label{sec:UseGP}
-The size and extend of the training sample used in this thesis is one of the two advancements made towards classifying SNe in DES using the ML approach. An equally important step, crucial for the use of CNNs, was the use of GPR (\sref{sec:GP}) as a tool for light curve interpolation and augmentation. CNN performs pattern recognision using a set of convolutional kernels with a fixed size, therefore requiring the data to be evenly sampled. This has tremendous benefits as it does not require any feature extraction steps and uses every data point in the classification process. While the observed data cannot be used directly in this technique due to its non-uniform sampling, using a GP interpolated light curve removes less information about the data than a parametric model. Simulataniously it does not introduces any correlations between the distinct bands, both in terms of the flux and the onset of the SN.
+The size and extend of the training sample used in this thesis is one of the two advancements made towards classifying SNe in DES using the ML approach. An equally important step, crucial for the use with CNNs, was the use of GPR (\sref{sec:GP}) as a tool for light curve interpolation and augmentation. CNN performs pattern recognision using a set of convolutional kernels with a fixed size, therefore requiring the data to be evenly sampled. This has tremendous benefits as it does not require any feature extraction steps and uses every data point in the classification process. While the observed data cannot be used directly in with this technique due to its non-uniform sampling, using a GP interpolated light curves removes less information about the data than a parametric model. Simulataniously, it does not introduces any correlations between the distinct bands, both in terms of the flux and the onset of the SN.
+
+I apply the method described in \sref{sec:GP} to interpolate the light curves using the Mate\'rn 3/2 covarience functions.
 
 \section{Classifications} \label{sec:CNN}
 text
