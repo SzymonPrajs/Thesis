@@ -30,7 +30,7 @@ There is a number of problems involved with this approach to selecting SLSNe. Al
 One of the drawbacks of the rules put in place in order to optimise the fitting process and reduce the number of false detections being passed through the fitting pipiline is the rejection of some objects, most prodominantly DES15C3hav, which show a slowly evolving pre-peak bump close to the detection limit of the survey (Angus et al; in prep). In the case of DES15C3hav, the early activity has only been detected in two consecutive epochs before the S/N of the object dropped considerably a number of weeks before its rebrightening at the onset of the main SLSN event. While no such cases have been recorded, it is also likely that a pre-peak bump similar to that found in DES14X3taz would have been excluded as the iniatial seven epochs do not form a good fit to the magnetar model and do not fit the definition of SLSNe.
 
 \paragraph{Faint SLSNe}
-One of the most interesting discoveries DES made about the population of SLSNe is the abundance of objects which spectroscopically math SLSNe but can often be found at absolute liminosities as low as M$\sim$-19. From \citet{Inserra2018a} and \citet{Nicholl2014, Nicholl2017} we know that the evolution of SLSN, both in terms of the rise and decline time, is strongly linked to the luminosity resulting in different morphology of the fainter events. No such objects were present in the sample used in \cref{Chapter3}, resulting in the magnetar model definition being strongly biasad against such objects. A number of fainter SLSN, including DES14XXslp ..., were overlooked  
+One of the most interesting discoveries DES made about the population of SLSNe is the abundance of objects which spectroscopically math SLSNe but can often be found at absolute liminosities as low as M$\sim$-19. From \citet{Inserra2018a} and \citet{Nicholl2014, Nicholl2017} we know that the evolution of SLSN, both in terms of the rise and decline time, is strongly linked to the luminosity resulting in different morphology of the fainter events. No such objects were present in the sample used in \cref{Chapter3}, resulting in the magnetar model definition being strongly biasad against such objects. A number of fainter SLSN, including DES14XXslp ..., were overlooked
 
 \paragraph{Lack of late time data}
  Perhapse the most important one is my assertion that it is possible to model a SLSNe using its rise time data only. It has been shown in \citet{Inserra2013} and \citet{Inserra2018a} that SLSNe are most strongly characterised by their late time light curve. This became very apparent when DES15E2mlf was discovered as the most distant, spectroscopically confirmed SLSN at the point of its classification \citep{Pan2017}. Both visual inspections, the search described in this section as well as the standard DES SN template fitting have strongly suggested that the object is a SN\,Ia at z$\sim$0.3. The unusually fast evolution of a SLSN is counter-intui
@@ -271,13 +271,37 @@ I apply the method described in \sref{sec:GP} to interpolate the light curves us
 While the fitting correctly interpolated all of artifically generated light curves, it does fail for a small amound of real DES objects. I reviewed these visually and determined that this is caused by errors in the extraction where some points appear to have no uncertainty.
 
 \section{Classifications} \label{sec:CNN}
-text
+The construction of the artificial DES training sample of transiants was a major step towards performing a comprehensive classification study using a machine learning approach. In recent years, the use of machine learning has expanded far beyond the purely academic uses within the field of Computer Science. The world around us is currently being shaped by AI augmented technologies driven in large measure by Artificial Neural Networks (ANN) and their derivatives such as Convoutional Neural Networks (CNN) and Deep Learning.
+
+The process of selecting transients for spectroscopic follow-up is an example, albeit not explicit, of SN photometric classification. This task has been performed manually, through the visual inspection of the light curves, for decades in every SN survey. In recent years a number of attempts have been made to devise a pipeline for photometric classification of SN based on the clustering of light curve model parameters. However, this problem can be apprached from a more fundamental point of view using Artificial Intelligence (AI). Computer vision, a prominant branch of AI, has been successfully appliedd to countless examples of classification tasks where humans demonstrated a superiority over the early classification methods. Projects such as ImageNet [CITE] were able to produce models capable of identify a number of everyday entities (humans, vehicles, animals, household items) with an accuracy exceeding that of an average human. While the scarsity of the training samples available to us in comparison to projects such as ImageNet does not allow us to use an equally complex model, this is not requiered as the complexity and diversity of our transient data is not even a fraction as high as that of any everyday object.
+
+In this section I describe the use of Convolutional Neural Networks (CNN) as an AI tool used to first identify SN light curves in the DES data and subsequently classify them into their respective subclasses with the overall aim of producing a photometric sample of DES SLSNe
+
 \subsection{Convolutional Neural Networks}
+CNNs are currently one of the most talked about topics in the world of AI and ML. While their wide spread use is novel and a result of the increase in the performance of computer devices, the theory behind them dates back to the early work on Artificial Neural Networks (ANN) [CITE, CITE] and replicating the ability of the human ability to learn based the external stimuli.
+
+\subsubsection{Artificial Neural Networks}
+All principle components of a ANN are fundamentally based on the human brain contain neurons, represented by nodes and activation functions. The nodes, usually aranged in a network of layers, are connected a set of weight which correstond to the biological synapsis. The aim of a ANN is to perform a non-linear transformation between the input parameters and the output values.
+
+\subsubsection{Convolutional Neural Networks}
 text
-\subsection{Feeding the data}
-text
+
 \subsection{SNe vs AGN vs Noise}
-text
+While CNNs are extremely powerful in their ability to classify images, regardless of what they contain, they often relie on huge amonuts of training samples in order to learn their discriminating qualities. In the case of DES transient data we are still not operating on a suffciently large dataset despite the work on enhancing the sample. However, it is possible to simplify the classification problem to reduce the amount of training samples required to produce a good classification score.
+
+\subsubsection{Choosing the training sample}
+As the first step in the analysis of the DES sample, I separate the task of classifying SN from that of identifying real SN transients amonst the background of spurious detections and AGNs also detected by the survey. As the traning sample for each class must be of similar shapes, I use all of the $\sim60000$ fake AGN generated in \sref{sec:AGN} as well as a random sample of 60,000 spurious noise examples. The matching SN sample must contain examples of all SN in approximatelly equal proportions. I therefore use 20,000 SN\,Ia, 10,000 SN\,Ibc, 10,000 SN\,II and 20,000 SLSN all drawn randomly from their simulated samples (\sref{sec:Augmentation}).
+
+\subsubsection{Reshaping the data}
+Due to their complexity, CNNs rely on heavily fine-tuned optimisers for minimising the model's loss functions. As a result, the data must sitisfy a number of strict criteria in order to comply with these constrains. While most of them are not relevant to the transient data, we must observe the limit on the upper and lower limits of the flux which should range between positive and negative unity.
+
+As the final piece of book-keeping, the data, must be dimentially reshapes in order to match the directions in the parameters space in which we wish to identify the features. These are; time, colour, season. [NEED TO WRITE HOW TIME AND SEASON ARE NOT THE SAME THING]
+
+\subsubsection{Designing the network}
+The design of a neural network is often described as a dark art with no clear directions and and formalisims available as a guidline for the process. While some early work is taking place at Google in the area of optimising the morphology of the networks for maximum performance, this is a very computationally expensive task and therefore prohibitive for us. In the case of this thesis, I am instead relying on my domain knowladge of the distinquichable features of transients to perform the learning.
+
+This has undergone many iterations and levels of complexity. In all instances the first point of access in the model is a convolutional layer containing 30-80 independant filters each between 3-9 epochs wide. These filters are applied to each season and band independantly
+
 \subsection{Classifying SNe}
 text
 \subsection{SLSNe in DES}
