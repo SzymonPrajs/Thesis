@@ -283,24 +283,42 @@ CNNs are currently one of the most talked about topics in the world of AI and ML
 \subsubsection{Artificial Neural Networks}
 All principle components of a ANN are fundamentally based on the human brain contain neurons, represented by nodes and activation functions. The nodes, usually aranged in a network of layers, are connected a set of weight which correstond to the biological synapsis. The aim of a ANN is to perform a non-linear transformation between the input parameters and the output values.
 
+- Activation functions and weights
+- Input output and hidden layers
+- backpropagation and training
+
 \subsubsection{Convolutional Neural Networks}
 text
 
 \subsection{SNe vs AGN vs Noise}
 While CNNs are extremely powerful in their ability to classify images, regardless of what they contain, they often relie on huge amonuts of training samples in order to learn their discriminating qualities. In the case of DES transient data we are still not operating on a suffciently large dataset despite the work on enhancing the sample. However, it is possible to simplify the classification problem to reduce the amount of training samples required to produce a good classification score.
 
-\subsubsection{Choosing the training sample}
+\subsubsection{Choosing the training sample} \label{sec:AGNNoiseSN}
 As the first step in the analysis of the DES sample, I separate the task of classifying SN from that of identifying real SN transients amonst the background of spurious detections and AGNs also detected by the survey. As the traning sample for each class must be of similar shapes, I use all of the $\sim60000$ fake AGN generated in \sref{sec:AGN} as well as a random sample of 60,000 spurious noise examples. The matching SN sample must contain examples of all SN in approximatelly equal proportions. I therefore use 20,000 SN\,Ia, 10,000 SN\,Ibc, 10,000 SN\,II and 20,000 SLSN all drawn randomly from their simulated samples (\sref{sec:Augmentation}).
 
 \subsubsection{Reshaping the data}
-Due to their complexity, CNNs rely on heavily fine-tuned optimisers for minimising the model's loss functions. As a result, the data must sitisfy a number of strict criteria in order to comply with these constrains. While most of them are not relevant to the transient data, we must observe the limit on the upper and lower limits of the flux which should range between positive and negative unity.
+Due to their complexity, CNNs rely on heavily fine-tuned optimisers for minimising the model's loss functions. As a result, the data must satisfy a number of strict criteria in order to comply with these constrains. While most of them, such the need for the data to be linear, are naturally satisfied by the training dataset, we must observe a number of them including the upper and lower limits on the flux which must be in the range of positive and negative unity.
 
-As the final piece of book-keeping, the data, must be dimentially reshapes in order to match the directions in the parameters space in which we wish to identify the features. These are; time, colour, season. [NEED TO WRITE HOW TIME AND SEASON ARE NOT THE SAME THING]
+As the final piece of book-keeping, the data for all training samples must be concatinated into a single, multi-dimential matrix, shaped such as to separate the features which are dimentially independant of each order. In order to allow for the models described in the following section to extract both the colour and morphological evolution of the transients, each season of data is represented by a 4$\times$46, two dimentional vector, corresponding to the number of photometric bands and epoch per band respectively. This central block of data is build for each season independantly, as the large gap between the observing blocks means that the data cannot be treated as continuus.
 
-\subsubsection{Designing the network}
+\subsubsection{Designing the network} \label{sec:AGNNoiseModel}
 The design of a neural network is often described as a dark art with no clear directions and and formalisims available as a guidline for the process. While some early work is taking place at Google in the area of optimising the morphology of the networks for maximum performance, this is a very computationally expensive task and therefore prohibitive for us. In the case of this thesis, I am instead relying on my domain knowladge of the distinquichable features of transients to perform the learning.
 
-This has undergone many iterations and levels of complexity. In all instances the first point of access in the model is a convolutional layer containing 30-80 independant filters each between 3-9 epochs wide. These filters are applied to each season and band independantly
+This has undergone many iterations with a wide range of layer complexity. In all instances, the first point of access in the model is a convolutional layer containing 30-80 independant filters each between 3-9 epochs wide. These filters are applied to each season and band independantly. A pooling layer is applied to the data at this point as a way of emphesising the features highlighted by the convolutional filters before a second convolutional layer, othogonal to the first layer, is applied to the data in order to measure the use the colour information at each epoch. At this stage, an average pooling layer is used again extracting the two most prominant features in the colour space for each filter.
+
+After comparing a large number of iterations of these hyperparameters, I found that using 50 filters spanning 5 epochs in the first layer and 30 filters in the second layer were able to produce the highest accuracy. Perhapse counterintuitevely, iterations in which I combined these filters together did not provide a higher accuracy. A low number of orthogonal filters provide a freedom for the features to be learned independantly, and prevent the filters from relearning the same features. One could imagine a situation where a simiar light curve shape may be associated with a different colout evolution for different class of transients. This highlights the importance of allowing the CNN to build its own features out of the simplest building blocks without overcomplicating the design by constraining the model.
+
+- Put in the schematics of the models
+
+\subsubsection{Training the model}
+The combined training sample build in \sref{sec:AGNNoiseSN} is passed through the network using a batch size of 5000 objects with 100 epoch, or individual runs of the backpropagation algorithm. The best model, described in \sref{sec:AGNNoiseModel} converges rapidly on the accuracy of 99.7\% which vastly exceeded my expectations.
+- Put in the ROC plot
+
+\subsubsection{Selecting SNe}
+- Pass all transients through the network
+- I get 6000 objects which are most likely to be SN
+- I compare this to the sample of SNIa, CCSN, AGN and SLSNe and I find that all spectroscopically confirmed SN, regardless of their subclass are part of the sample while all objects which have been classifies as AGN have been identified as AGN. This is a trmendous result that trully shows that CNN are the perfect tool for this task and paves way to similar projects being used in future surveys including LSST.
+- I decided to use a stricter cut at 99\% just to be sure which retained 5300 objects because all spec confirmed objects were at 99.5\% and over.
 
 \subsection{Classifying SNe}
 text
