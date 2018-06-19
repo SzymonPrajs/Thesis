@@ -334,10 +334,16 @@ Upon the classification of 5300 transients found in the first four years of oper
 The classification of SN in the absense of the distance prior requires us to focus purely on the morphology of the light curve including its colour and temporal evolution and apparent luminocity as the only available sources of information. These differences may be very subtle for a number of SN classes, most predominantly SN\,Ia and SN\,Ibc, and we therefore do not expect to be able to produce a classification model matching the accuracy of that used to identify SN candidates in DES.
 
 \subsubsection{Data preparation and model selection}
-To build the SN classification model, I use the approach developed in \sref{sec:AGNNoiseModel} as the benchmark and work from that point modifying the network to suit the more delicate problem
+To build the SN classification model, I use the approach developed in \sref{sec:AGNNoiseModel} as the benchmark and work from that point modifying the network to suit this more complex problem. Perhapse the most important change was the introduction of the absolute magnitude as one of the input parameters. In the selection of SNe performed in \sref{sec:AGNNoiseModel} this was not necessary as the light curve evolution, normalised to one for each object, provides sufficient information to distinguish between these very different classes of objects. In the case of SN the difference are very subtle relative to the previous model with the luminocity as a function of the colour likely being one of the strongest indicators for each subclass. The absolute luminosity is measured as the maximum flux in each band across all seasons of data. This provides only 4 additional data point and are therefore introduces late into the network in order to give them more weight in determing the final classification \fref{fig:SNClassificationNetwork}.
 
-- Used more colour filters
-- Used tanh activation function because the differences were smaller
-- Used absolute mags as another source of info  
+\begin{figure}
+  % \includegraphics{/path/to/figure}
+  \caption{}
+  \label{fig:SNClassificationNetwork}
+\end{figure}
+
+Another important change that was introduces in this iteration of the CNN was an increase in the number of convolutional filters responsible for measuing the colour of the SN. Through a number of tests I found that an increase from 30 to 50 unique filters improves the classification rate by $\sim$3\% without overfitting the model.
+
+Finally, one of the biggest improvements in the model came from modifying the activation function to follow the tanh distribution over ReLU, introducing an improvement of $\sim$5\%. Interestingly, the same behaviour was not previously observed in the SN identification network where the use of tanh or sigmoidal activation functions hinder the classification rate. One possible explanation of this comes from the fact that the   
 
 \subsection{SLSNe in DES}
