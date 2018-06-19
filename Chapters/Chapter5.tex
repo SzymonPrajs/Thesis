@@ -311,12 +311,19 @@ After comparing a large number of iterations of these hyperparameters, I found t
 - Put in the schematics of the models
 
 \subsubsection{Training the model}
-The combined training sample build in \sref{sec:AGNNoiseSN} is passed through the network using a batch size of 5000 objects with 100 epoch, or individual runs of the backpropagation algorithm. The best model, described in \sref{sec:AGNNoiseModel} converges rapidly on the accuracy of 99.7\% which vastly exceeded my expectations.
-- Put in the ROC plot
+The combined training sample build in \sref{sec:AGNNoiseSN} is passed through the network using a batch size of 5000 objects with 100 epoch, or individual runs of the backpropagation algorithm. CNNs are often trained on smaller batches of data to accelerate the learning process and help to prevent overfitting. The choice of the number of fitting epoch serves a similar, as a general rule of thumb the fitting is stopped when the model approaches convergence as an excesive number of epochs would allow the model to `learn' the test sample leading to overfitting.
+
+My best model, as described in \sref{sec:AGNNoiseModel}, converges rapidly to the accuracy of 99.7\% which vastly exceeded our expectations. \fref{fig:AGNNoiseROC} shows the Receiver Operating Characteristic (ROC) which is the most commonly used metric of the accuracy of the classification model. [DESCRIBE WHAT ROC IS]. The ROC curve, in the case of this classifier, indocates that for each individual objects the probability of it being a true positive vs a true negative is 99.97\%.
+
+\begin{figure}
+  % \includegraphics{/path/to/figure}
+  \caption{}
+  \label{fig:AGNNoiseROC}
+\end{figure}
 
 \subsubsection{Selecting SNe}
-- Pass all transients through the network
-- I get 6000 objects which are most likely to be SN
+After the numerous preparation steps we can now obtaining classifications for each real, unlabelled DES transient. 19,500 objects were sanitised and reshaped using the same method as the training sample before being passed thorugh the classification network. 6000 objects obtained the classification of `most-likely' being SN, e.g their probability of 
+
 - I compare this to the sample of SNIa, CCSN, AGN and SLSNe and I find that all spectroscopically confirmed SN, regardless of their subclass are part of the sample while all objects which have been classifies as AGN have been identified as AGN. This is a trmendous result that trully shows that CNN are the perfect tool for this task and paves way to similar projects being used in future surveys including LSST.
 - I decided to use a stricter cut at 99\% just to be sure which retained 5300 objects because all spec confirmed objects were at 99.5\% and over.
 
