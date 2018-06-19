@@ -344,6 +344,14 @@ To build the SN classification model, I use the approach developed in \sref{sec:
 
 Another important change that was introduces in this iteration of the CNN was an increase in the number of convolutional filters responsible for measuing the colour of the SN. Through a number of tests I found that an increase from 30 to 50 unique filters improves the classification rate by $\sim$3\% without overfitting the model.
 
-Finally, one of the biggest improvements in the model came from modifying the activation function to follow the tanh distribution over ReLU, introducing an improvement of $\sim$5\%. Interestingly, the same behaviour was not previously observed in the SN identification network where the use of tanh or sigmoidal activation functions hinder the classification rate. One possible explanation of this comes from the fact that the   
+Finally, one of the biggest improvements in the model came from modifying the activation function to follow the tanh distribution over ReLU, introducing an improvement of $\sim$5\%. Interestingly, the same behaviour was not previously observed in the SN identification network where the use of tanh or sigmoidal activation functions hinder the classification rate. One possible explanation of this comes from the fact that the differences between the objects in the training samples in the SN identification sample are so large that they require the most flexible and forgiving activation function which ReLU does provide, while the similarity of the SN subclasses requires a very sensitive, sigmoidal function to be used. The benefit of the tanh over a sigmoid is the scaling between the negative and positive one as opposed to zero and one, which allows for objects with small negative values.
+
+\subsubsection{Training the model}
+- The final model was used on the training sample and acihieved anaccuracy of 90\% anaccuracy
+- The classification rate can be split individually for each objects and while this does not necessarily makes sense it shows that real SN\,Ia are very likely to be selected as Ia's in this model.
+- This is basically the best classifier of SN despite not having any redshift information which is super fucking awesome and very encouraging.
 
 \subsection{SLSNe in DES}
+- I have applied the model to the spectroscopically idendified objects and find that almost all SN\,Ia are classes correctly and the same is true for CCSN.
+- Amongst SLSN that is less true with only 12 of 17 objects entering the sample. The remaining 5 objects are identified as CCSNe
+- This is not great but greatness was never expected, specially that the objects that were missidentified we hard.
