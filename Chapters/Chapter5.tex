@@ -322,11 +322,22 @@ My best model, as described in \sref{sec:AGNNoiseModel}, converges rapidly to th
 \end{figure}
 
 \subsubsection{Selecting SNe}
-After the numerous preparation steps we can now obtaining classifications for each real, unlabelled DES transient. 19,500 objects were sanitised and reshaped using the same method as the training sample before being passed thorugh the classification network. 6000 objects obtained the classification of `most-likely' being SN, e.g their probability of 
+After the numerous preparation steps we can now obtaining classifications for each real, unlabelled DES transient. 19,500 objects were sanitised and reshaped using the same method as the training sample before being passed through the classification network. Amonst this sample, 6000 objects received a classification of `most-likely' being a SN, e.g their probability was highest for this label.
 
-- I compare this to the sample of SNIa, CCSN, AGN and SLSNe and I find that all spectroscopically confirmed SN, regardless of their subclass are part of the sample while all objects which have been classifies as AGN have been identified as AGN. This is a trmendous result that trully shows that CNN are the perfect tool for this task and paves way to similar projects being used in future surveys including LSST.
-- I decided to use a stricter cut at 99\% just to be sure which retained 5300 objects because all spec confirmed objects were at 99.5\% and over.
+To test the clssification model and determine a probability treshhold that would ensure a high purity of the sample, I use the samples of spectroscopically classified SNIa, CCSN, SLSNe and AGN as a ground-truth sample. Regardless of their subclass, all confirmed SN in the sample were correctly classified usin our CNN and all AGN were also correctly accounted for. Furthermore, each confirmed SN has been identified with a very high degree of confidence exceeding 99\% in the worst cases with an average exceeding 99.99\% for the majority of transients. This result confirms that the high degree of accuracy could not be attributed to overfitting or errors in the analysis but was in fact the true representation of the quality and the staggering ability for the CNNs to differentiate these classes of transients. The high level of accuracy suggest that a similar project performed on data with lower quality or more incomplete light curves could still result in a positive result paving way for similar methods to be applied in the future astronomical surveys including LSST.
+
+Using the classification probability values found for confirmed objects I have used a conservative treshold of 98\% to select the objects which are to enter the next stage of the analysis. This retained 5300 objects which is a approximate match to the numbers of SN discoveries expected in DES [CITE DES PREP PAPERS AND LI].
 
 \subsection{Classifying SNe}
-text
+Upon the classification of 5300 transients found in the first four years of operation of DES, the next step of the analysis is to attempt to divide these objects into their respective subclasses using their light curve data alone. This task is perhapse one of the greatest challenges facing SN surveys to date, with no project ever accomplishing this with a high degree of confidence without the use of reshift as a modelling prior.
+
+The classification of SN in the absense of the distance prior requires us to focus purely on the morphology of the light curve including its colour and temporal evolution and apparent luminocity as the only available sources of information. These differences may be very subtle for a number of SN classes, most predominantly SN\,Ia and SN\,Ibc, and we therefore do not expect to be able to produce a classification model matching the accuracy of that used to identify SN candidates in DES.
+
+\subsubsection{Data preparation and model selection}
+To build the SN classification model, I use the approach developed in \sref{sec:AGNNoiseModel} as the benchmark and work from that point modifying the network to suit the more delicate problem
+
+- Used more colour filters
+- Used tanh activation function because the differences were smaller
+- Used absolute mags as another source of info  
+
 \subsection{SLSNe in DES}
