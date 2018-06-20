@@ -293,7 +293,7 @@ text
 \subsection{SNe vs AGN vs Noise}
 While CNNs are extremely powerful in their ability to classify images, regardless of what they contain, they often relie on huge amonuts of training samples in order to learn their discriminating qualities. In the case of DES transient data we are still not operating on a suffciently large dataset despite the work on enhancing the sample. However, it is possible to simplify the classification problem to reduce the amount of training samples required to produce a good classification score.
 
-\subsubsection{Choosing the training sample} \label{sec:AGNNoiseSN}
+\subsubsection{Choosing the training sample} \label{sec:AGNNoiseSNSample}
 As the first step in the analysis of the DES sample, I separate the task of classifying SN from that of identifying real SN transients amonst the background of spurious detections and AGNs also detected by the survey. As the traning sample for each class must be of similar shapes, I use all of the $\sim60000$ fake AGN generated in \sref{sec:AGN} as well as a random sample of 60,000 spurious noise examples. The matching SN sample must contain examples of all SN in approximatelly equal proportions. I therefore use 20,000 SN\,Ia, 10,000 SN\,Ibc, 10,000 SN\,II and 20,000 SLSN all drawn randomly from their simulated samples (\sref{sec:Augmentation}).
 
 \subsubsection{Reshaping the data}
@@ -311,7 +311,7 @@ After comparing a large number of iterations of these hyperparameters, I found t
 - Put in the schematics of the models
 
 \subsubsection{Training the model}
-The combined training sample build in \sref{sec:AGNNoiseSN} is passed through the network using a batch size of 5000 objects with 100 epoch, or individual runs of the backpropagation algorithm. CNNs are often trained on smaller batches of data to accelerate the learning process and help to prevent overfitting. The choice of the number of fitting epoch serves a similar, as a general rule of thumb the fitting is stopped when the model approaches convergence as an excesive number of epochs would allow the model to `learn' the test sample leading to overfitting.
+The combined training sample build in \sref{sec:AGNNoiseSNSample} is passed through the network using a batch size of 5000 objects with 100 epoch, or individual runs of the backpropagation algorithm. CNNs are often trained on smaller batches of data to accelerate the learning process and help to prevent overfitting. The choice of the number of fitting epoch serves a similar, as a general rule of thumb the fitting is stopped when the model approaches convergence as an excesive number of epochs would allow the model to `learn' the test sample leading to overfitting.
 
 My best model, as described in \sref{sec:AGNNoiseModel}, converges rapidly to the accuracy of 99.7\% which vastly exceeded our expectations. \fref{fig:AGNNoiseROC} shows the Receiver Operating Characteristic (ROC) which is the most commonly used metric of the accuracy of the classification model. [DESCRIBE WHAT ROC IS]. The ROC curve, in the case of this classifier, indocates that for each individual objects the probability of it being a true positive vs a true negative is 99.97\%.
 
@@ -333,7 +333,9 @@ Upon the classification of 5300 transients found in the first four years of oper
 
 The classification of SN in the absense of the distance prior requires us to focus purely on the morphology of the light curve including its colour and temporal evolution and apparent luminocity as the only available sources of information. These differences may be very subtle for a number of SN classes, most predominantly SN\,Ia and SN\,Ibc, and we therefore do not expect to be able to produce a classification model matching the accuracy of that used to identify SN candidates in DES.
 
-\subsubsection{Data preparation and model selection}
+\subsubsection{Data preparation and network selection} \label{sec:SNClassificationNetwork}
+The training sample used in the classification of SNe is similar to that used in the previous section, albeit consistent of SN light curve only. In order to provide a fair representation for each subclass of objects, I use an equal sample of SN\,Ia, CCSN and SLSN where in each case 45,000 objects form the training set. In the case of CCSNe I use an even conctribution from both the sample of SN\,II and SN\,Ibc. The data is also sanitised and reshaped using the same tools as used in \sref{sec:AGNNoiseSNSample}
+
 To build the SN classification model, I use the approach developed in \sref{sec:AGNNoiseModel} as the benchmark and work from that point modifying the network to suit this more complex problem. Perhapse the most important change was the introduction of the absolute magnitude as one of the input parameters. In the selection of SNe performed in \sref{sec:AGNNoiseModel} this was not necessary as the light curve evolution, normalised to one for each object, provides sufficient information to distinguish between these very different classes of objects. In the case of SN the difference are very subtle relative to the previous model with the luminocity as a function of the colour likely being one of the strongest indicators for each subclass. The absolute luminosity is measured as the maximum flux in each band across all seasons of data. This provides only 4 additional data point and are therefore introduces late into the network in order to give them more weight in determing the final classification \fref{fig:SNClassificationNetwork}.
 
 \begin{figure}
@@ -346,12 +348,37 @@ Another important change that was introduces in this iteration of the CNN was an
 
 Finally, one of the biggest improvements in the model came from modifying the activation function to follow the tanh distribution over ReLU, introducing an improvement of $\sim$5\%. Interestingly, the same behaviour was not previously observed in the SN identification network where the use of tanh or sigmoidal activation functions hinder the classification rate. One possible explanation of this comes from the fact that the differences between the objects in the training samples in the SN identification sample are so large that they require the most flexible and forgiving activation function which ReLU does provide, while the similarity of the SN subclasses requires a very sensitive, sigmoidal function to be used. The benefit of the tanh over a sigmoid is the scaling between the negative and positive one as opposed to zero and one, which allows for objects with small negative values.
 
-\subsubsection{Training the model}
-- The final model was used on the training sample and acihieved anaccuracy of 90\% anaccuracy
-- The classification rate can be split individually for each objects and while this does not necessarily makes sense it shows that real SN\,Ia are very likely to be selected as Ia's in this model.
-- This is basically the best classifier of SN despite not having any redshift information which is super fucking awesome and very encouraging.
+\subsubsection{Training the model} \label{sec:SNClassification}
+ Use the training sample and CNN developed in \sref{sec:SNClassificationModel} I built a SN classification model. With an accuracy of 90\%, this is one of the most successful SN classifiers to date, despite not relying on a distance prior. At this stage of classifying a pure sample of SN, our result can be dirrectly compared with \citet{Lochner2016}. Our AUC measured at 97.9\% for SN\,Ia marginally exceeds that of the the best result found in \citet{Lochner2016}. However, this does not tell the full story as their best, as stated in their work, result sufferers largely from overfitting and the more correct value, found using a larger (albeir non-representative of all subclasses) sample is closer to $\sim$85\%. The accuracy of our classifier is again a testiment to the power of CNN, demonstrating that a similar model could be used in future surveys such as LSST.
+
+\begin{figure}
+  % \includegraphics{/path/to/figure}
+  \caption{}
+  \label{sec:SNClassificationROC}
+\end{figure}
 
 \subsection{SLSNe in DES}
-- I have applied the model to the spectroscopically idendified objects and find that almost all SN\,Ia are classes correctly and the same is true for CCSN.
-- Amongst SLSN that is less true with only 12 of 17 objects entering the sample. The remaining 5 objects are identified as CCSNe
-- This is not great but greatness was never expected, specially that the objects that were missidentified we hard.
+Before the SN classificiation model can be applied to the sample of DES SN candidates identified in \sref{sec:SNClassification}, it must first be tested against the ground truth sample of spectroscopically confirmed objects detected by DES. While the model shows that a high degree of precision, it is possible that mistakes inthe creation of the atrificial training sample could lead to some subclasses not being represented correctly in the classification model.
+
+\subsubsection{Ground-truth sample} \label{sec:SNTruth}
+Amongst the sample of 250 spectroscopically confirmed SN\,Ia I find that 240 of them are correctly classified in this work. This in fact exceeds the value expected from the raw accuracy values which is likely explained by the spectroscopically confirmed objects being more easier to classify than some objects that may lay at the detection limit of the survey.
+
+With this positive result, I apply the same method to SN\,Ib/c and SN\,II. Here the results begin to shed a light on a major issue uncovered in this section. While a mojority of the SN\,Ib/c have been correctly identified, a number of SN\,II is have been misidentified as SLSN. The visual inspection of these objects shows that they are exclusively SN\,IIP with particularly slow descine times. This is a subclass of objects which was not represented at all in the training sample due to the lack of sufficient data. At the current time, using the data available in the literature it not possible to extpand our training set with examples of SN\,IIP. However, in \cref{Chapter6} I investigate other approaches, centered around the concept of Unsepervised ML to separate these two groups of transients and provide a pure sample of SLSN.
+
+As the final check, I test the sample of DES SLSNe and find that only 12 of the 17 objects are fully recovered by the model. While at the first glance, this result appears to be in contradiction with the predicted accuracy of the classifier, 3 these objects are knows to be only tentatively classified as SLSN (xxxx, xxxx and xxxx). The remaining two objects were classified either very late or early in the season and are only known to behave like SLSNe using the extended SUDSS data which did not take any part in the work presented in this chapter.
+
+\begin{table}
+  \caption{}
+  \label{tab:SLSNTruth}
+
+\end{table}
+
+\subsubsection{SN classification}
+I applied the final classification model to the 5300 objects real DES objects, previously identified as SN candidates. 1700 objects were identified as SN\,Ia which matches the expected values found in [citet DES papers], 2500 objects were identified as CCSN which again does not exceed our expectations. The remainin 500 objects were identified as SLSN.
+
+This largely exceeds the numbers expected from the rate of SLSN and is known to be contaminated with long duration SN\,II. However, as the classification model has been shown in \sref{sec:SNTruth} to be able to identify a number of known SLSN with a high degree of accuracy (\tref{SLSNTruth}) we have a strong degree of belief that there are in fact numerous SLSN hidden in this contaminated sample that may be recoverable using further analysis, as presented in \cref{Chapter6
+
+\section{Summary}
+In this chapter, I described the approach used in building a training sample of transients resembling the sample of real transients observed by the DES. I used the SNANA generated sample of SN\,Ia. The CoCo and SLAP packages, developed in \cref{Chapter4}, were used to create samples of CCSN and SLSNe respectively. Furthermore I use a sample of AGNs generated for a similar study in \citet{Hoenig2014} and a basic model of spurious noise to generate a DES like sample of real transients and their contaminats. I use the apprach similar to that found in SNANA to apply the survey noise to the modelled light curves because augmenting them to a uniform cadance using GPR, discuessed in \sref{sec:Augmentation}.
+
+This training sample was used to develop a classification pipeline for identifying a sample of real SN candidates in DES. This was performed in conjunction with the state of the art CNN, ML algorith. A similar approach was subsequently used to create a SN photometric classification tool. Our testing suggests that it is one of the most powerful tools of its kind currect available. I have applied it to the DES dataset identifying 1700 SN\,Ia, 2500 CCSN and a sample of 500 SLSN, although we understand that this sample is heavily contaminated by SN\,IIP which were not included in the original training sample.       
