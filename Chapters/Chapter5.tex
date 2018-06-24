@@ -68,52 +68,50 @@ The light curves of SN\,Ia that are injected into the images are generated using
 \subsection{CCSN}
 The rate of CCSNe in the local universe is intrinsingly higher than the rate of SN\,Ia in the local universe, with an approximate flaction of 70\% CCSNe to 30\% SN\,Ia  \citep{Alsabti2017}. However, CCSN are a fainter with an average brightness only a tenth of the SN\,Ia luminocity that results in survey such as DES being able to only detect them up to the z$\sim$0.6 as compared to z$\sim$1.3 for SN\,Ia, giving a much lower observed rate. In this study, it was necessary for our sample not to duplicate this observed rate as the training of CNNs requires that each distinct classes of objects entering the classification model must be equally represented.
 
-While there is a great diversity amongst CCSNe, in terms of both their morphology and peak luminocity, our simulation package; \textsc{CoCo} (\sref{sec:CoCo}), was designed with sufficient flexibility to allow for simulating of their entire population. As the overarching aim of this thesis is the classification of SLSNe, as opposed to providing an accurate photometric classification for all transients detected by DES, a thorough treatment of the CCSNe could be considered excesive. The decay of Ni56, powering the mechanisms behind SN\,Ia and SN\,Ib/c, results in light curves which are often difficult to separate, giving rise to the original inspiration behind developing \textsc{CoCo}. A possible drawback of this could be overfitting of SN\,Ia and CCSNe if these two classes were found to be too alike.
-
-[JUST BECAUSE THE ARE THE SAME IN LOCAL UNIVERSE IT DOES MEAN THEY ARE AT HIGH Z]Contrarily, I would not wish to indruduce such bias into our training sample as the low redshift behaviour of the SNe may not necessarily be reflected for objects observed at higher redshifts when all observational factors are considered. The behaviour of the objects may also differ between SN\,Ib/c and SN\,II, hence in this chapter I build separate samples for these two classes of SNe both matching the SN\,Ia sample in size. In \sref{sec:CNN} I then consider performing SN classification by mixing these objects at various abundancies.
+While there is a great diversity amongst CCSNe, in terms of both their morphology and peak luminocity, our simulation package; \textsc{CoCo} (\sref{sec:CoCo}), was designed with sufficient flexibility to allow for simulating of their entire population. As the overarching aim of this thesis is the classification of SLSNe, as opposed to providing an accurate photometric classification for all transients detected by DES, a thorough treatment of the CCSNe could be considered excesive. As both SN\,Ia and SN\,Ib/c are a result of the decay of Ni56 their resulting light curves are often difficult to separate. This could essentially introduce two classes of objects which are too close in their morphology and lead to overfitting when classifying SN\,Ia and CCSNe against other species of transient objects. However, in order to avoid the indruduction of any biases into our training sample we must treat these classes as separate. Furthermore, the low redshift behaviour of the SNe, that is familiar to us, may not necessarily be reflected the objects appearance at higher redshifts.
 
 \subsubsection{SN\,Ib/c}
-In \cref{Chapter4}, I presented a method for creating templates as well as simulating SN\,Ib/c. I have used \textsc{CoCo}, the package developed for this purpose to simualate over 100,000 objects based on the spectroscopic templates shown in \tref{tab:IbcTemplates}. Due to the low number statistics of the sample, the spectral subtypes of the templates do not match their measured relative abundance. Following Firth et al. (in prep), I use the \citet{Li2011} measurement of the local rates of CCSNe to correct their abundancies. A question was raised as to whether the subclasses should be represented equally thoughout the sample or match their observed rates. I made the decision to follow their observed abundancies as we are not interested in assigning subclasses to these SNe. Furthermore, some subclasses are very ill-represented in our sample and would therefore be replicated more than other objects likely leading to model overfitting.
+In \cref{Chapter4}, I presented a method for creating templates as well as simulating SN\,Ib/c. I used \textsc{CoCo}, a bespoke package for the purpose of simualating over 100,000 of these objects based on the spectroscopic templates shown in \tref{tab:IbcTemplates}. Due to the low number statistics of the sample, the spectral subtypes of the templates do not match their measured relative abundance. Following Firth et al. (in prep), I use the \citet{Li2011} measurement of the local rates of CCSNe to correct their abundancies. A question was raised as to whether the subclasses should be represented equally thoughout the sample or match their observed rates. The decision to follow their observed abundancies is based on our lack of interest in subclassifying transients based on their similarity to a specific SN template.
 
 \begin{table}
-  \caption{}
+  \caption{Sample of SN\,Ib/c used within \textsc{CoCo} as template for their class. The variation in the peak luminosity of the SNe results in different upper redshift limit at which the objects are detectible by DES. The SNe with slower evolutiona and greater luminosity are detected more often in the survey resulting in a higher number of accepted samples.}
   \label{tab:IbcTemplates}
   \centering
   \begin{tabular}{l|r|r}
     SN Name  & redshift & count \\
     \hline
-    SN1993J  & 0.79 & 1263 \\
-    SN1994I  & 0.70 &  313 \\
-    SN1996cb & 0.78 &  945 \\
-    SN1998bw & 0.80 & 6151 \\
-    SN2002ap & 0.80 & 1271 \\
-    SN2005bf & 0.80 & 3660 \\
-    SN2005hg & 0.80 &  887 \\
-    SN2006aj & 0.80 & 5002 \\
-    SN2007Y  & 0.57 &  146 \\
-    SN2007gr & 0.67 &  345 \\
-    SN2007uy & 0.64 &  263 \\
-    SN2008D  & 0.28 &   38 \\
-    SN2008ax & 0.43 &  208 \\
-    SN2008bo & 0.46 &  108 \\
-    SN2009iz & 0.80 &  623 \\
-    SN2009jf & 0.80 & 1844 \\
-    SN2010al & 0.80 & 5008 \\
-    SN2011bm & 0.80 & 7554 \\
-    SN2011dh & 0.73 &  964 \\
-    SN2011ei & 0.39 &  105 \\
-    SN2012ap & 0.54 &  191 \\
+    SN1993J  & 0.79 &  3322  \\
+    SN1994I  & 0.70 &   975  \\
+    SN1996cb & 0.78 &  2151  \\
+    SN1998bw & 0.80 & 16416  \\
+    SN2002ap & 0.80 &  2938  \\
+    SN2005bf & 0.80 &  8259  \\
+    SN2005hg & 0.80 &  1942  \\
+    SN2006aj & 0.80 & 11988  \\
+    SN2007Y  & 0.57 &   428  \\
+    SN2007gr & 0.67 &   954  \\
+    SN2007uy & 0.64 &   905  \\
+    SN2008D  & 0.28 &   196  \\
+    SN2008ax & 0.43 &   766  \\
+    SN2008bo & 0.46 &   390  \\
+    SN2009iz & 0.80 &  1553  \\
+    SN2009jf & 0.80 &  4044  \\
+    SN2010al & 0.80 & 14784  \\
+    SN2011bm & 0.80 & 24213  \\
+    SN2011dh & 0.73 &  2659  \\
+    SN2011ei & 0.39 &   410  \\
+    SN2012ap & 0.54 &   707
     \hline
   \end{tabular}
 \end{table}
 
-I generate the light curves in the redshift range of 0$<$z$<$0.8, drown using a volume weighted, non-uniform random distribution corresponding to the star formation rate of the universe \citep{Hopkins2006}. To introduce a level of diversity into the sample, I apply host galaxy reddening to the templates (Milky Way extinction is not necessary as DES observed is very low extinction fields). I use the \citet{Cardelli1989} law with R$_\mathrm{v}$=3.7 and the A(B-V) values drawn randomly from the modulus of a Normal distribution centered at zero with a variance, $\mu$=0.2. Furthermore, I have used a similar (but unmodulated) distribution to apply an offset to the peak magnitude of the SNe. This is, again, aimed at introducing a scatter into the training sample as the low number of available templates, despite being placed at different redshifts and explosion dates, would produce a sample of repeating objects that yet again could lead to overfitting.
+I generate the light curves in the redshift range of 0$<$z$<$0.8, drown using a volume weighted, non-uniform random distribution based on the star formation rate of the universe \citep{Hopkins2006}. To introduce a level of diversity into the sample, I apply host galaxy reddening to the templates (Milky Way extinction is not necessary as DES observed is very low extinction fields). I use the \citet{Cardelli1989} law with R$_\mathrm{v}$=3.7 and the A(B-V) values drawn randomly from the modulus of a Normal distribution centered at zero with a variance, $\mu$=0.2. Furthermore, I have used a similar (but unmodulated) distribution to apply an offset for the peak magnitudes of the SNe. This is further aimed at introducing a scatter into the training sample as the low number of available templates, despite being placed at different redshifts and explosion dates, could produce repeating samples of objects that could lead to overfitting.
 
-From the simulations we measure the detectibility of each template as the function of redshift (see \tref{IbcTemplates}) as well as the detection frequency of the whole population as a function of redshift shown in \fref{fig:IbcDist}. As expected SN\,Ib/c are detectable only up to z$\sim$0.8 which is significantly lower than that of SN\,Ia (\fref{IaDist}).
+From the simulations we measure the detectibility of each template as the function of redshift (see \tref{IbcTemplates}) as well as the detection frequency of the whole population as a function of redshift shown in \fref{fig:IbcDist}. As expected SN\,Ib/c are detectable only up to z$\sim$0.8, a distance significantly lower than that of SN\,Ia (\fref{IaDist}).
 
 \begin{figure}
   \includegraphics[width=\textwidth]{Figures/Chapter5/SNIbc_z_dist.png}
-  \caption{}
+  \caption{The input distribution of artificially generated SN\,Ibc vs their detection count as a function of redshift. As expected, the detection fraction of SN rises initially with the increase in volume of the sampled universe before declining at higher redshift do to a decrease in their detectibility.}
   \label{fig:IbcDist}
 \end{figure}
 
@@ -121,7 +119,7 @@ From the simulations we measure the detectibility of each template as the functi
 The method used for building the training sample of SN\,II followed that of SN\,Ib/c very closely. I used the template sample, generated using the \textsc{CoCo} package, as present in \tref{tab:SNIITemplates}. The only significant difference in the process of generating the sample was the simulated redshift range which was increased to z$\sim$0.9 as we have found during our testing that using z<0.8 would result in a number of objects being detected at the upper redshift limit.
 
 \begin{table}
-  \caption{}
+  \caption{Sample of SN\,II used within \textsc{CoCo} as template for their class. This sample is smaller than its sister sample of SN\,Ib/c due to the lower quality of their spectroscopic data.}
   \label{tab:SNIITemplates}
   \centering
   \begin{tabular}{l|r|r}
@@ -142,18 +140,16 @@ The method used for building the training sample of SN\,II followed that of SN\,
   \end{tabular}
 \end{table}
 
-From \tref{tab:SNIITemplates} we see that there is a bimodality in the detectibility o the training sample whereas most of the objects are detectable only at low redshhift with three templates being detected at a significantly greater redshift. As a result these objects have a much higher frequency of detection in my simulations, scewing the detection distribution (\fref{fig:IIDist}). This, again, may cause serious overfitting issues. However, as I generate an overabundance of points, in \sref{sec:CNN} I investigate different combinations of the training samples including one where I select it uniformally based on the original template the simulation was based on.
-
 \begin{figure}
   \includegraphics[width=\textwidth]{Figures/Chapter5/SNII_z_dist.png}
-  \caption{}
+  \caption{The input distribution of artificially generated SN\,II vs their detection count as a function of redshift. The distribution is scewed due to the bimodality in the detectibility of the training sample shown in \tref{tab:SNIITemplates} thanks to a small number of objects with a much higher intrinsic luminosity than then rest of the sample.}
   \label{fig:IIDist}
 \end{figure}
 
 \subsection{SLSN}
-The simulations of SLSNe have been one of the most challenging parts of this thesis. The low number of known examples of the class, combined with the uncertainty surrounding their definition and the engine powering their staggering luminocity makes the modelling of these objects a challenging task. In the case of their simulations, for the purpose of a classification study such as the one presented in this thesis, we must not only replicate all previosly observed objects but also make a reasonable, but not overly constraining, prediction for what SLSN may appear as and represent as a class. Until very recently, this would have not been possible as our understanding of the models of SLSNe, and their parameters was not sufficient. However, several works including \cref{Chapter3,Chapter4} of this thesis as well as \citet{Inserra2013,Nicoll2013,Nicoll2017} and Angus et al. (in prep) showed that the spin-down of a Magnetar model is able to describe all SLSNe with an acceptable level of accuracy.
+The simulations of SLSNe were one of the most challenging topics of this thesis. The low numbers of known examples of this class, combined with the uncertainty surrounding their definition and the engine powering their brilliant luminocity makes their modelling a challenging task. For the purpose of a classification study such as the one presented in this thesis, we must not only replicate all previosly observed objects but also make a reasonable, but not overly constraining, prediction for what yet unknown SLSNe may appear as and represent as a class. Until recently, this would have not been possible as our understanding of the models of SLSNe and their parameters was not sufficient. However, several works including \cref{Chapter3,Chapter4} of this thesis as well as \citet{Inserra2013,Nicoll2013,Nicoll2017} and Angus et al. (in prep) showed that the spin-down of a Magnetar model is able to provide a good approximation for all SLSNe with an acceptable level of accuracy.
 
-The greatest step towards simulating SLSNe was achived in \citet{Inserra2018a} where we have established their new definition that is versitile and robust enough to produce a sample that matches all observed objects but at the same time is limited in the span such that it does not overlap with other classes of SNe. This definition is based on Four Observables Parameter Space (4OPS), defined in narrow (800\AA and 1000\AA wide respectively) box filteres centered at 4000\AA and 5200\AA, by; the peak in the 4000\AA band light curves, colour between the band at peak and +30 days post maximum, and the drop in magnitude between the peak and +30 days in the 4000\AA band. \citet{Inserra2018a} finds that SLSNe form linear correlations in this paramater space, with a narrow scatter shown in \fref{fig:4OPS}. I use this property to determine the magnetar model parameters which correspond to the definition of SLSNe.
+The greatest step towards simulating SLSNe was achived in \citet{Inserra2018a} where we have established a new definition of this class that is versitile and robust enough to produce a sample that matches all observed objects but at the same time is limited in the span such that it does not overlap with other classes of SNe. This definition is based on Four Observables Parameter Space (4OPS), defined in narrow (800\AA and 1000\AA wide respectively) box filteres centered at 4000\AA and 5200\AA, by: the peak in the 4000\AA band light curves, colour between the band at peak and +30 days post maximum, and the drop in magnitude between the peak and +30 days in the 4000\AA band. \citet{Inserra2018a} finds that SLSNe form linear correlations in this paramater space, with a narrow scatter shown in \fref{fig:4OPS}. I use this property to determine the magnetar model parameters which correspond to the definition of SLSNe.
 
 \begin{figure}
   % \includegraphics[width=\textwidth]{/path/to/figure}
@@ -161,7 +157,7 @@ The greatest step towards simulating SLSNe was achived in \citet{Inserra2018a} w
   \label{fig:4OPS}
 \end{figure}
 
-I simulate a large number of SLSNe using the magnetar model and compare them to the 4OPS definition. The magnetar model parameters are drawn randomly from a uniform top-hat distribution, bound at 10<$\tau_M$<150, 0.1<$B_{14}$<20.0, 0.01<$P_{ms}$<10.0. These limits were informed by the definition of SLSNe used in the rate calculation described in \cref{Chapter3}, but was expanded to ensure completeness but, at the same time, limit the number of computationally expensive simulations that needed to be performed. I have also introduces a modification to the 4OPS definition of SLSNe, similar to that in Angus et al. (in prep), where as the parameter spaces are expanded by one magnitude of scatter while retaining the original slope of their relationship. This was aimed at including fainter objects such as those found in the DES spectroscopically confirmed sample (\sref{sec:DES_SLSN}), that were not available at the time the relationship was constructed. The modified limits are presented in \tref{tab:4OPS} and can be seen in \fref{fig:4OPS} along with the regions where objects drawn from the magnetar model.
+I simulate a large number of SLSNe using the magnetar model and compare them to the 4OPS definition. The magnetar model parameters are drawn randomly from a uniform top-hat distribution, bound at 10<$\tau_M$<150, 0.1<$B_{14}$<20.0, 0.01<$P_{ms}$<10.0. These limits were informed by the definition of SLSNe used in the rate calculation described in \cref{Chapter3}, but were expanded to ensure completeness and, at the same time, limit the number of computationally expensive simulations that needed to be performed. Furthermore, I introduce a modification to the 4OPS definition of SLSNe, similar to that in Angus et al. (in prep), where the parameter spaces are expanded by one magnitude of scatter while retaining the original slope of their relationship. This was aimed at including fainter objects such as those found in the DES spectroscopically confirmed sample (\sref{sec:DES_SLSN}), that were not available at the time the relationship was constructed. The modified limits are presented in \tref{tab:4OPS} and can be seen in \fref{fig:4OPS} along with the regions where objects drawn from the magnetar model.
 
 \begin{table}
   \caption{}
@@ -175,21 +171,21 @@ I simulate a large number of SLSNe using the magnetar model and compare them to 
   \label{fig:4OPSMag}
 \end{figure}
 
-In \fref{fig:4OPSMag}, I show the distribution of magnetar model paramaters that result in objects that match the 4OPS definition of SLSNe. Perhapse the most interesting result is the luminocity function that results from drawing objects uniformly from the magnetar model parameter space. With no external inputs, the functions matches that observed by \citet{DeCia2017} in the PTF sample of SLSNe. I use the sets of magnetar model parameters that match the SLSN definition to generate the training sample of SLSNe for the use in \sref{sec:CNN}. In total $\sim$100,000 SLSN were generated at a range redshifts with 0<z<3, drawn from a volume weighted distribution following the start formation rate of the universe \citep{Beacon2004} similarly to CCSNe (\fref{fig:SLSNDist}).
+In \fref{fig:4OPSMag}, I show the distribution of magnetar model paramaters that produce objects that match the 4OPS definition of SLSNe. Perhapse the most interesting result is the luminocity function that results from uniformly drawing objects from the magnetar model parameter space. With no external inputs, the function matches that observed by \citet{DeCia2017} in the PTF sample of SLSNe, showing a rapid increase in the number of objects as we move towards the fainter end of their spectrum. I use the sets of magnetar model parameters that matches the SLSN definition to generate their training sample. In total, $\sim$100,000 SLSN were generated at a range redshifts with 0<z<3, drawn from a volume weighted distribution following the SFR of the universe \citep{Beacon2004} similarly to that used for simulating CCSNe (\fref{fig:SLSNDist}).
 
 \begin{figure}
   \includegraphics[width=\textwidth]{Figures/Chapter5/SLSN_z_dist.png}
-  \caption{}
+  \caption{The input distribution of artificially generated SLSN vs their detection count as a function of redshift. The superior luminocity of these objects compated to other CCSNe is apparent when comparing their detectibility ranges. This also motivates further our search as we know that DES should be able to detect SLSN up to z$\sim$3, while the most distance object to date was confirmed at z=2.0}
   \label{fig:SLSNDist}
 \end{figure}
 
 \subsection{AGN}
-Active Galactic Nuclei (AGN) are the largest contaminant in the DES sample. This is only partially due to their physical morphology but in greater measure the design of the survey. AGNs are most commonly associated with long, quasi-periodic, variable light curves that are often easy to identify based on their historical variability. As no long-term observations, matching its depth, are available for the DES SN fields making each first AGN detection its discovery. Prior to the first season of DES, a set of science verifiction images were taken which were used as templates in the image supraction pipeline used to detect new transients. AGNs that have undergone rebrightening in the first season were detected as potential supernova candidates. If the templates remained unchanged for the duration fo the survey we would see a decrese in the contamination each season. Furthermore, we would be able to remove most of these transients restrospectivaly by selecting objects with detections in multiple seasons. The survey did, however, change the templates each year in the first three seasons of DES to use the best images taken in the previous season. In the final two seasons the data from year two was used as templates. Additionally, the data for the first season was later reanalysed using season two as a template. A caveat of DES that caused us particular issues is that negative `detections' are not considered as detections within the transient selection algorithms. As a result, each DES season contains a large number of objects which are selected as new transients despite showing stong visual signs of prior, albeit `negative', variability.
+Active Galactic Nuclei (AGN) are the largest contaminant in the DES transient sample. This is partially due to their physical morphology and, in greater measure, the design of the survey. AGNs are most commonly associated with long, quasi-periodic, variable light curves that are often easy to identify based on their historical variability. As no long-term observations, matching its depth, are available for the DES SN fields making each first AGN detection its discovery. Prior to the first season of DES, a set of science verifiction images were taken as templates for the image supraction pipeline used to detect new transients. AGNs that have undergone rebrightening in the first season were detected as potential supernova candidates. If the templates remained unchanged for the duration fo the survey we would see a decrese in the contamination each season. Furthermore, we would be able to remove most of these transients restrospectivaly by selecting objects with detections in multiple seasons. The survey did, however, change the templates each year in the first three seasons of its operations to increase the quality of the images used as templates. In the final two seasons, the data from Y2 was used as templates. Additionally, the data for the first season was also later reanalysed using Y2 images as a template. A caveat of DES that caused us particular issues is that negative `detections' are not considered as detections within the transient selection algorithms. As a result, each DES season contains a large number of objects which are selected as new transients despite showing stong visual signs of prior, albeit `negative', variability.
 
-In the cases of SLSNe, this is particularly troubling as their slow evolution can be sometimes confused with an AGN with a quasi-period of approximately one year, if only a single DES seasons are considered. It is, therefore, imparitive that AGNs are correctly represented in the ML training sample used in \sref{sec:CNN}. For this purpose, I use the existing simulations of AGNs, in the DES observing bands, presented in \citet{Honig2016}. While these simulations were originally aimed at evaluating the possibility of using AGNs as cosmological probes applying a technique called Reverberation Mapping, they were perfectly suited for this project. The simulated light curves did not contain any observed noise, were densely sampled (one day cadance) and had a span exceeding four years. In total 100,000 simulated objects were available for this study including those placed at redshifts outside the detectible range for DES. I have therefore placed each object at random start dates and fields, before applying the survey noise using the method described in \sref{sec:NoiseModel}, resulting in $\sim$60,000 detected AGNs.
+In the cases of SLSNe, this is particularly troubling as their slow evolution can be sometimes confused with an AGN with a quasi-period of approximately one year, if only a single DES seasons are considered. It is, therefore, imparitive that AGNs are correctly represented in the ML training sample used in \sref{sec:CNN}. For this purpose, I use the existing simulations of AGNs, in the DES observing bands, presented in \citet{Honig2016}. While these simulations were originally aimed at evaluating the possibility of using AGNs as cosmological probes, using a technique referred to as Reverberation Mapping [CITE?], they were suited perfectly for this project. The simulated light curves did not include any survey noise, were densely sampled (one day cadance) and had a span exceeding four years. In total 100,000 simulated objects were available for this study including those placed at redshifts outside the detectible range for DES. I have therefore placed each object at random start dates and fields, before applying the survey noise using the method described in \sref{sec:NoiseModel}, resulting in $\sim$60,000 detected AGNs.
 
 \subsection{Noise}
-Visual inspection of the DES light curve data shows that a limited number of objects, originally recognised as a real transient according to the DES transient selection criteria (\cref{Chapter2}), do not appear to be physical in origin. There appear to be two main origins for these objects: bad image subtractions and spurious noise detections. Despite a soffisticalted, ML powered, transient selection pipeline \citep{Goldstein2015}, some objects (often elongated and with negative subractions; \fref{fig:BadSubtractions}) can pass the ML cuts, albeit with a low score. In some cases, likely dependant on the observing conditions, this may occur in several epoch separated by less than 30 days, giving the object a `real transient' flag.
+Visual inspection of the DES light curve data shows that a limited number of objects, originally recognised as a real transient according to the DES transient selection criteria (\cref{Chapter2}), do not appear to be physical in origin. There appears to be two main origins for these objects: bad image subtractions and spurious noise detections. Despite a soffisticalted, ML powered, transient selection pipeline \citep{Goldstein2015}, some objects (often elongated and with negative subractions; \fref{fig:BadSubtractions}) can pass the ML cuts, albeit with a low score. In some cases, likely dependant on the observing conditions, this may occur in several epoch separated by less than 30 days, giving the object a `real transient' flag.
 
 Another channel that can result in the misclassifications of candidates is the detection of slow-moving, near earth object. Such objects are most commonly detected at the same position only in two or three consecutive bands. In subsequent epochs, they are, in normal circumstances, no longer detected at the same position resulting in the object being rejected. However, in some rare cases, bad subtractions or random noise spikes exceeding the 5 sigma detection limit, within 30 days cut can result in a `real transient' flag.
 
