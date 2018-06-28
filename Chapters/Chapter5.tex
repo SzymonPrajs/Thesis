@@ -315,7 +315,7 @@ The combined training sample build in \sref{sec:AGNNoiseSNSample} is passed thro
 My best model, as described in \sref{sec:AGNNoiseModel}, converges rapidly to the accuracy of 99.7\% which vastly exceeded our expectations. \fref{fig:AGNNoiseROC} shows the Receiver Operating Characteristic (ROC) which is the most commonly used metric of the accuracy of the classification model. [DESCRIBE WHAT ROC IS]. The AUC for the case of this classifier indocates that for each individual objects the probability of it being a true positive vs a true negative is 99.97\%.
 
 \begin{figure}
-  % \includegraphics{/path/to/figure}
+  \includegraphics{Figures/Chapter5/SNAGNNoise}
   \caption{}
   \label{fig:AGNNoiseROC}
 \end{figure}
@@ -338,7 +338,7 @@ The training sample used in the classification of SNe is similar to that used in
 To build the SN classification model, I use the approach developed in \sref{sec:AGNNoiseModel} as the benchmark, and modifying that network to suit this more complex problem. Perhapse the most important change was the introduction of the absolute magnitude as one of the input parameters. In the selection of SNe, performed in \sref{sec:AGNNoiseModel}, this was not necessary as the light curve evolution, normalised to one for each object, provides sufficient information to distinguish between these very distinct classes of objects. In the case of SNe, the difference are very subtle relative to the previous model with the luminocity as a function of the colour likely being one of the strongest indicators for each subclass. The absolute luminosity is measured as the maximum flux in each band across all seasons of data. This provides only four additional data point and are therefore introduces late into the network in order to provide them with more weight in determing the final classification \fref{fig:SNClassificationNetwork}.
 
 \begin{figure}
-  % \includegraphics{/path/to/figure}
+  \includegraphics{Figures/Chapter5/SN}
   \caption{}
   \label{fig:SNClassificationNetwork}
 \end{figure}
