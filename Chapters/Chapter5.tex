@@ -303,8 +303,9 @@ The CNNs presented in this chapter underwent many iterations with a wide spread 
 After comparing a large number of iterations of these hyperparameters, I found that using 50 filters spanning 5 epochs in the first layer and 30 filters in the second layer produced the highest accuracy model. Perhapse counterintuitevely, iterations  where I combined these filters together into a single two dimentional filter did not provide higher accuracy. A low number of orthogonal filters provides a freedom for the features to be learned independantly, and prevent them from relearning the same features. One could imagine a situation where a similar light curve shape may be associated with a different colout evolution for different class of transients. This highlights the importance of allowing the CNN to build its own features out of the simplest building blocks without overcomplicating the design by constraining the model.
 
 \begin{figure}
-  % \includegraphics{/path/to/figure}
-  \caption{}
+  \centering
+  \includegraphics[width=0.6\textwidth]{Figures/Chapter5/SNAGNNoise}
+  \caption{The CNN used for classification of SN vs AGN vs Noise. Each layer is labeled with its function within the network as well as its input and output dimentions.}
   \label{fig:AGNNoiseSNModel}
 \end{figure}
 
@@ -314,7 +315,7 @@ The combined training sample build in \sref{sec:AGNNoiseSNSample} is passed thro
 My best model, as described in \sref{sec:AGNNoiseModel}, converges rapidly to the accuracy of 99.7\% which vastly exceeded our expectations. \fref{fig:AGNNoiseROC} shows the Receiver Operating Characteristic (ROC) which is the most commonly used metric of the accuracy of the classification model. [DESCRIBE WHAT ROC IS]. The AUC for the case of this classifier indocates that for each individual objects the probability of it being a true positive vs a true negative is 99.97\%.
 
 \begin{figure}
-  \includegraphics{Figures/Chapter5/SNAGNNoise}
+  % \includegraphics[width=0.6\textwidth]{}
   \caption{}
   \label{fig:AGNNoiseROC}
 \end{figure}
@@ -337,8 +338,9 @@ The training sample used in the classification of SNe is similar to that used in
 To build the SN classification model, I use the approach developed in \sref{sec:AGNNoiseModel} as the benchmark, and modifying that network to suit this more complex problem. Perhapse the most important change was the introduction of the absolute magnitude as one of the input parameters. In the selection of SNe, performed in \sref{sec:AGNNoiseModel}, this was not necessary as the light curve evolution, normalised to one for each object, provides sufficient information to distinguish between these very distinct classes of objects. In the case of SNe, the difference are very subtle relative to the previous model with the luminocity as a function of the colour likely being one of the strongest indicators for each subclass. The absolute luminosity is measured as the maximum flux in each band across all seasons of data. This provides only four additional data point and are therefore introduces late into the network in order to provide them with more weight in determing the final classification \fref{fig:SNClassificationNetwork}.
 
 \begin{figure}
-  \includegraphics{Figures/Chapter5/SN}
-  \caption{}
+  \centering
+  \includegraphics[width=0.6\textwidth]{Figures/Chapter5/SN}
+  \caption{The CNN used to subclassify DES SNe amongst their spectral subtypes. This network relies on `Tanh' activation funtions and makes use of the information about the apparent luminosity of the SN, differing from that used in \sref{sec:AGNNoiseModel}}
   \label{fig:SNClassificationNetwork}
 \end{figure}
 
