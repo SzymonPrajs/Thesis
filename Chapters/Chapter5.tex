@@ -161,16 +161,29 @@ I simulate a large number of SLSNe using the magnetar model and compare them to 
 \begin{table}
   \caption{}
   \label{tab:4OPS}
-
+  \begin{tabular}{c|c|r|r|r}
+    x-Axis & y-Axis & Intercept & Gradient & 1$\sigma$ 
+    \hline
+    $\Delta$M(400)_${30}$ & M(400)$_0$ & -21.62 & 0.75 & 0.62 \\
+    $\Delta$M(400)_${30}$ & M(400)$_0$ - M(520)$_0$ & -21.02 & 1.14 & 0.59 \\
+    M(400)$_{30}$ - M(520)$_{30}$ & M(400)$_0$ & -0.3 & 0.16 & 0.14 \\
+    M(400)$_{30}$ - M(520)$_{30}$ & M(400)$_0$ - M(520)$_0$ & -0.22 & 0.35 & 0.08 \\
+  \end{tabular}
 \end{table}
 
 \begin{figure}
-  % \includegraphics{/path/to/figure}
-  \caption{[MAKE THIS MAG ONLY NOT 4 PANEL]}
+  \includegraphics[width=\textwidth]{Figures/Chapter5/MagDist}
+  \caption{Distribution of peak magnitudes for SLSN generated using \textsc{pyMagnetar}. The parameters used to generate the light curves have been drawn uniformly from the magnetar model parameters space and were first compared to the 4OPS selection criteria before being used.}
+  \label{fig:4OPSParams}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\textwidth]{Figures/Chapter5/MagParams.png}
+  \caption{Distribution of magnitudes model paramaters that result in a SLSN-like event that matches their 4OPS definition \citep{\Inserra2018a}.}
   \label{fig:4OPSMag}
 \end{figure}
 
-In \fref{fig:4OPSMag}, I show the distribution of magnetar model parameters that produce objects that match the 4OPS definition of SLSNe. Perhaps the most interesting result is the luminosity function that results from uniformly drawing objects from the magnetar model parameter space. With no external inputs, the function matches that observed by \citet{DeCia2017} in the PTF sample of SLSNe, showing a rapid increase in the number of objects as we move towards the fainter end of their spectrum. I use the sets of magnetar model parameters that match the SLSN definition to generate their training sample. In total, $\sim$100,000 SLSN were generated at a range redshifts with 0<z<3, drawn from a volume-weighted distribution following the SFR of the universe \citep{Beacon2004} similarly to that used for simulating CCSNe (\fref{fig:SLSNDist}).
+In \fref{fig:4OPSParams}, I show the distribution of magnetar model parameters that produce objects that match the 4OPS definition of SLSNe. Perhaps the most interesting result is the luminosity function that results from uniformly drawing objects from the magnetar model parameter space, shown in \fref{fig:4OPSMag}. With no external inputs, the function matches that observed by \citet{DeCia2017} in the PTF sample of SLSNe, showing a rapid increase in the number of objects as we move towards the fainter end of their spectrum. I use the sets of magnetar model parameters that match the SLSN definition to generate their training sample. In total, $\sim$100,000 SLSN were generated at a range redshifts with 0<z<3, drawn from a volume-weighted distribution following the SFR of the universe \citep{Beacon2004} similarly to that used for simulating CCSNe (\fref{fig:SLSNDist}).
 
 \begin{figure}
   \includegraphics[width=\textwidth]{Figures/Chapter5/SLSN_z_dist.png}
@@ -189,8 +202,8 @@ Visual inspection of the DES light curve data shows that a limited number of obj
 Another channel that can result in the misclassifications of candidates is the detection of slow-moving, near earth object. Such objects are most commonly detected at the same position only in two or three consecutive bands. In subsequent epochs, they are, in normal circumstances, no longer detected at the same position resulting in the object being rejected. However, in some rare cases, bad subtractions or random noise spikes exceeding the 5 sigma detection limit, within 30 days cut can result in a `real transient' flag.
 
 \begin{figure}
-  % \includegraphics{/path/to/figure}
-  \caption{}
+  \includegraphics[width=\textwidth]{Figures/Chapter5/BabSubs.png}
+  \caption{Examples of bad subractions of DES images. \textit{Left} shows the science images, \textit{center} represent the image subractions templates and on the \textit{right} are the subracted images showing defects.}
   \label{fig:BadSubtractions}
 \end{figure}
 
