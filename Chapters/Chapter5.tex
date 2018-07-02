@@ -159,15 +159,15 @@ The greatest step towards simulating SLSNe was achieved in \citet{Inserra2018a} 
 I simulate a large number of SLSNe using the magnetar model and compare them to the 4OPS definition. The magnetar model parameters are drawn randomly from a uniform top-hat distribution, bound at 10<$\tau_M$<150, 0.1<$B_{14}$<20.0, 0.01<$P_{ms}$<10.0. These limits were informed by the definition of SLSNe used in the rate calculation described in \cref{Chapter3}, but were expanded to ensure completeness and, at the same time, limit the number of computationally expensive simulations that needed to be performed. Furthermore, I introduce a modification to the 4OPS definition of SLSNe, similar to that in Angus et al. (in prep), where the parameter spaces are expanded by one magnitude of scattering while retaining the original slope of their relationship. This was aimed at including fainter objects such as those found in the DES spectroscopically confirmed sample (\sref{sec:DES_SLSN}), that were not available at the time the relationship was constructed. The modified limits are presented in \tref{tab:4OPS} and can be seen in \fref{fig:4OPS} along with the regions where objects drawn from the magnetar model.
 
 \begin{table}
-  \caption{}
+  \caption{Definition of borders in the parameter space of 4OPS defining SLSNe in this thesis. The line represent the enter of the defining region which is constrained by within the 3$\sigma$ confidence region parallel to the line.}
   \label{tab:4OPS}
   \begin{tabular}{c|c|r|r|r}
-    x-Axis & y-Axis & Intercept & Gradient & 1$\sigma$ 
+    x-Axis & y-Axis & Intercept & Gradient & 1$\sigma$ \\
     \hline
-    $\Delta$M(400)_${30}$ & M(400)$_0$ & -21.62 & 0.75 & 0.62 \\
-    $\Delta$M(400)_${30}$ & M(400)$_0$ - M(520)$_0$ & -21.02 & 1.14 & 0.59 \\
+    $\Delta$M(400)$_{30}$ & M(400)$_0$ & -21.62 & 0.75 & 0.62 \\
+    $\Delta$M(400)$_{30}$ & M(400)$_0$ - M(520)$_0$ & -21.02 & 1.14 & 0.59 \\
     M(400)$_{30}$ - M(520)$_{30}$ & M(400)$_0$ & -0.3 & 0.16 & 0.14 \\
-    M(400)$_{30}$ - M(520)$_{30}$ & M(400)$_0$ - M(520)$_0$ & -0.22 & 0.35 & 0.08 \\
+    M(400)$_{30}$ - M(520)$_{30}$ & M(400)$_0$ - M(520)$_0$ & -0.22 & 0.35 & 0.08
   \end{tabular}
 \end{table}
 
@@ -179,7 +179,7 @@ I simulate a large number of SLSNe using the magnetar model and compare them to 
 
 \begin{figure}
   \includegraphics[width=\textwidth]{Figures/Chapter5/MagParams.png}
-  \caption{Distribution of magnitudes model paramaters that result in a SLSN-like event that matches their 4OPS definition \citep{\Inserra2018a}.}
+  \caption{Distribution of magnitudes model paramaters that result in a SLSN-like event that matches their 4OPS definition \citep{Inserra2018a}.}
   \label{fig:4OPSMag}
 \end{figure}
 
@@ -262,13 +262,7 @@ The observed cadence of DES is not uniform and varies through the season due to 
 \subsection{Applying Flux correction to Real Data}
 Before the GPR can be applied to the data, it must first be corrected for the effects of DES exchanging the image subtraction template between seasons. As the focus of the DES SN team is predominantly the study of SN\,Ia, the decision was made to maximise the quality of single-season light curves. As the image quality improved throughout the initial two seasons of observations the, templates have been updated each year. While optimal for the study of short transients, where only a single season is of interest, for slowly evolving SNe (and AGNs) this causes an issue where the supernova light curve is present in the template resulting in decreased flux in the subsequent season. This is a particular problem for SLSN, where their evolution can often be slow enough to be detectable in multiple seasons in DES (Angus et al.; in prep). This could potentially be a strong factor leading to the misclassification of SLSNe and hence cannot be ignored.
 
-While the most optimal approach to this would be to perform the image subtraction and source detection with a single template, this would be computationally prohibitive due to the scale and complexity of the raw DES data. As an alternative solution, I used the DES analysis logs to determine the observations have been used in the creation of the template images. In these frames, I measure the median flux of the object and use this value to correct the offset. As a simple test for this approach, I use a light curve of a SN\,Ia that exploded early in the second season of DES. In the uncorrected DES light curves, this results in a flat but negative light curve in the third season. \fref{fig:FluxOffset} shows the original and corrected light curve, consistent with zero flux in the third season.
-
-\begin{figure}
-  % \includegraphics{/path/to/figure}
-  \caption{}
-  \label{fig:FluxOffset}
-\end{figure}
+While the most optimal approach to this would be to perform the image subtraction and source detection with a single template, this would be computationally prohibitive due to the scale and complexity of the raw DES data. As an alternative solution, I used the DES analysis logs to determine the observations have been used in the creation of the template images. In these frames, I measure the median flux of the object and use this value to correct the offset. As a simple test for this approach, I use a light curve of a SN\,Ia that exploded early in the second season of DES. In the uncorrected DES light curves, this results in a flat but negative light curve in the third season.
 
 \subsection{Applying GPs} \label{sec:UseGP}
 The size and extent of the training sample used in this thesis are one of the two advancements made towards classifying SNe in DES using the ML approach. An equally important step, crucial for the use of CNNs, was the use of GPR (\sref{sec:GP}) as a tool for light curve interpolation and augmentation. CNN performs pattern recognition using a set of convolutional kernels with a fixed size, therefore requiring the data to be evenly sampled. This has tremendous benefits as it does not require any feature extraction steps and uses every data point in the classification process. While the observed data cannot be used directly with this technique due to its non-uniform sampling, using a GP interpolated light curves removes less information about the data than a parametric model. Simultaneously, it does not introduce any correlations between the distinct bands, both in terms of the flux and the onset of the SN.
