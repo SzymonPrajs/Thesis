@@ -112,24 +112,25 @@ One of the most important discoveries on this journey towards our current unders
 H_0~=~v/d~\approx~72\,\mathrm{Km}\,\mathrm{s}^{-1}\,\mathrm{Mpc}^{-1}
 \end{equation}
 
-Hubble's discovery brought upon the birth of the field of cosmology with a number of theories, describing the evolution of the universe, being proposed in the years immediatelly to follow. After decades of debate, searching of evidence and paradigm shifting discoveries we now \citep{Adam2016} know that we live in a universe which begun in the Big Band 13.7 Billion years ago. After a short, initial era where the radiation pressure dominated its expansion to the universe has entered a phase of matter domination before, $\sim$5 Billion years ago, the universe bacame dominated by the misterious Dark Energy which drives its accelerated expansion.
-
-... write more
+Hubble's discovery brought upon the birth of the field of cosmology with a number of theories, describing the evolution of the universe, being proposed in the years immediatelly to follow. After decades of debate, searching of evidence and paradigm shifting discoveries, we now \citep{Adam2016} know that we live in a universe which begun in the Big Bang,  $\sim$13.7 Billion years ago. After a short, initial era where the radiation pressure dominated its expansion to the universe has entered a phase of matter domination before, $\sim$5 Billion years ago, the universe bacame dominated by the misterious Dark Energy which drives its accelerated expansion.
 
 \subsection{Measuring the Cosmological Parameters}
-Essentially its all about measuring of quantities against standard measures either time or distance.
+The measurements of comological paramaters are, in essence, all based on the principle of observing known physical dimentions vs their apparent size as a function of redshift. In context of the expanding universe, this is equivalent to measuring the evolution of the Hubble contant as a function of redshift. In the $\mathrm{\Lambda}$CDM model, which descirebed our current best understanding of cosmology, this relationship between the scale factor, defines as $a = 1 / (1 + z)$, and Hubble constant is defined as:
 
-\subsubsection{Cosmology with SN\,Ia}
-Phillips Relationship
+\begin{equation} \label{eq:ScaleFactor}
+  H(a) \equiv \frac{\dot{a}}{a} \propto H_0 \sqrt{\omega_{R}a^{-4} + \omega_{M}a^{-3} + \omega_{k}a^{-2} + \omega_{\Lambda}}
+\end{equation}
 
-Hubble diagram
+\noindent Where $H_0$ is the current, rest-frame Hubble constant, $\omega_{R}$ is the radiation pressure density parameter, $\omega_{M}$ is the matter density parameter and $\omega_{\Lambda}$ is the dark energy density term. Its important to note here that the majority of cosmological probes do not measure the absolute values of H$_{0}$ and H(a) but instead determine their ratio.
 
-Problems
+The change in the Hubble constant can be therefore measured as the evolution in the apparent properties of any fixed quantity in the universe. A number of standard rulers (fixed length scales; e.g Baryon Accustic Oscilation (BAO) [CITE]) and standard candles (objects of fixed luminosity; e.g SN\,Ia) have been proposed and are widely used in modern observational cosmology.
 
-\subsubsection{Cosmology with SLSNe}
-First Inserra paper and Padadopopulus
+\subsubsection{Cosmology with SNe}
+One of the most exciting dicoveries in the field of SN was the discovery that the luminosity SN\,Ia, previously known to have a low intrinsic dispersion, is related to the width of the light curve. This relationship is known as the Phillips relation [CITE] and forms the basis for the use of SN\,Ia as standardisable candles in a number of cosmological studies \citep{Betulle}. Using the standardised luminosity of the objects we can measure the distance modulus, proportional to the ratio of H(a) and H$_0$, as a function of redshift giving the Hubble Diagram [CITE; PLOT]
 
-Second Inserra paper and the road ahead
+One of the largest problems with using SNe as cosmological probes is the difficulty of detecting these objets at redshifts higher than >0.6 due to the majority of their optical flux being redshifted into IR bands where our ground based telescopes are less sensitive [CITE]. It is perhaps not surprising that the possibility of SLSNe, which do not suffer from the same issues, possibly acting as standardisinle candles \citep{Inserra2014,Papadopoulus2015,Inserra2018a} has propelled the interest in the new class of luminous transients.
+
+While still a subject to active debate, the most promissing route towards their standardisation, presented in \citet{Inserra2018a}, suggests that absolute luminosity of SLSNe is inversaly proportional to their descine time in a near inserse Phillips relation. Currently, these type of analysis are difficult to undertake due to the low number of complete and low redshift samples of objects however, early indications do suggest a standardisibility similar to those found in the early publication on the width-luminosity relationship of SN\,Ia [CITE].
 
 \subsection{Redshift as a distance measure}
 In SN research, along with most branches of Astronomy, distance measurements are esential in nearly all analysis. As SN are extremely distant and often associated with faint galaxies which are not detected, redshift is often the only possible measure of their separation from us, the observers.
@@ -142,4 +143,12 @@ The relationship between the redshift and distance is not linear and depends ver
 \section{Thesis overview}
 The overarching goal of this thesis it to demonstrate our ability to photometrically select SLSNe amongst the samples of transients detected by large astonomical surveys, focusing on the detection of the most distant objects of the class. This thesis is layed out as follows:
 
-\cref{Chapter2} introduces the sources of the data used in all projects presented here.
+In \cref{Chapter2}, I introduce the surveys and other auxiliary data sources used in this thesis. I also present the sample of spectroscopically confirmed SLSN from Dark Energy Survey and introduce a sample of literature objects used as templates for their class. Following from this, \cref{Chapter4} describes a number of techniques and analytical frameworks, as well as packages designed to study and simulate artificial samples of both SLSNe and CCSNe. As part of this, I introduce the spin-down of the magnetar model, in the context of modelling the light curves of SLSNe, as well as a technique for enchancing the blackbody approximation of the SLSN SED to account for a number of absorption features commonly associated with this class.
+
+\cref{Chapter3} build upon thedevelops a definition of SLSN in the contect of the spin-down of a magnetar model and applies it to the sample of transients in the SNLS.
+
+\cref{Chapter5} first discusses the developments leading to the creation of the most robust to date artificial samples of SN light curves before applying it as a training sample in the CNN ML learning pipeline. This is then applied to the sample of real transients from the DES survey producing a large but contaminated sample of SN.
+
+\cref{Chapter6} analyses the sample produced in \cref{Chapter5}, purifying it before briefly analysing its observation properties and discussing the implications of the sample on the study of high redshift SLSN.
+
+Finally, \cref{Chapter7} summerises this thesis and conclused all the major conclusions.
