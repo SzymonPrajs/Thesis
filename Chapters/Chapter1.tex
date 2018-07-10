@@ -133,22 +133,27 @@ One of the largest problems with using SNe as cosmological probes is the difficu
 While still a subject to active debate, the most promissing route towards their standardisation, presented in \citet{Inserra2018a}, suggests that absolute luminosity of SLSNe is inversaly proportional to their descine time in a near inserse Phillips relation. Currently, these type of analysis are difficult to undertake due to the low number of complete and low redshift samples of objects however, early indications do suggest a standardisibility similar to those found in the early publication on the width-luminosity relationship of SN\,Ia [CITE].
 
 \subsection{Redshift as a distance measure}
-In SN research, along with most branches of Astronomy, distance measurements are esential in nearly all analysis. As SN are extremely distant and often associated with faint galaxies which are not detected, redshift is often the only possible measure of their separation from us, the observers.
+In SN research, in alignment with most branches of Astronomy, distance measurements are crucial for nearly all analysis. As SN are extremely distant and often associated with faint galaxies that are undetectable, redshift is often the only possible measure of their separation from us, the observers.
 
-In the context of an expanding universe, distance can be definied in three ways; proper distance or the distance between the object that emitted the light and the observer at the point the signal was received, comoving distance (D$_A$) which is the separation between the source and observer at the point the signal was emitted or luminosity distance (D$_L$), which corresponds to the distance traveled by the light signal. These are not the same as the universe is ever expanding and, in a way, running away from the light as it travels through the universe.
+In the context of an expanding universe, distance can be definied in three ways; proper distance or the distance between the object and the observer at the point when the signal was received, comoving distance (D$_A$) which is the separation between the source and observer at the point the signal was emitted or luminosity distance (D$_L$), corresponding to the distance traveled by the light signal. The latter is the measure used in astronomy as it directly corresponds to the distance modulus, defining the relationship between the absolute (M) and the apparent (m) magnitudes of an object with distance:
 
-The relationship between the redshift and distance is not linear and depends very strongly on the cosmological model used as well as its parameters.
+\begin{equation}
+  m = M + 5log(\frac{D_L}{10pc})
+\end{equation}
 
+Redshift and distance are not linearly proportional to each other and depend very strongly on the cosmological model used and its parameters. Throughout this thesis I use \eref{eq:LumDist} to compute all distances in conjucntion with the standard cosmology defined as: H$_0$ = 70Mpc/km, $\omega_M = 0.3$, $\omega_{\Lambda} = 0.3$ 
+
+\begin{equation} \label{eq:LumDist}
+  D_L = (1+z) \times \frac{c}{H_0} \int^{z}_{0} \frac{dz}{\sqrt{(1+z)^3 \omega_M + \omega_{\Lambda}}}
+\end{equation}
 
 \section{Thesis overview}
 The overarching goal of this thesis it to demonstrate our ability to photometrically select SLSNe amongst the samples of transients detected by large astonomical surveys, focusing on the detection of the most distant objects of the class. This thesis is layed out as follows:
 
 In \cref{Chapter2}, I introduce the surveys and other auxiliary data sources used in this thesis. I also present the sample of spectroscopically confirmed SLSN from Dark Energy Survey and introduce a sample of literature objects used as templates for their class. Following from this, \cref{Chapter3} describes a number of techniques and analytical frameworks, as well as packages designed to study and simulate artificial samples of both SLSNe and CCSNe. As part of this, I introduce the spin-down of the magnetar model, in the context of modelling the light curves of SLSNe, as well as a technique for enchancing the blackbody approximation of the SLSN SED to account for a number of absorption features commonly associated with this class.
 
-\cref{Chapter4} build upon the models and techniques developed in \cref{Chapter3} a definition of SLSN in the contect of the spin-down of a magnetar model and applies it to the sample of transients in the SNLS.
+\cref{Chapter4} builds upon the models and techniques developed in \cref{Chapter3} to produce a definition of SLSN in the contect of the spin-down of a magnetar model. This is then applied to the archival SNLS data identifying one, previously unclassified SLSN. Together with the sample of aditional two, spectroscopically confirmed object, they formef the base for a calculation of the rate of SLSN at z$\sim$1.
 
-\cref{Chapter5} first discusses the developments leading to the creation of the most robust to date artificial samples of SN light curves before applying it as a training sample in the CNN ML learning pipeline. This is then applied to the sample of real transients from the DES survey producing a large but contaminated sample of SN.
+In \cref{Chapter5}, I discuss the possibility and the drawbacks of using a similar technique to detect SLSN in DES. Upon demonstrating that a novel Machine Learning approach is required, I discuss the development of an artificial samples of SN light curves of all common classes as well as AGN and spurious survey noise, before applying it as a training sample for a Convolutional Neural Network powered photometric SN classifier. This model is then applied to the sample of real DES transients, first producing a pure sample of SNe before identifying a sample of potential SLSN candidates.
 
-\cref{Chapter6} analyses the sample produced in \cref{Chapter5}, purifying it before briefly analysing its observation properties and discussing the implications of the sample on the study of high redshift SLSN.
-
-Finally, \cref{Chapter7} summerises this thesis and conclused all the major conclusions.
+\cref{Chapter6} analyses the sample produced in \cref{Chapter5}. As it was shown that it suffers from contamination with SNIIP, the first step is to purify and select strongest SLSN candidates. The observation properties of the sample are then briefly analysed before discussing its implications on the study of high redshift SLSN. Finally, \cref{Chapter7} summerises this thesis, highlighting and concluding all the major finding.
