@@ -3,7 +3,8 @@
 \lhead{Chapter 5. \emph{ML Classification}}
 
 \begin{figure}[H]
-  \includegraphics{Figures/xkcd/chapter5.png}
+  \centering
+  \includegraphics[width=0.6\textwidth]{Figures/xkcd/chapter5.png}
   \caption*{xkcd.com/1838}
 \end{figure}
 
@@ -273,6 +274,8 @@ The size and extent of the training sample used in this thesis are one of the tw
 I apply the method described in \sref{sec:GP} to interpolate the light curves using the Mate\'rn 3/2 covariance functions. I perform the interpolation over the period selected in \sref{sec:ObsBlock} using the base cadence found in \sref{sec:SimCadance}. After testing the CNN in \sref{sec:CNN}, I found that using a cadence which doubles the original 5 days, to 2.5 days, improves the accuracy of the model. The motivation behind the doubling of the cadence was to allow a gradient for each point to be calculated closer to the point itself as opposed to between the points. The extra points act as control points in this scenario.
 
 \section{Classifications} \label{sec:CNN}
+In this section, I bring together all blocks built in this thesis required in order to perform a photometric classification of DES transients. I feed the sample of atrificially generated transinets, augmented and matched to the DES cedance and observing conditions, into suppervised ML algorithm, building a model for the classifications. I then apply it in two steps; first, I separate SNe from other transients and then attempt to classify them based on their subtypes.  
+
 The construction of the artificial DES training sample of transients was a major step towards performing their comprehensive classification study using the ML approach. In recent years, the use of ML expanded far beyond the purely academic uses within the field of Computer Science. The world around us is currently being shaped by Artificial Intelligence (AI) augmented technologies, driven in large measure by Artificial Neural Networks (ANN) and their derivatives such as Convolutional Neural Networks (CNN) and Deep Learning.
 
 The process of selecting transients for spectroscopic follow-up is an example, albeit not explicit, of SN photometric classification. This task has been performed manually, via the visual inspection of the light curves, for decades in every SN survey. In recent years a number of attempts have been made to devise a pipeline for photometric classification of SN based on the clustering of light curve model parameters. However, this problem can be approached from a more fundamental point of view using AI. Computer vision, a prominent branch of AI, has been successfully applied to countless examples of classification tasks where humans demonstrated a superiority over the early classification methods. Projects such as ImageNet \citep{Russakovsky2014} were able to produce models capable of identifying a number of everyday entities (humans, vehicles, animals, household items) with an accuracy exceeding that of an average human. While the scarcity of the training samples available to us in comparison to projects such as ImageNet does not allow us to use an equally complex model, this is not required as the complexity and diversity of our transient data is not as high as that of an everyday object.
