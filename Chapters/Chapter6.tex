@@ -62,12 +62,15 @@ text
 Having developed a successful approach for the photometric classification of SLSNe in large astronimical surveys, there a number of avenues that I would like to pursue in the future. This includes both the improvement and application of the mothod to in future surveys as well as using the already extracted data to solve some of the yet to be explained misteries of SLSNe.
 
 \subsection{Expanding the Training Sample}
-The training sample used in this thesis does lack some objects. SN\,IIP have proven to be a massive pain so I would like to introduce some other model. It does not have to be perfect but it does need to differentiate from SLSNe. I would also like to add mikas objects and see of I can uncover them.
+One of the biggest issues identified in the process of photometrically classifing SLSNe was the incompleteness of the SN sample used in training of the ML algorithm. The lack of examples of SN\,IIP had the greatest effect as it introduces large number of inpurity in the sample of SLSNe. However the lack of other classes including rapidly evolving SNe and tidal disruption events also means that we cannot treat the samples of photometrically identified SN\,Ia and CCSNe as pure sample.
+
+In this thesis, the training sample was based on the spectroscopic templates for each class geberated from the archival data for some of their most well observed examples. While the techniques have generally varied in details, they all required spectroscopic data to some extend. However, for a number of classes or rare and fast transients spectrscopy is very scarse while their photometries remain relatively abundant. A new approach, not requiring such extensive commitment from the data, is needed to extend the training samples. A possible solution, however requiring a large commitment of resources, would be to use physically motiated simuations to produce sample of objects and test their similarity to the available photometric samples. This approach is likely the most viable approach to the problem of modelling SN\,IIP where we could base the modelling on the existing simulations \citep{Dessart2013,Dessart2016}. 
 
 \subsection{Rates of SLSNe from DES}
 A natural extention of the work undergone in Chapters \ref{Chapter4} and \ref{Chapter5} is to compute the rate of SLSN using this new and expanded sample of objects. The improvement from 3 to XX objects alone will result in a vastly descred uncertainties in the overall rate of SLSNe. However, more importantly it will be the first ever measurement that will allow for a separation of the rate into separate reshift bins using a homogeneus sample.
 
-....
+\subsection{Properties of SLSNe}
+text
 
 \subsection{Selecting SLSN in LSST}
 The upcoming decad
