@@ -216,7 +216,7 @@ To model these objects, I use a very simple approach of inserting a number of sh
 \subsection{Missing classes}
 While in this thesis, I have created one of the most thorough training samples of SNe for the purpose of a ML classification study, it still cannot be said to be complete. There are a number of classes of known transient objects which I was unable to account for in this work. Some objects such as kilonovae, associated with gravitational waves as their optical counterparts, evolve too rapidly to be using the cadence of DES. Omitting these (undetectable) events does not bring any difference to the final result of our classification. However, one class of objects which could have an effect on our final classification are the newly discovered class of rapidly evolving SNe \cite{Drout2014,Kepler2018}. Recent work by \citet{Pursiainen2018} showed that these objects are relatively common within DES with 72 detections in the first four seasons of its operations. While there are now early, tentative signs \citep{Pursiainen2018} that these objects are powered by a SN shock interacting within a thick an extended wind \citep{Piro2015}, similar to the model used in modelling of the `bumps' found in SLSNe \sref{sec:MagExtensions}. It is this particular connection that would be interesting to explore, however, the modelling of these objects is still in its infancy. The model parameter spaces defining them, their SED models and other similar aspects developed for SLSNe over the last several years have not yet been studied for these fast-evolving SNe.
 
-The omission of rapidly evolving SNe from our sample will result in these objects being mislabelled in our classifications. It would, however, be unlikely that any of the objects that we have not included in the training sample would get mislabelled as a SLSNe due to their significantly faster evolution. I test this assertion in \cref{Chapter6} using the ground-truth sample of objects identified by \citet{Pursiainen2018}.
+The omission of rapidly evolving SNe from our sample will result in these objects being mislabelled in our classifications. It would, however, be unlikely that any of the objects that we have not included in the training sample would get mislabelled as a SLSNe due to their significantly faster evolution. I test this assertion in \cref{Chapter5} using the ground-truth sample of objects identified by \citet{Pursiainen2018}.
 
 \section{Data Augmentation} \label{sec:DataAugmentation}
 Before the training sample of SNe created in \sref{sec:TrainingSample} can be used to build a CNN classification model, it has to first undergo a number of augmentation steps. The data passed through the CNN must be uniform in terms of the number of data points as well as their separation, regardless of the field and season the data originated from. To achieve this, I must first select a suitable length of observations and cadence that overlaps the most closely with that observed by DES. Furthermore, I apply a flux correction required to normalise the effect of using a varying subtraction template in a different season. Finally, I use GPR to interpolate and augment the data such as to meet the requirements of CNN.
@@ -374,7 +374,7 @@ Before the SN classification model can be applied to the sample of DES SN candid
 \subsubsection{Ground-truth sample} \label{sec:SNTruth}
 Amongst the sample of 250 spectroscopically confirmed SN\,Ia, 243 are correctly classified in this work. This, in fact, exceeds the value expected from the raw accuracy figures, which are likely explained by the spectroscopically confirmed objects being easier to classify than some objects that may lay at the detection limit of the survey.
 
-With this positive result, I apply the same method to SN\,Ib/c and SN\,II. Here the results begin to shed a light on a major issue uncovered in this section. While a majority of the SN\,Ib/c have been correctly identified, a number of SN\,II have been misidentified as SLSN. The visual inspection of these objects shows that they are exclusively SN\,IIP, with particularly slow descent times. This is a subclass of objects which was not represented in the training sample due to the lack of sufficient data. At the current time, using the data available in the literature it is not possible to expand our training set with examples of SN\,IIP. However, in \cref{Chapter6} I investigate other approaches, centred around the concept of Unsupervised ML to separate these two groups of transients and provide a pure sample of SLSN.
+With this positive result, I apply the same method to SN\,Ib/c and SN\,II. Here the results begin to shed a light on a major issue uncovered in this section. While a majority of the SN\,Ib/c have been correctly identified, a number of SN\,II have been misidentified as SLSN. The visual inspection of these objects shows that they are exclusively SN\,IIP, with particularly slow descent times. This is a subclass of objects which was not represented in the training sample due to the lack of sufficient data. At the current time, using the data available in the literature it is not possible to expand our training set with examples of SN\,IIP.
 
 As a final check, I test the sample of DES SLSNe and find that 12 of the 18 objects are fully recovered by the model. While at the first glance, this appears to be in contradiction with the predicted accuracy of the classifier, two of these objects are known to be only tentatively classified as SLSN (DES15C3hav, DES14C1rhg). Three objects are known not to be a good match to the magnetar model under any assumptions tested in \sref{sec:Magnetar} (DES13S2cmm, DES14S2qri). It is harder to postulate why DES16C3ggu and DES15X1noe are not part of the sample.
 
@@ -409,7 +409,28 @@ As a final check, I test the sample of DES SLSNe and find that 12 of the 18 obje
 \subsubsection{SN classification}
 I applied the final classification model to the 5273 objects real DES objects, previously identified as SN candidates. At the 50\% accuracy threshold, 3192 objects were identified as SN\,Ia which matches the expected values found in \citep{Bernstein2012}, 1389 objects were identified as CCSN which again does not exceed our expectations. The remaining 509 objects were identified as SLSN.
 
-This exceeds the numbers expected from the rate of SLSN and is known to be contaminated with long duration SN\,II. However, as the classification model was shown in \sref{sec:SNTruth} to be able to identify a number of known SLSN with a high degree of accuracy (\tref{tab:SLSNTruth}), we have a strong degree of belief that there are in fact numerous SLSN hidden in this contaminated sample that may be recoverable using further analysis, presented in \cref{Chapter6}.
+This exceeds the numbers expected from the rate of SLSN and is known to be contaminated with long duration SN\,IIP. However, as the classification model was shown in \sref{sec:SNTruth} to be able to identify a number of known SLSN with a high degree of accuracy (\tref{tab:SLSNTruth}), we have a strong degree of belief that there are in fact numerous SLSN hidden in this contaminated sample that may be recoverable using further analysis.
+
+\section{Selecting SLSN Candidates}
+text
+
+\subsection{Removing Confirmed Contaminants}
+text
+
+\subsubsection{Spectroscopically Confirmed Objects}
+text
+
+\subsubsection{Rapidly Evolving Transients}
+text
+
+\subsection{Selection Using Redshift}
+text
+
+\subsection{Selection using Magentar Model}
+text
+
+\subsection{Final Sample}
+text
 
 \section{Summary}
 In this chapter, I described the approach used in building a training sample of transients resembling the sample of real transients observed by the DES. I used the SNANA generated sample of SN\,Ia. The CoCo and SLAP packages, developed in \cref{Chapter3}, were used to create samples of CCSN and SLSNe respectively. Furthermore, I use a sample of AGNs generated for a similar study in \citet{Honig2016} and a basic model of spurious noise detections to generate a DES-like sample of real transients and their contaminants. I use the approach similar to that found in SNANA to apply the survey noise to the modelled light curves before augmenting them to a uniform cadence using GPR, previously discussed in \sref{sec:DataAugmentation}.
