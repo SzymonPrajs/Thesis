@@ -117,7 +117,17 @@
 \abstract{
 \addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
 \begin{singlespace} %% Gets you more space - delete if you have a teeny abstract
-The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
+
+This thesis focuses on the photometric classification and the properties of superluminous supernovae (SLSN), as observed in large astronomical surveys. When working with large samples of transients and a limited spectroscopic follow-up campaign, photometric classifications are the only tool available to select objects which can subsequently be used to study their statistics properties including the rate and its evolution.
+
+I begin by introducing the surveys which produce the transients archive used in this work. I discuss the effect of their properties and design on the work performed in this thesis. I also introduce the sources of auxiliary data, including the spectroscopic follow-up faculties as well as summarise the Dark Energy Survey (DES) spectroscopic sample of SLSNe.
+
+Next, I develop a number of model and techniques used to simulate both core-collapse supernovae (CCSN) and SLSNe. I use the spin-down of a magnetar model in conjunction with spectroscopic UV absorption templates to build \textsc{SLAP}, a tool for simulating SLSN at any redshift, in any arbitrary photometric system. Similarly, I develop \textsc{CoCo} which can be used to simulate and generate the templates for CCSNe.
+
+I then use the tools developed in this thesis to build a definition of SLSNe in terms of the spin-down of a magnetar model and apply it to a sample of transients detected by the Supernova Legacy Survey (SNLS), uncovering one previously unclassified SLSN. I use this and two previously spectroscopically confirmed objects to calculate the rate of SLSNe at z$\sim1$ with the help of a Monte Carlo simulation of the survey. I find the rate to be $91^{+76}_{-36}$\,SNe\,Yr$^{-1}$\,Gpc$^{-3}$, equivalent to 2.2$^{+1.8}_{-0.9}\times10^{-4}$ the rate of CCSN at the same redshift.
+
+Finally, I use the models of CCSN and SLSNe developed in this work as well as the simulations of SN\,Ia and AGN to build a large artificial training sample of DES-like transients to be used in the photometric selection of SLSNe. Based on this, I build a two-stage machine learning photometric classification tool. In the first step I separate SN from other contaminating transients with an accuracy of 99.8\%. Then, I separate the sample of SNe into its individual subclasses, achieving an overall accuracy of 97.85\%. Using complementary selection techniques, I identify 26 new SLSNe candidates in DES.
+
 \end{singlespace}
 }
 \normalsize
@@ -273,7 +283,7 @@ First of all I would like to sincerily thank my supervisor, Professor Mark Sulli
 \setstretch{1.3}  % Return the line spacing back to 1.3
 
 \pagestyle{empty}  % Page style needs to be empty for this page
-\dedicatory{For Toyah\ldots
+\dedicatory{To Toyah\ldots
 }
 
 \addtocontents{toc}{\vspace{2em}}  % Add a gap in the Contents, for aesthetics
