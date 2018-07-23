@@ -27,7 +27,7 @@ Before applying the ML framework to the problem of selecting SLSN, I have used t
 A major difference between the approaches used to identify SLSN in DES and that of SNLS is the completeness and the stage at which the data enters the analysis pipeline. In \cref{Chapter4} I applied the techniques retrospectively to archival data. This, outside limited cases suffering from season edge effects, gave me a sample of near complete light curves that could be modelled with a much higher confidence rate. In DES, I attempted to model the light curves during their early rise phases. This was a constraint dictated not only by our desire to classify the objects at the earliest possible phase (as early time spectra of SLSNe are still not sufficiently abundant) but also due to the computational resources required to fit all the light curves in real-time. Despite a number of optimisations applied to our fitting routine (\sref{sec:SLAP}), I was limited to fitting data detected within the last three to four observing epochs. As it is not possible to constrain such a complex model with less than three epoch of multi-band data, I have delayed the analysis of each object until the first epoch where at least three observations, in a minimum of three photometric bands, are available. If the object remained active (i.e detected in the latest of the three epochs), I attempted to fit the magnetar model to it and compare the result against the definition of SLSNe. I have subsequently repeated this step, up to the maximum of four times, when new data became available. At that stage, if the object did not match our definition in any of the epoch of fitting it was discarded.
 
 \subsubsection{Problems}
-A number of problems revolving around this approach were uncovered during the DES runs that resulted in a number misclassifications of SLSNe, both as true-negatives and false-positives.
+A number of problems revolving around this approach were uncovered during the DES runs that resulted in some number misclassifications of SLSNe, both as true-negatives and false-positives.
 
 \paragraph{`Bumpy' SLSNe}
 One of the drawbacks of the rules put in place in order to optimise the fitting process and reduce the number of false detections being passed through the classification pipeline is the rejection of some objects, most predominantly DES15C3hav, which show a slowly evolving pre-peak bump close to the detection limit of the survey (Angus et al; in prep). In the case of DES15C3hav, the early activity was only detected in two consecutive epochs before the S/N of the light curve dropped considerably for a number of weeks prior to the rebrightening at the onset of the main SLSN event.
@@ -59,7 +59,7 @@ In DES, SNANA forms the backbone of the SN analysis and is used to extract the i
 \end{figure}
 
 \subsection{SN\,Ia}
-Amongst the various SN classes simulated as part of this thesis, SN\,Ia is unquestionably the most well-studied and understood class of objects. Thanks two decades of use as cosmological probes, there exist a number of packages able to model and simulate these objects with a high accuracy. Furthermore, the parameter spaces of SN\,Ia as well as peculiar outliers to the class (SN\,Ia-91bg and SN\,Ia-91T) are well understood, giving us a firm base on which we can build their simulated samples.
+Amongst the various SN classes simulated as part of this thesis, SN\,Ia is unquestionably the most well-studied and understood class of objects. Thanks to two decades of use as cosmological probes, there exist a number of packages able to model and simulate these objects with a high accuracy. Furthermore, the parameter spaces of SN\,Ia as well as peculiar outliers to the class (SN\,Ia-91bg and SN\,Ia-91T) are well understood, giving us a firm base on which we can build their simulated samples.
 
 While there are no limiting factors preventing us from performing our own simulations, starting with any implementation of the SALT2 model (e.g SNANA, SNCosmo or otherwise), and passing these through the DES noise model (\sref{sec:NoiseModel}), this would, in essence, replicate the sample of fake SN\,Ia injected into the science images as part of the real-time data reduction pipeline. In DES, these objects are used to estimate the image quality and generate the \textsc{SIMLIB} files making them equivalent to light curve that would be generated through SNANA.
 
@@ -155,18 +155,18 @@ The method used for building the training sample of SN\,II followed that of SN\,
 \subsection{SLSN}
 The simulations of SLSNe were one of the most challenging topics of this thesis. The low numbers of known examples of this class, combined with the uncertainty surrounding their definition and the engine powering their luminosity makes their modelling a challenging task. For the purpose of a classification study such as the one presented in this thesis, we must not only replicate all previously observed objects but also make a reasonable, but not overly constraining, a prediction for what yet unknown SLSNe may appear as and represent as a class. Until recently, this would not have been possible as our understanding of the models of SLSNe and their parameters was not sufficient. However, several works including Chapters \ref{Chapter4} \& \ref{Chapter3} of this thesis as well as \citet{Inserra2013,Nicholl2013,Nicholl2017} and Angus et al. (in prep) showed that the spin-down of a Magnetar model is able to provide a good approximation for all SLSNe with an acceptable level of accuracy.
 
-The greatest step towards simulating SLSNe was achieved in \citet{Inserra2018a} where we established a new definition of this class that is versatile and robust enough to produce a sample that matches all observed objects but at the same time is limited in the span such that it does not overlap with other classes of SNe. This definition is based on Four Observables Parameter Space (4OPS), defined in narrow (800\AA~and 1000\AA~wide respectively) box filters centered at 4000\AA~and 5200\AA, by: the peak in the 4000\AA~band light curves, colour between the band at peak and +30 days post maximum, and the drop in magnitude between the peak and +30 days in the 4000\AA~band. \citet{Inserra2018a} finds that SLSNe form linear correlations in this parameter space, with a narrow scatter shown in \fref{fig:4OPS}. I use this property to determine the magnetar model parameters which correspond to the definition of SLSNe.
+The greatest step towards simulating SLSNe was achieved in \citet{Inserra2018a} where we established a new definition of this class that is versatile and robust enough to produce a sample that matches all observed objects but at the same time is limited in the span such that it does not overlap with other classes of SNe. This definition is based on Four Observables Parameter Space (4OPS), defined in narrow (800\AA~and 1000\AA~wide respectively) box filters centred at 4000\AA~and 5200\AA, by: the peak in the 4000\AA~band light curves, colour between the band at peak and +30 days post maximum, and the drop in magnitude between the peak and +30 days in the 4000\AA~band. \citet{Inserra2018a} finds that SLSNe form linear correlations in this parameter space, with a narrow scatter shown in \fref{fig:4OPS}. I use this property to determine the magnetar model parameters which correspond to the definition of SLSNe.
 
 \begin{figure}
   \includegraphics[width=\textwidth]{Figures/Chapter5/4ops.png}
-  \caption{The 4OPS parameter space used to identify SLSNe. The solid lines represend the regions used in this work while the dashed lines are the original values found \citet{Inserra2018a}. The shaded area corresponds to the regions where SLSNe, generated using the \textsc{pyMagnetar} pipeline, that are compatible with the 4OPS definition.}
+  \caption{The 4OPS parameter space used to identify SLSNe. The solid lines represent the regions used in this work while the dashed lines are the original values found \citet{Inserra2018a}. The shaded area corresponds to the regions where SLSNe, generated using the \textsc{pyMagnetar} pipeline, that are compatible with the 4OPS definition.}
   \label{fig:4OPS}
 \end{figure}
 
 I simulate a large number of SLSNe using the magnetar model and compare them to the 4OPS definition. The magnetar model parameters are drawn randomly from a uniform top-hat distribution, bound at 10<$\tau_M<$150, 0.1$<\mathrm{B}_{14}<$20.0, 0.01$<\mathrm{P}_{ms}<$10.0. These limits were informed by the definition of SLSNe used in the rate calculation described in \cref{Chapter4}, but were expanded to ensure completeness and, at the same time, limit the number of computationally expensive simulations that needed to be performed. Furthermore, I introduce a modification to the 4OPS definition of SLSNe, similar to that in Angus et al. (in prep), where the parameter spaces are expanded by one magnitude of scattering while retaining the original slope of their relationship. This was aimed at including fainter objects such as those found in the DES spectroscopically confirmed sample (\sref{sec:DES_SLSN}), that were not available at the time the relationship was constructed. The modified limits are presented in \tref{tab:4OPS} and can be seen in \fref{fig:4OPS} along with the regions where objects drawn from the magnetar model.
 
 \begin{table}
-  \caption{Definition of borders in the parameter space of 4OPS defining SLSNe in this thesis. The line represent the enter of the defining region which is constrained by within the 3$\sigma$ confidence region parallel to the line.}
+  \caption{Definition of borders in the parameter space of 4OPS defining SLSNe in this thesis. The line represents the enter of the defining region which is constrained by within the 3$\sigma$ confidence region parallel to the line.}
   \label{tab:4OPS}
   \begin{tabular}{|c|c|r|r|r|}
     \hline
@@ -188,11 +188,11 @@ I simulate a large number of SLSNe using the magnetar model and compare them to 
 
 \begin{figure}
   \includegraphics[width=\textwidth]{Figures/Chapter5/MagParams.png}
-  \caption{Distribution of magnitudes model paramaters that result in a SLSN-like event that matches their 4OPS definition \citep{Inserra2018a}.}
+  \caption{Distribution of magnitudes model parameters that result in a SLSN-like event that matches their 4OPS definition \citep{Inserra2018a}.}
   \label{fig:4OPSMag}
 \end{figure}
 
-In \fref{fig:4OPSParams}, I show the distribution of magnetar model parameters that produce objects that match the 4OPS definition of SLSNe. Perhaps the most interesting result is the luminosity function that results from uniformly drawing objects from the magnetar model parameter space, shown in \fref{fig:4OPSMag}. With no external inputs, the function matches that observed by \citet{DeCia2017} in the PTF sample of SLSNe, showing a rapid increase in the number of fainter objects. I use the sets of magnetar model parameters that match the SLSN definition to generate their training sample. In total, $\sim$100,000 SLSN were generated at a range redshifts with 0$<$z$<$3, drawn from a volume-weighted distribution following the SFR of the universe \citep{Hopkins2006} similarly to that used for simulating CCSNe (\fref{fig:SLSNDist}).
+In \fref{fig:4OPSParams}, I show the distribution of magnetar model parameters that produce objects that match the 4OPS definition of SLSNe. Perhaps the most interesting result is the luminosity function that results from uniformly drawing objects from the magnetar model parameter space, shown in \fref{fig:4OPSMag}. With no external inputs, the function matches that observed by \citet{DeCia2017} in the PTF sample of SLSNe, showing a rapid increase in the number of fainter objects. I use the sets of magnetar model parameters that match the SLSN definition to generate their training sample. In total, $\sim$100,000 SLSN were generated at a range of redshifts with 0$<$z$<$3, drawn from a volume-weighted distribution following the SFR of the universe \citep{Hopkins2006} similarly to that used for simulating CCSNe (\fref{fig:SLSNDist}).
 
 \begin{figure}
   \includegraphics[width=\textwidth]{Figures/Chapter5/SLSN_z_dist.png}
@@ -212,7 +212,7 @@ Another channel that can result in the misclassifications of candidates is the d
 
 \begin{figure}
   \includegraphics[width=\textwidth]{Figures/Chapter5/BabSubs.png}
-  \caption{Examples of bad subractions of DES images. \textit{Left} shows the science images, \textit{center} represent the image subractions templates and on the \textit{right} are the subracted images showing defects.}
+  \caption{Examples of bad subtractions of DES images. \textit{Left} shows the science images, \textit{center} represent the image subtractions templates and on the \textit{right} are the subtracted images showing defects.}
   \label{fig:BadSubtractions}
 \end{figure}
 
@@ -235,30 +235,30 @@ From these measurements, I determine the optimal observing block to be 149 days 
 
 \begin{figure}[h]
   \includegraphics[width=\textwidth]{Figures/Chapter5/ObsBlock_Season1.pdf}
-  \caption{The cadance and observing block of the first season of DES}
+  \caption{The cadence and observing block of the first season of DES}
   \label{fig:ObsBlock1}
 \end{figure}
 
 \begin{figure}[h]
   \includegraphics[width=\textwidth]{Figures/Chapter5/ObsBlock_Season2.pdf}
-  \caption{The cadance and observing block of the secon season of DES}
+  \caption{The cadence and observing block of the second season of DES}
   \label{fig:ObsBlock2}
 \end{figure}
 
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{Figures/Chapter5/ObsBlock_Season3.pdf}
-  \caption{The cadance and observing block of the third season of DES}
+  \caption{The cadence and observing block of the third season of DES}
   \label{fig:ObsBlock3}
 \end{figure}
 
 \begin{figure}[h]
   \includegraphics[width=\textwidth]{Figures/Chapter5/ObsBlock_Season4.pdf}
-  \caption{The cadance and observing block of the forth season of DES}
+  \caption{The cadence and observing block of the fourth season of DES}
   \label{fig:ObsBlock4}
 \end{figure}
 
 \subsection{Choosing the cadence} \label{sec:SimCadance}
-Upon deciding the length of the observing block used in the simulations, the next step is to choose the cadence of the interpolated observations. As GPRs are used to augment the data, essentially any cadence can be used. As there are no rules or precedences set out in the literature that discuss the optimum treatment of the augmented data, I must make an informed decision. The factors which balance the decision is on one side to represent the data without the loss of any information observed by the survey, while at the same time not introducing too many points which, essentially, duplicate the information.
+Upon deciding the length of the observing block used in the simulations, the next step is to choose the cadence of the interpolated observations. As GPRs are used to augment the data, essentially any cadence can be used. As there are no rules or precedencies set out in the literature that discuss the optimum treatment of the augmented data, I must make an informed decision. The factors which balance the decision is on one side to represent the data without the loss of any information observed by the survey, while at the same time not introducing too many points which, essentially, duplicate the information.
 
 The observed cadence of DES is not uniform and varies through the season due to the observing conditions. Early in the season, the cadence is shorter as the observing weather conditions don't allow for the observations of the wide DES fields leading to a shorter DES cadence as the deep and shallow fields are given more observing time. On the opposing end, the cadence stabilised as the season progresses and settles at the designed 7 days. This is seen in \fref{fig:cadence} resulting in a bimodal distribution with an average cadence of 5 days. With a lack of any other factors, I use this value as the base for the cadence used in \sref{sec:UseGP}.
 
@@ -288,7 +288,7 @@ The process of selecting transients for spectroscopic follow-up is an example, a
 In this section, I describe the use of Convolutional Neural Networks (CNN) as an AI tool used to first identify SN light curves in the DES data and subsequently classify them into their respective subclasses with the overall aim of producing a photometric sample of DES SLSNe.
 
 \subsection{Convolutional Neural Networks} \label{sec:CNN}
-CNNs are currently one of the hottest topics in the world of AI and ML. While their widespread use is novel and a result of the increase in the performance of computer devices, the theory behind them dates back to the early work on Artificial Neural Networks \citep[ANN;][]{Mcculloch1943} and replicating the of humans ability to learn from an external stimulus.
+CNNs are currently one of the hottest topics in the world of AI and ML. While their widespread use is novel and a result of the increase in the performance of computer devices, the theory behind them dates back to the early work on Artificial Neural Networks \citep[ANN;][]{Mcculloch1943} and replicating the human ability to learn from an external stimulus.
 
 \subsubsection{Artificial Neural Networks}
 All principal components of an ANN are fundamentally based on the human brain contain neurons, represented by nodes and activation functions. The nodes, usually arranged in a network of layers, are connected by a set of weight that corresponds to the biological synapsis. The aim of an ANN is to perform a non-linear transformation between the input parameters and the output values.
@@ -316,12 +316,12 @@ The design of a neural network is driven through a process of trial and error as
 
 The CNNs presented in this chapter underwent many iterations with a wide spread of layers of complexity. In all instances, the first point of access in the model is a convolutional layer containing 30-80 independent filters each between 3-9 epochs wide. These filters are applied to every season and band independently. A max pooling layer is applied to the data at this point as a way of emphasising the features highlighted by the convolutional filters before a second convolutional layer, orthogonal to the first layer, is applied to the data in order to measure the colour at each epoch. At this stage, an average pooling layer is used again extracting the two most prominent features in the colour space for each filter.
 
-After comparing a large number of iterations of these hyperparameters, I found that using 50 filters spanning 5 epochs in the first layer and 30 filters in the second layer produced the highest accuracy model. Perhaps counterintuitively, iterations, where I combined these filters together into a single two-dimensional filter, did not provide higher accuracy. A low number of orthogonal filters provides a freedom for the features to be learned independently, and prevent them from relearning the same features. One could imagine a situation where a similar light curve shape may be associated with a different colour evolution for a different class of transients. This highlights the importance of allowing the CNN to build its own features out of the simplest building blocks without overcomplicating the design by constraining the model.
+After comparing a large number of iterations of these hyperparameters, I found that using 50 filters spanning 5 epochs in the first layer and 30 filters in the second layer produced the highest accuracy model. Perhaps counterintuitively, iterations, where I combined these filters together into a single two-dimensional filter, did not provide higher accuracy. A low number of orthogonal filters provides a freedom for the features to be learned independently and prevent them from relearning the same features. One could imagine a situation where a similar light curve shape may be associated with a different colour evolution for a different class of transients. This highlights the importance of allowing the CNN to build its own features out of the simplest building blocks without overcomplicating the design by constraining the model.
 
 \begin{figure}
   \centering
   \includegraphics[width=0.6\textwidth]{Figures/Chapter5/SNAGNNoise}
-  \caption{The CNN used for classification of SN vs AGN vs Noise. Each layer is labeled with its function within the network as well as its input and output dimentions.}
+  \caption{The CNN used for classification of SN vs AGN vs Noise. Each layer is labelled with its function within the network as well as its input and output dimensions.}
   \label{fig:AGNNoiseSNModel}
 \end{figure}
 
@@ -356,7 +356,7 @@ To build the SN classification model, I use the approach developed in \sref{sec:
 \begin{figure}
   \centering
   \includegraphics[width=0.6\textwidth]{Figures/Chapter5/SN}
-  \caption{The CNN used to subclassify DES SNe amongst their spectral subtypes. This network relies on `Tanh' activation funtions and makes use of the information about the apparent luminosity of the SN, differing from that used in \sref{sec:AGNNoiseModel}}
+  \caption{The CNN used to subclassify DES SNe amongst their spectral subtypes. This network relies on `Tanh' activation functions and makes use of the information about the apparent luminosity of the SN, differing from that used in \sref{sec:AGNNoiseModel}}
   \label{fig:SNClassificationNetwork}
 \end{figure}
 
@@ -432,7 +432,7 @@ One of the strongest methods of identifying SLSNe is the estimation of their abs
 Amongst the remaining sample of SLSNe candidates, 95 objects have an AAT spectroscopic redshift measurement. Combining this with the observed light curves I select all objects with absolute luminosity, M $<$ -19.5 in the brightest photometric band and visually inspected the resulting sample to find 19 objects that meet this criterion (\tref{tab:SLSNwithSpecZ}). Furthermore, I use the host galaxy photometric redshift estimates to select a further sample of seven candidates that meet the same criteria (\tref{tab:SLSNwithPhotZ}).
 
 \begin{table}
-  \caption{Sample of SLSN candidates with a spectroscopic redshift measurement placing them above the liminosity treshhold most commonly associated with SLSNe.}
+  \caption{Sample of SLSN candidates with a spectroscopic redshift measurement placing them above the luminosity threshold most commonly associated with SLSNe.}
   \label{tab:SLSNwithSpecZ}
   \centering
   \begin{tabular}{|l|c|c|}
