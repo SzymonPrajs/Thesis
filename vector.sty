@@ -5,17 +5,19 @@
 %% The original source files were:
 %%
 %% vector.dtx  (with options: `package')
-%% 
+%%
 %% Copyright (C) 1994 by Nick Efford
-%% 
+%%
 %% This file is distributed in the hope that it will be useful,
 %% but WITHOUT ANY WARRANTY; without even the implied warranty of
 %% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-%% 
+%%
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{vector}[1994/09/16 v1.0 vector macros for LaTeX2e (nde)]
 \RequirePackage{ifthen}
 \RequirePackage{calc}
+\RequirePackage{xcolor}
+
 \newboolean{@wavy}
 \DeclareOption{wavy}{\setboolean{@wavy}{true}}
 \ProcessOptions
@@ -55,6 +57,9 @@
         {{#1}_{\thevec@elem} \\ \stepcounter{vec@elem}}%
       {#1}_{#3}
     \end{array}}{{#1}_{#2}}}
+
+\newcommand{\corr}[1]{\textcolor{red}{\textbf{#1}}}
+
 \endinput
 %%
 %% End of file `vector.sty'.
